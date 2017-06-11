@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <button (click)="goBack()">Back</button>
+            <h2>Create category</h2>
+            <alert></alert>
+            <form>
+                <div class="form-group">
+                    <label for="category-name">Name</label>
+                    <input type="text"
+                           class="form-control"
+                           id="category-name"
+                           name="category-name"
+                           [(ngModel)]="category_name">
+                </div>
+                <button type="submit"
+                        class="btn btn-default"
+                        (click)="createCategory(category_name)">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

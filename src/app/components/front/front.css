@@ -1,0 +1,234 @@
+@media (max-width: 1200px) {
+    .container {
+        width: 75%;
+    }
+}
+.section {
+    padding: 60px 0;
+    border-top: 1px solid #f2f2f2;
+}
+a {
+    color: #2f9b91;
+}
+
+.navbar-default {
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.mega-dropdown {
+    position: static !important;
+    //width: 100%;
+}
+.mega-dropdown a {
+    font-size:14px;
+}
+.mega-dropdown-menu {
+    padding: 20px 0px;
+    width: 100%;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+.mega-dropdown-menu:before {
+    content: "";
+    border-bottom: 15px solid #fff;
+    //border-right: 17px solid transparent;
+    //border-left: 17px solid transparent;
+    position: absolute;
+    top: -15px;
+    left: 285px;
+    z-index: 10;
+}
+.mega-dropdown-menu:after {
+    content: "";
+    border-bottom: 17px solid #ccc;
+    //border-right: 19px solid transparent;
+    //border-left: 19px solid transparent;
+    position: absolute;
+    top: -17px;
+    left: 283px;
+    z-index: 8;
+}
+.mega-dropdown-menu > li > ul {
+    padding: 0;
+    margin: 0;
+}
+.mega-dropdown-menu > li > ul > li {
+    list-style: none;
+}
+.mega-dropdown-menu > li > ul > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #999;
+    white-space: normal;
+}
+.mega-dropdown-menu > li ul > li > a:hover,
+.mega-dropdown-menu > li ul > li > a:focus {
+    text-decoration: none;
+    color: #444;
+    background-color: #f5f5f5;
+}
+.mega-dropdown-menu .dropdown-header {
+    color: #07d187;
+    font-size: 18px;
+    font-weight: bold;
+}
+.mega-dropdown-menu form {
+    margin: 3px 20px;
+}
+.mega-dropdown-menu .form-group {
+    margin-bottom: 3px;
+}
+.mega-dropdown-glyphicon {
+    margin-left: 10px;
+    color: #07d187;
+    font-size: 10px;
+    top: 5px;
+}
+
+.front {
+    background-image: url("/assets/img/head-home.png");
+    background-position: 50% center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.front-box {
+    padding: 40px 40px 20px;
+    background: rgba(0, 0, 0, 0.8) none repeat scroll 0 0;
+    border-radius: 4px;
+    color: #fff;
+}
+.front-title {
+    font-size: 24px;
+    margin-bottom: 40px;
+    color: #fff;
+    line-height: 1.3;
+    text-align: center;
+}
+.front-label {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.front-document {
+    color: #61cfc4;
+}
+.front-buttons {
+    text-align: center;
+}
+.front-button {
+    border: medium none;
+    box-shadow: none;
+    font-size: 20px;
+    margin: 0 2px 10px;
+    color: #07d187;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+.front-buttons .btn {
+    color:#fff;
+}
+.front-buttons .btn small {
+    display: block;
+    font-style: italic;
+}
+
+.tools-title {
+    color: #07d187;
+    font-weight: 400;
+    text-align: center;
+}
+.tools-item {
+    margin: 30px 0;
+}
+.tools-item p {
+    margin: 10px 0;
+}
+.tools-item p strong {
+    color: #07d187;
+    font-weight: 600;
+}
+.tools-img {
+    text-align: right;
+}
+i.ion-ios-checkmark-outline {
+    font-size:40px;
+}
+i.ion-ios-photos-outline {
+    font-size:40px;
+}
+
+.testimony {
+    background: #3bc2b5 none repeat scroll 0 0;
+    color: #fff;
+    padding: 0;
+}
+.testimony-content {
+    float: right;
+    max-width: 800px;
+}
+.testimony-text {
+    font-size: 28px;
+    font-style: italic;
+    padding: 50px 50px 0 0;
+}
+.testimony-author {
+    margin-bottom: 10px;
+    text-align: right;
+    text-transform: uppercase;
+}
+.testimony-img {
+    background-image: url("/assets/img/testimony.jpg");
+    background-size: 100% auto;
+    padding-bottom: 78%;
+}
+
+.benefits-title {
+    font-size: 30px;
+    padding-bottom: 32px;
+    color:#000;
+}
+.benefits-subtitle {
+    color: #000;
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+.benefits-img {
+    font-size: 90px;
+    height: 90px;
+    text-align: center;
+}
+
+.experts-item {
+    padding: 0 30px;
+}
+.experts-title {
+    color: #3bc2b5;
+    font-size: 32px;
+    font-weight: 400;
+    margin: 0 0 20px;
+}
+/*.experts-img-div {
+    border: 7px solid #3bc2b5;
+    max-width: 225px;
+}*/
+.experts-img {
+    border: 7px solid #3bc2b5;
+    max-width: 225px;
+    margin-bottom: 30px;
+}
+
+.video-title {
+    font-size: 30px;
+    color: #000;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+.video-container {
+    margin: auto;
+    max-width: 600px;
+}

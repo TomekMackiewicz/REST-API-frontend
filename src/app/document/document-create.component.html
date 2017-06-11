@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-default" (click)="goBack()">Back</button>
+            <h2>Create document</h2>
+            <alert></alert>            
+            <form>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="document-title">Title</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="document-title"
+                                   name="document-title"
+                                   [(ngModel)]="document_title">
+                        </div>
+                        <div class="form-group">
+                            <label for="document-body">Body</label>
+                            <simple-tiny
+                                name="document-body"
+                                elementId="document-body"
+                                [(ngModel)]="document_body">
+                            </simple-tiny>
+                            <!-- <textarea class="form-control" id="document-body" name="document-body" [(ngModel)]="document_body" rows="3"></textarea>-->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Categories</label>
+                        <div *ngFor="let category of categories">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"
+                                           (change)="onChange(category.id, category.name, $event.target.checked)"> {{category.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit"
+                                class="btn btn-default"
+                                (click)="createDocument(document_title, document_body)">
+                                Submit</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+

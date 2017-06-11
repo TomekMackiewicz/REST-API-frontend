@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Documents</h3>
+            <button class="btn btn-default" [routerLink]="['/admin/document/create']">Add new</button>
+            <hr>
+            <table class="table">
+                <tr>
+                    <th>Title</th>
+                    <th>Categories</th>
+                    <th>Added</th>
+                    <th>Modified</th>
+                    <th>Actions</th>
+                </tr>
+                <tr *ngFor="let document of documents">
+                    <td>{{document.title}}</td>
+                    <td><span *ngFor="let category of document.categories">{{category.name}}<br></span></td>
+                    <td>{{document.add_date | date:'yyyy/MM/dd H:m:s'}}</td>
+                    <td>{{document.modified_date | date:'yyyy/MM/dd H:m:s'}}</td>
+                    <td>
+                        <button class="btn btn-primary" [routerLink]="['/admin/documents', document.id]">Edit</button>
+                        <button class="btn btn-danger" (click)="deleteDocument(document)">Delete</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
