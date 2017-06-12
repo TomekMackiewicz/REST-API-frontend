@@ -1,28 +1,28 @@
 import {Component} from '@angular/core';
-import {CrudService} from '../../services/crud.service';
+//import {CrudService} from '../../services/crud.service';
 
 @Component({
     selector: 'my-front',
-    templateUrl: './front.html',
-    styleUrls: ['./front.css'],
+    templateUrl: './front.component.html',
+    styleUrls: ['./front.component.css'],
 })
 
 export class FrontComponent {
 
-    public categories: any;
-
-    constructor(private crudService: CrudService) {}
-
-    ngOnInit() {
-        this.getCategories();
-    }
-
-    getCategories() {
-        this.crudService.getCategories().subscribe(
-            data => {this.categories = data},
-            err => console.error(err),
-            () => console.log('done loading categories')
-        );
-    }
+//    public categories: any;
+//
+//    constructor(private crudService: CrudService) {}
+//
+//    ngOnInit() {
+//        this.getCategories();
+//    }
+//
+//    getCategories() {
+//        this.crudService.getCategories().subscribe(
+//            data => {this.categories = data},
+//            err => console.error(err),
+//            () => console.log('done loading categories')
+//        );
+//    }
 
 }

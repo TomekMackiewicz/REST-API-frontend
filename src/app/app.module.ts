@@ -13,7 +13,9 @@ import {DocumentComponent} from './document/document.component';
 import {DocumentCreateComponent} from './document/document-create.component';
 import {DocumentEditComponent} from './document/document-edit.component';
 import {FrontComponent} from './components/front/front.component';
+import {MenuComponent} from './menu/menu.component';
 import {CategoryComponent} from './category/category.component';
+import {FrontDocumentComponent} from './front-document/front-document.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {AlertComponent} from './components/alert/alert.component';
 import {LoginComponent} from './components/login/login.component';
@@ -45,6 +47,7 @@ import {DocumentCategoriesCreateComponent} from './document-categories/document-
         DocumentEditComponent,
         FrontComponent,
         CategoryComponent,
+        FrontDocumentComponent,
         FooterComponent,
         AlertComponent,
         LoginComponent,
@@ -52,7 +55,8 @@ import {DocumentCategoriesCreateComponent} from './document-categories/document-
         TinyEditorComponent,
         DocumentCategoriesComponent,
         DocumentCategoriesEditComponent,
-        DocumentCategoriesCreateComponent
+        DocumentCategoriesCreateComponent,
+        MenuComponent
     ],
     providers: [
         AuthGuard,

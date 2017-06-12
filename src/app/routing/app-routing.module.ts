@@ -6,6 +6,7 @@ import {DocumentCreateComponent} from '../document/document-create.component';
 import {DocumentEditComponent} from '../document/document-edit.component';
 import {FrontComponent} from '../components/front/front.component';
 import {CategoryComponent} from '../category/category.component';
+import {FrontDocumentComponent} from '../front-document/front-document.component';
 import {AlertComponent} from '../components/alert/alert.component';
 import {LoginComponent} from '../components/login/login.component';
 import {LogoutComponent} from '../components/logout/logout.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
         ], canActivate: [AuthGuard]
     },
     {path: 'categories/:category', component: CategoryComponent},
+    {path: 'documents/:document', component: FrontDocumentComponent},
     {path: '', component: FrontComponent}
 ];
 @NgModule({

@@ -1,0 +1,12 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div *ngIf="document"> 
+                <h1>{{document.title}}</h1>
+                <p>{{document.body}}</p>
+            </div>            
+        </div>
+    </div>
+</div>
+<my-footer></my-footer>
