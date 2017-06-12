@@ -8,7 +8,7 @@
                         <li class="col-sm-4">
                             <ul>
                                 <li class="dropdown-header">Categories</li>
-                                <li *ngFor="let category of categories" routerLink="categories/{{category.id}}"><a>{{category.name}}</a></li>
+                                <li *ngFor="let category of categories" [routerLink]="['/categories', category.id]"><a>{{category.name}}</a></li>
                             </ul>
                         </li>
                         <li class="col-sm-4">

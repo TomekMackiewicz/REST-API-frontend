@@ -12,7 +12,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let document of mf.data">
-                            <td><h3><a routerLink="/documents/{{document.id}}">{{document.title}}</a></h3></td>
+                            <td><h3><a [routerLink]="['/documents', document.id]">{{document.title}}</a></h3></td>
                         </tr>
                     </tbody>
                     <tfoot>
