@@ -8,8 +8,8 @@ import {Observable} from 'rxjs/Rx';
 })
 export class DocumentComponent {
 
-    public documents;
-    public categories;
+    public documents: any;
+    public categories: any;
 
     constructor(private _crudService: CrudService) {}
 
@@ -42,7 +42,7 @@ export class DocumentComponent {
         );
     }
 
-    deleteDocument(document) {
+    deleteDocument(document: any) {
         if (confirm("Are you sure you want to delete " + document.title + "?")) {
             this._crudService.deleteDocument(document).subscribe(
                 data => {
