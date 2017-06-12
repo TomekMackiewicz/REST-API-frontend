@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-md-12">
             <h3>Categories</h3>
-            <button [routerLink]="['/admin/category/create']">Add new</button>
+            <button class="btn btn-default" [routerLink]="['/admin/category/create']">Add new</button>
+            <hr>
             <table class="table">
                 <tr>
                     <th>Name</th>
@@ -11,8 +12,8 @@
                 <tr *ngFor="let category of categories">
                     <td>{{category.name}}</td>
                     <td>
-                        <button [routerLink]="['/admin/categories', category.id]">Edit</button>
-                        <button (click)="deleteCategory(category)">Delete</button>
+                        <button class="btn btn-primary" [routerLink]="['/admin/categories', category.id]">Edit</button>
+                        <button class="btn btn-danger" (click)="deleteCategory(category)">Delete</button>
                     </td>
                 </tr>
             </table>

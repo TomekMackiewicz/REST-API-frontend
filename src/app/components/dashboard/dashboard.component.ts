@@ -4,13 +4,12 @@ import {Observable} from 'rxjs/Rx';
 
 @Component({
     selector: 'my-dashboard',
-    templateUrl: './dashboard.html'
+    templateUrl: './dashboard.component.html'
 })
 
 export class DashboardComponent {
 
-    public documents;
-    public document_name;
+    public documents: any;
 
     constructor(private _crudService: CrudService) {}
 
