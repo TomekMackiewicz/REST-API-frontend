@@ -13,6 +13,7 @@ import {DocumentComponent} from './document/document.component';
 import {DocumentCreateComponent} from './document/document-create.component';
 import {DocumentEditComponent} from './document/document-edit.component';
 import {FrontComponent} from './components/front/front.component';
+import {CategoryComponent} from './category/category.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {AlertComponent} from './components/alert/alert.component';
 import {LoginComponent} from './components/login/login.component';
@@ -43,6 +44,7 @@ import {DocumentCategoriesCreateComponent} from './document-categories/document-
         DocumentCreateComponent,
         DocumentEditComponent,
         FrontComponent,
+        CategoryComponent,
         FooterComponent,
         AlertComponent,
         LoginComponent,
