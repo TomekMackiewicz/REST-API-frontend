@@ -1,31 +1,33 @@
-# TestTest
+https://angular.io/docs/ts/latest/guide/router.html
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
+src/app/heroes/heroes-routing.module.ts
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+    import { NgModule }             from '@angular/core';
+    import { RouterModule, Routes } from '@angular/router';
+    import { HeroListComponent }    from './hero-list.component';
+    import { HeroDetailComponent }  from './hero-detail.component';
+    const heroesRoutes: Routes = [
+      { path: 'heroes',  component: HeroListComponent },
+      { path: 'hero/:id', component: HeroDetailComponent }
+    ];
+    @NgModule({
+      imports: [
+        RouterModule.forChild(heroesRoutes)
+      ],
+      exports: [
+        RouterModule
+      ]
+    })
+    export class HeroRoutingModule { }
 
-## Code scaffolding
+Put the routing module file in the same folder as its companion module file. Here both heroes-routing.module.ts and heroes.module.ts are in the same src/app/heroes folder.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+Consider giving each feature module its own route configuration file. It may seem like overkill early when the feature routes are simple. But routes have a tendency to grow more complex and consistency in patterns pays off over time.
 
-## Build
+Import the hero components from their new locations in the src/app/heroes/ folder, define the two hero routes, and export the HeroRoutingModule class.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Now that you have routes for the Heroes module, register them with the Router via the RouterModule almost as you did in the AppRoutingModule.
 
-## Running unit tests
+There is a small but critical difference. In the AppRoutingModule, you used the static RouterModule.forRoot method to register the routes and application level service providers. In a feature module you use the static forChild method.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Deploying to GitHub Pages
-
-Run `ng github-pages:deploy` to deploy to GitHub Pages.
-
-## Further help
-
-To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Only call RouterModule.forRoot in the root AppRoutingModule (or the AppModule if that's where you register top level application routes). In any other module, you must call the RouterModule.forChild method to register additional routes.

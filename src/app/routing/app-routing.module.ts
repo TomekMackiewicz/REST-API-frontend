@@ -7,7 +7,7 @@ import {DocumentEditComponent} from '../document/document-edit.component';
 import {FrontComponent} from '../components/front/front.component';
 import {CategoryComponent} from '../category/category.component';
 import {FrontDocumentComponent} from '../front-document/front-document.component';
-import {AlertComponent} from '../components/alert/alert.component';
+//import {AlertComponent} from '../components/alert/alert.component';
 import {LoginComponent} from '../components/login/login.component';
 import {LogoutComponent} from '../components/logout/logout.component';
 import {AuthGuard} from '../guards/auth.guard';
