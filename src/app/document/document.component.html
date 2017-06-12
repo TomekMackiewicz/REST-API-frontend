@@ -4,24 +4,35 @@
             <h3>Documents</h3>
             <button class="btn btn-default" [routerLink]="['/admin/document/create']">Add new</button>
             <hr>
-            <table class="table">
-                <tr>
-                    <th>Title</th>
-                    <th>Categories</th>
-                    <th>Added</th>
-                    <th>Modified</th>
-                    <th>Actions</th>
+            <table class="table" [mfData]="documents" #mf="mfDataTable" [mfRowsOnPage]="10">
+                <thead>
+                    <tr>
+                        <th><mfDefaultSorter by="title">Title</mfDefaultSorter></th>
+                <th>Categories</th>
+                <th><mfDefaultSorter by="added">Added</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="modified">Modified</mfDefaultSorter></th>
+                <th>Actions</th>
                 </tr>
-                <tr *ngFor="let document of documents">
-                    <td>{{document.title}}</td>
-                    <td><span *ngFor="let category of document.categories">{{category.name}}<br></span></td>
-                    <td>{{document.add_date | date:'yyyy/MM/dd H:m:s'}}</td>
-                    <td>{{document.modified_date | date:'yyyy/MM/dd H:m:s'}}</td>
-                    <td>
-                        <button class="btn btn-primary" [routerLink]="['/admin/documents', document.id]">Edit</button>
-                        <button class="btn btn-danger" (click)="deleteDocument(document)">Delete</button>
-                    </td>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let document of mf.data">
+                        <td>{{document.title}}</td>
+                        <td><span *ngFor="let category of document.categories">{{category.name}}<br></span></td>
+                        <td>{{document.add_date | date:'yyyy/MM/dd H:m:s'}}</td>
+                        <td>{{document.modified_date | date:'yyyy/MM/dd H:m:s'}}</td>
+                        <td>
+                            <button class="btn btn-primary" [routerLink]="['/admin/documents', document.id]">Edit</button>
+                            <button class="btn btn-danger" (click)="deleteDocument(document)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
                 </tr>
+                </tfoot>
             </table>
         </div>
     </div>

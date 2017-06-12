@@ -5,6 +5,8 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './routing/app-routing.module';
 
+import {DataTableModule} from "angular2-datatable";
+
 import {AppComponent} from './app.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {DocumentComponent} from './document/document.component';
@@ -31,7 +33,8 @@ import {DocumentCategoriesCreateComponent} from './document-categories/document-
         BrowserModule,
         HttpModule,
         FormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        DataTableModule
     ],
     declarations: [
         AppComponent,
