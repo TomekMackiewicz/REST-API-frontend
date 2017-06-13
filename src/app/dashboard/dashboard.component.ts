@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CrudService} from '../../services/crud.service';
+import {CrudService} from '../services/crud.service';
 import {Observable} from 'rxjs/Rx';
 
 @Component({

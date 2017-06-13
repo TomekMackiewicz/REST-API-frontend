@@ -8,7 +8,7 @@ import {DocumentModule} from './document/document.module';
 import {DocumentCategoriesModule} from './document-categories/document-categories';
 
 import {AppComponent} from './app.component';
-import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 import {FrontComponent} from './components/front/front.component';
 import {MenuComponent} from './menu/menu.component';
 import {FooterComponent} from './components/footer/footer.component'; // do wywalenia potem?
