@@ -1,6 +1,8 @@
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpModule} from '@angular/http';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpModule, Http} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {AlertModule} from './alert/alert'; // do wywalenia, kiedy wstawię wszędzie, login jeszcze korzysta
@@ -23,6 +25,11 @@ import {AuthenticationService} from './services/authentication.service';
 
 import {AppRoutingModule} from './routing/app-routing.module';
 
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: Http) {
+    return new TranslateHttpLoader(http);
+}
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -31,7 +38,14 @@ import {AppRoutingModule} from './routing/app-routing.module';
         AlertModule,
         DocumentModule,
         DocumentCategoriesModule,
-        AppRoutingModule
+        AppRoutingModule,
+            TranslateModule.forRoot({
+                loader: {
+                    provide: TranslateLoader,
+                    useFactory: HttpLoaderFactory,
+                    deps: [Http]
+                }
+            })
     ],
     declarations: [
         AppComponent,
