@@ -13,8 +13,8 @@ import {AlertService} from '../alert/alert.service';
 
 export class DocumentCreateComponent {
 
-    public document;
-    public categories;
+    public document: any;
+    public categories: any;
     public categoriesArray: Array<{id: number, name: string}> = [];
 
     constructor(
@@ -32,26 +32,26 @@ export class DocumentCreateComponent {
         this.location.back();
     }
 
-    onChange(id, name, isChecked: boolean) {
+    onChange(id: number, name: string, isChecked: boolean) {
         if (isChecked) {
             if (this.categoriesArray.some(x => x.name === name)) {
-                console.log('Already in array');
+                //console.log('Already in array');
                 return;
             } else {
                 this.categoriesArray.push({id: id, name: name});
-                console.log(this.categoriesArray);
+                //console.log(this.categoriesArray);
             }
         } else {
             let index: number = this.categoriesArray.indexOf(this.categoriesArray.find(x => x.name === name));
             this.categoriesArray.splice(index, 1);
-            console.log(this.categoriesArray);
+            //console.log(this.categoriesArray);
         }
         return this.categoriesArray;
     }
 
-    createDocument(title, body) {
+    createDocument(title: string, body: string) {
         let document = {title: title, body: body, categories: this.categoriesArray};
-        console.log(document);
+        //console.log(document);
 
         this.documentService.createDocument(document).subscribe(
             data => {

@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <button class="btn btn-default" (click)="goBack()">Back</button>
             <h2>Create document</h2>
-            <alert></alert>            
+            <alert></alert>
             <form>
                 <div class="row">
                     <div class="col-md-8">
@@ -22,7 +22,6 @@
                                 elementId="document-body"
                                 [(ngModel)]="document_body">
                             </simple-tiny>
-                            <!-- <textarea class="form-control" id="document-body" name="document-body" [(ngModel)]="document_body" rows="3"></textarea>-->
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -31,7 +30,8 @@
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox"
-                                           (change)="onChange(category.id, category.name, $event.target.checked)"> {{category.name}}
+                                           (change)="onChange(category.id, category.name, $event.target.checked)">
+                                           {{category.name}}
                                 </label>
                             </div>
                         </div>
@@ -46,7 +46,6 @@
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

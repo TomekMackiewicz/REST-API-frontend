@@ -3,8 +3,8 @@ import {DocumentService} from './document.service';
 import {Observable} from 'rxjs/Rx';
 
 @Component({
-    selector: 'demo-app',
-    templateUrl: './document.component.html',
+    selector: 'app-document',
+    templateUrl: './document.component.html'
 })
 export class DocumentComponent {
 

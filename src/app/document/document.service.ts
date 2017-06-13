@@ -7,10 +7,6 @@ export class DocumentService {
 
     constructor(private http: Http) {}
 
-    /*
-     * DOCUMENTS
-     */
-
     getDocument(id: number) {
         return this.http.get
             ('http://localhost:8000/documents/' + id)
