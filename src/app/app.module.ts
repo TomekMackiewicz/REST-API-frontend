@@ -11,7 +11,7 @@ import {AppComponent} from './app.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {FrontComponent} from './components/front/front.component';
 import {MenuComponent} from './menu/menu.component';
-import {FooterComponent} from './components/footer/footer.component'; // do wywalenia potem?
+import {FooterComponent} from './footer/footer.component'; // do wywalenia potem?
 import {LoginComponent} from './components/login/login.component';
 import {LogoutComponent} from './components/logout/logout.component';
 
