@@ -1,5 +1,55 @@
+/** {
+  border-radius: 0 !important;
+}*/
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+code,
+kbd,
+pre,
+.img-rounded,
+.img-thumbnail,
+.form-control,
+.btn,
+.btn-link,
+.dropdown-menu,
+.list-group-item,
+.input-group-addon,
+.input-group-btn,
+.nav-tabs a,
+.nav-pills a,
+.navbar,
+.navbar-toggle,
+.icon-bar,
+.breadcrumb,
+.pagination,
+.pager *,
+.label,
+.badge,
+.jumbotron,
+.thumbnail,
+.alert,
+.progress,
+.panel,
+.well,
+.modal-content,
+.tooltip-inner,
+.popover,
+.popover-title,
+.carousel-indicators li {
+    border-radius:0 !important;
+}
+
+
+
 .outer-container {
     width: 100%;
+}
+
+.navbar-default {
+    background-color: #ffffff;
 }
 
 .nav .btn {
@@ -14,10 +64,12 @@
     color: #777;
     display: block;
     max-width: 100%;
-    margin-bottom: 5px;
+    //margin-bottom: 5px;
     font-weight: 300;
     position: relative;
     float: left;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    //padding-top: 15px;
+    //padding-bottom: 15px;
+    margin: 7px 15px 0 0;
+    padding: 2px 16px !important;    
 }
