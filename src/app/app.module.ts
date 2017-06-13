@@ -14,6 +14,7 @@ import {MenuComponent} from './menu/menu.component';
 import {FooterComponent} from './footer/footer.component'; // do wywalenia potem?
 import {LoginComponent} from './components/login/login.component';
 import {LogoutComponent} from './components/logout/logout.component';
+import {PageNotFoundComponent} from './404/page-not-found.component';
 
 import {AuthGuard} from './guards/auth.guard';
 
@@ -39,7 +40,8 @@ import {AppRoutingModule} from './routing/app-routing.module';
         FooterComponent,
         LoginComponent,
         LogoutComponent,
-        MenuComponent
+        MenuComponent,
+        PageNotFoundComponent
     ],
     providers: [
         AuthGuard,

@@ -4,6 +4,7 @@ import {DashboardComponent} from '../dashboard/dashboard.component';
 import {FrontComponent} from '../components/front/front.component';
 import {LoginComponent} from '../components/login/login.component';
 import {LogoutComponent} from '../components/logout/logout.component';
+import {PageNotFoundComponent} from '../404/page-not-found.component';
 import {AuthGuard} from '../guards/auth.guard';
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
             {path: 'dashboard', component: DashboardComponent},
         ], canActivate: [AuthGuard]
     },
-    {path: '', component: FrontComponent}
+    {path: '', component: FrontComponent},
+    { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
