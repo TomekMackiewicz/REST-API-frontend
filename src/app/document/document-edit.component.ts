@@ -3,8 +3,8 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
-import {CrudService} from '../services/crud.service';
-import {AlertService} from '../services/alert.service';
+import {DocumentService} from './document.service';
+import {AlertService} from '../alert/alert.service';
 
 @Component({
     selector: 'document-detail',
@@ -18,7 +18,7 @@ export class DocumentEditComponent implements OnInit {
     public categoriesArray: Array<{id: number, name: string}> = [];
 
     constructor(
-        private crudService: CrudService,
+        private documentService: DocumentService,
         private alertService: AlertService,
         private route: ActivatedRoute,
         private location: Location
@@ -26,7 +26,7 @@ export class DocumentEditComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.crudService.getDocument(+params['id']))
+            .switchMap((params: Params) => this.documentService.getDocument(+params['id']))
             .subscribe(document => this.document = document);
         this.getCategories();
         this.getDocument(this.route.params['_value']['id']);
@@ -34,9 +34,9 @@ export class DocumentEditComponent implements OnInit {
 
     getInitialCategories(document) {
         for (let initialCategory of this.document.categories) {
-            this.categoriesArray.push({id:initialCategory.id, name: initialCategory.name});
+            this.categoriesArray.push({id: initialCategory.id, name: initialCategory.name});
         }
-        console.log(this.categoriesArray);        
+        console.log(this.categoriesArray);
     }
 
     checkIfCategoryAssigned(categoryDocuments, documentId) {
@@ -54,12 +54,12 @@ export class DocumentEditComponent implements OnInit {
     }
 
     onChange(id, name, isChecked: boolean) {
-        if(isChecked) {
-            if(this.categoriesArray.some(x => x.name === name)) {
+        if (isChecked) {
+            if (this.categoriesArray.some(x => x.name === name)) {
                 console.log(this.categoriesArray);
                 return;
             } else {
-                this.categoriesArray.push({id:id, name:name});
+                this.categoriesArray.push({id: id, name: name});
                 console.log(this.categoriesArray);
             }
         } else {
@@ -72,7 +72,7 @@ export class DocumentEditComponent implements OnInit {
 
     updateDocument(id, title, body) {
         let document = {id: id, title: title, body: body, categories: this.categoriesArray};
-        this.crudService.updateDocument(document).subscribe(
+        this.documentService.updateDocument(document).subscribe(
             data => {
                 this.alertService.success('Document updated.');
                 return true;
@@ -85,7 +85,7 @@ export class DocumentEditComponent implements OnInit {
     }
 
     getCategories() {
-        this.crudService.getCategories().subscribe(
+        this.documentService.getCategories().subscribe(
             data => {this.categories = data},
             err => console.error(err),
             () => console.log('done loading categories')
@@ -93,7 +93,7 @@ export class DocumentEditComponent implements OnInit {
     }
 
     getDocument(id) {
-        this.crudService.getDocument(id).subscribe(
+        this.documentService.getDocument(id).subscribe(
             data => {this.document = data},
             err => console.error(err),
             () => this.getInitialCategories(this.document)

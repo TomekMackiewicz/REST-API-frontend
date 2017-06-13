@@ -4,7 +4,7 @@ import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
 import {CrudService} from '../services/crud.service';
-import {AlertService} from '../services/alert.service';
+import {AlertService} from '../alert/alert.service';
 
 @Component({
     selector: 'document-category-create',
@@ -17,7 +17,7 @@ export class DocumentCategoriesCreateComponent {
 
     constructor(
         private _crudService: CrudService,
-        private alertService: AlertService,        
+        private alertService: AlertService,
         private route: ActivatedRoute,
         private location: Location
     ) {}

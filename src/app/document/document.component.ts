@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CrudService} from '../services/crud.service';
+import {DocumentService} from './document.service';
 import {Observable} from 'rxjs/Rx';
 
 @Component({
@@ -11,23 +11,15 @@ export class DocumentComponent {
     public documents: any;
     public categories: any;
 
-    constructor(private _crudService: CrudService) {}
+    constructor(private documentService: DocumentService) {}
 
     ngOnInit() {
         this.getDocuments();
         this.getCategories();
     }
 
-    //    getDocument(id) {
-    //        this._demoService.getDocument().subscribe(
-    //            data => {this.document = data},
-    //            err => console.error(err),
-    //            () => console.log('done loading document')
-    //        );
-    //    }
-
     getDocuments() {
-        this._crudService.getDocuments().subscribe(
+        this.documentService.getDocuments().subscribe(
             data => {this.documents = data},
             err => console.error(err),
             () => console.log('done loading documents')
@@ -35,7 +27,7 @@ export class DocumentComponent {
     }
 
     getCategories() {
-        this._crudService.getCategories().subscribe(
+        this.documentService.getCategories().subscribe(
             data => {this.categories = data},
             err => console.error(err),
             () => console.log('done loading categories')
@@ -44,7 +36,7 @@ export class DocumentComponent {
 
     deleteDocument(document: any) {
         if (confirm("Are you sure you want to delete " + document.title + "?")) {
-            this._crudService.deleteDocument(document).subscribe(
+            this.documentService.deleteDocument(document).subscribe(
                 data => {
                     this.getDocuments();
                     return true;

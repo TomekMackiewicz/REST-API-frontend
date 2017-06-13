@@ -22,32 +22,32 @@ export class CrudService {
             ('http://localhost:8000/documents')
             .map((res: Response) => res.json());
     }
-
-    createDocument(document) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        //let body = JSON.stringify(document);
-        let body = document;
-        //console.log(body);
-        return this.http.post
-            ('http://localhost:8000/documents', body, headers);
-        //.map((res:Response) => res.json());
-    }
-
-    updateDocument(document) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        let body = document;
-
-        return this.http.put
-            ('http://localhost:8000/documents/' + document.id, body, headers)
-        //.map((res: Response) => res.json());
-    }
-
-    deleteDocument(document) {
-        return this.http.delete
-            ('http://localhost:8000/documents/' + document.id);
-    }
+    //
+    //    createDocument(document) {
+    //        let headers = new Headers({'Content-Type': 'application/json'});
+    //        let options = new RequestOptions({headers: headers});
+    //        //let body = JSON.stringify(document);
+    //        let body = document;
+    //        //console.log(body);
+    //        return this.http.post
+    //            ('http://localhost:8000/documents', body, headers);
+    //        //.map((res:Response) => res.json());
+    //    }
+    //
+    //    updateDocument(document) {
+    //        let headers = new Headers({'Content-Type': 'application/json'});
+    //        let options = new RequestOptions({headers: headers});
+    //        let body = document;
+    //
+    //        return this.http.put
+    //            ('http://localhost:8000/documents/' + document.id, body, headers)
+    //        //.map((res: Response) => res.json());
+    //    }
+    //
+    //    deleteDocument(document) {
+    //        return this.http.delete
+    //            ('http://localhost:8000/documents/' + document.id);
+    //    }
 
     /*
      * DOCUMENTS CATEGORIES

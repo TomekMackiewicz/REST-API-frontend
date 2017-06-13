@@ -4,7 +4,7 @@ import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
 import {CrudService} from '../services/crud.service';
-import {AlertService} from '../services/alert.service';
+import {AlertService} from '../alert/alert.service';
 
 @Component({
     selector: 'document-category-edit',

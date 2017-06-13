@@ -3,8 +3,8 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
-import {CrudService} from '../services/crud.service';
-import {AlertService} from '../services/alert.service';
+import {DocumentService} from './document.service';
+import {AlertService} from '../alert/alert.service';
 
 @Component({
     selector: 'document-create',
@@ -16,9 +16,9 @@ export class DocumentCreateComponent {
     public document;
     public categories;
     public categoriesArray: Array<{id: number, name: string}> = [];
-    
+
     constructor(
-        private _crudService: CrudService,
+        private documentService: DocumentService,
         private alertService: AlertService,
         private route: ActivatedRoute,
         private location: Location
@@ -33,12 +33,12 @@ export class DocumentCreateComponent {
     }
 
     onChange(id, name, isChecked: boolean) {
-        if(isChecked) {
-            if(this.categoriesArray.some(x => x.name === name)) {
+        if (isChecked) {
+            if (this.categoriesArray.some(x => x.name === name)) {
                 console.log('Already in array');
                 return;
             } else {
-                this.categoriesArray.push({id:id, name:name});
+                this.categoriesArray.push({id: id, name: name});
                 console.log(this.categoriesArray);
             }
         } else {
@@ -53,7 +53,7 @@ export class DocumentCreateComponent {
         let document = {title: title, body: body, categories: this.categoriesArray};
         console.log(document);
 
-        this._crudService.createDocument(document).subscribe(
+        this.documentService.createDocument(document).subscribe(
             data => {
                 this.alertService.success('Document created.');
                 return true;
@@ -66,7 +66,7 @@ export class DocumentCreateComponent {
     }
 
     getCategories() {
-        this._crudService.getCategories().subscribe(
+        this.documentService.getCategories().subscribe(
             data => {this.categories = data},
             err => console.error(err),
             () => console.log('done loading categories')
