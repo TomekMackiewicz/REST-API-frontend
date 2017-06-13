@@ -12,8 +12,7 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {FrontComponent} from './components/front/front.component';
 import {MenuComponent} from './menu/menu.component';
 import {CategoryComponent} from './category/category.component';
-import {FrontDocumentComponent} from './front-document/front-document.component';
-import {FooterComponent} from './components/footer/footer.component';
+import {FooterComponent} from './components/footer/footer.component'; // do wywalenia potem?
 
 import {LoginComponent} from './components/login/login.component';
 import {LogoutComponent} from './components/logout/logout.component';
@@ -43,7 +42,6 @@ import {AppRoutingModule} from './routing/app-routing.module';
         DashboardComponent,
         FrontComponent,
         CategoryComponent,
-        FrontDocumentComponent,
         FooterComponent,
         LoginComponent,
         LogoutComponent,

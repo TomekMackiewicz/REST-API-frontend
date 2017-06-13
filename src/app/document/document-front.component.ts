@@ -3,27 +3,26 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
-import {CrudService} from '../services/crud.service';
+import {DocumentService} from './document.service';
 
 @Component({
     selector: 'app-front-document',
-    templateUrl: './front-document.component.html',
-    //styleUrls: ['./document.component.css'],
+    templateUrl: './document-front.component.html'
 })
 
-export class FrontDocumentComponent implements OnInit {
+export class DocumentFrontComponent implements OnInit {
 
     public document: any;
 
-    constructor(       
-        private crudService: CrudService,
+    constructor(
+        private documentService: DocumentService,
         private route: ActivatedRoute,
         private location: Location
     ) {}
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.crudService.getDocument(+params['document']))
+            .switchMap((params: Params) => this.documentService.getDocument(+params['document']))
             .subscribe(category => this.document = category);
     }
 

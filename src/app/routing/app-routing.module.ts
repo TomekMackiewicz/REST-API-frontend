@@ -1,13 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from '../components/dashboard/dashboard.component';
-//import {DocumentComponent} from '../document/document.component';
-//import {DocumentCreateComponent} from '../document/document-create.component';
-//import {DocumentEditComponent} from '../document/document-edit.component';
 import {FrontComponent} from '../components/front/front.component';
 import {CategoryComponent} from '../category/category.component';
-import {FrontDocumentComponent} from '../front-document/front-document.component';
-//import {AlertComponent} from '../components/alert/alert.component';
 import {LoginComponent} from '../components/login/login.component';
 import {LogoutComponent} from '../components/logout/logout.component';
 import {AuthGuard} from '../guards/auth.guard';
@@ -21,16 +16,12 @@ const routes: Routes = [
     {
         path: 'admin', children: [
             {path: 'dashboard', component: DashboardComponent},
-            //{path: 'documents/:id', component: DocumentEditComponent},
-            //{path: 'document/create', component: DocumentCreateComponent},
-            //{path: 'documents', component: DocumentComponent},
             {path: 'categories', component: DocumentCategoriesComponent},
             {path: 'categories/:id', component: DocumentCategoriesEditComponent},
             {path: 'category/create', component: DocumentCategoriesCreateComponent},
         ], canActivate: [AuthGuard]
     },
     {path: 'categories/:category', component: CategoryComponent},
-    {path: 'documents/:document', component: FrontDocumentComponent},
     {path: '', component: FrontComponent}
 ];
 @NgModule({

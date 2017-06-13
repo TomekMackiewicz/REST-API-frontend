@@ -8,6 +8,7 @@ import {TinyEditorModule} from '../tiny-editor/tiny-editor';
 import {DocumentComponent} from './document.component';
 import {DocumentEditComponent} from './document-edit.component';
 import {DocumentCreateComponent} from './document-create.component';
+import {DocumentFrontComponent} from './document-front.component';
 
 import {DocumentService} from './document.service';
 
@@ -23,10 +24,10 @@ import {DocumentRoutingModule} from './document-routing.module';
         TinyEditorModule
     ],
     declarations: [
-        //AlertComponent,
         DocumentComponent,
         DocumentEditComponent,
-        DocumentCreateComponent
+        DocumentCreateComponent,
+        DocumentFrontComponent
     ],
     providers: [
         DocumentService

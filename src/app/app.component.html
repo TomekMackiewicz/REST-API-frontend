@@ -80,4 +80,6 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+<app-menu *ngIf="!username"></app-menu>
 <router-outlet></router-outlet>
+<my-footer *ngIf="!username"></my-footer>
