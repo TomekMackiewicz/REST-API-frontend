@@ -6,7 +6,6 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    //styleUrls: ['./app/css/navbar.css'],
 })
 
 export class AppComponent implements OnDestroy {
