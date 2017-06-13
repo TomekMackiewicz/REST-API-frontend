@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from '../components/dashboard/dashboard.component';
 import {FrontComponent} from '../components/front/front.component';
-import {CategoryComponent} from '../category/category.component';
+//import {CategoryComponent} from '../category/category.component';
 import {LoginComponent} from '../components/login/login.component';
 import {LogoutComponent} from '../components/logout/logout.component';
 import {AuthGuard} from '../guards/auth.guard';
-import {DocumentCategoriesComponent} from '../document-categories/document-categories.component';
-import {DocumentCategoriesEditComponent} from '../document-categories/document-categories-edit.component';
-import {DocumentCategoriesCreateComponent} from '../document-categories/document-categories-create.component';
+//import {DocumentCategoriesComponent} from '../document-categories/document-categories.component';
+//import {DocumentCategoriesEditComponent} from '../document-categories/document-categories-edit.component';
+//import {DocumentCategoriesCreateComponent} from '../document-categories/document-categories-create.component';
 
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -16,12 +16,12 @@ const routes: Routes = [
     {
         path: 'admin', children: [
             {path: 'dashboard', component: DashboardComponent},
-            {path: 'categories', component: DocumentCategoriesComponent},
-            {path: 'categories/:id', component: DocumentCategoriesEditComponent},
-            {path: 'category/create', component: DocumentCategoriesCreateComponent},
+            //{path: 'categories', component: DocumentCategoriesComponent},
+            //{path: 'categories/:id', component: DocumentCategoriesEditComponent},
+            //{path: 'category/create', component: DocumentCategoriesCreateComponent},
         ], canActivate: [AuthGuard]
     },
-    {path: 'categories/:category', component: CategoryComponent},
+    //{path: 'categories/:category', component: CategoryComponent},
     {path: '', component: FrontComponent}
 ];
 @NgModule({

@@ -11,12 +11,12 @@ export class CrudService {
      * DOCUMENTS
      */
 
-    getDocument(id: number) {
-        return this.http.get
-            ('http://localhost:8000/documents/' + id)
-            .map((res: Response) => res.json());
-    }
-
+    //    getDocument(id: number) {
+    //        return this.http.get
+    //            ('http://localhost:8000/documents/' + id)
+    //            .map((res: Response) => res.json());
+    //    }
+    //
     getDocuments() {
         return this.http.get
             ('http://localhost:8000/documents')
@@ -53,40 +53,40 @@ export class CrudService {
      * DOCUMENTS CATEGORIES
      */
 
-    getCategory(id: number) {
-        return this.http.get
-            ('http://localhost:8000/categories/' + id)
-            .map((res: Response) => res.json());
-    }
-
+    //    getCategory(id: number) {
+    //        return this.http.get
+    //            ('http://localhost:8000/categories/' + id)
+    //            .map((res: Response) => res.json());
+    //    }
+    //
     getCategories() {
         return this.http.get
             ('http://localhost:8000/categories')
             .map((res: Response) => res.json());
     }
-
-    createCategory(category) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        let body = category;
-        return this.http.post
-            ('http://localhost:8000/categories', body, headers);
-        //.map((res:Response) => res.json());
-    }
-
-    updateCategory(category) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        let body = category;
-
-        return this.http.put
-            ('http://localhost:8000/categories/' + category.id, body, headers)
-        //.map((res: Response) => res.json());
-    }
-
-    deleteCategory(category) {
-        return this.http.delete
-            ('http://localhost:8000/categories/' + category.id);
-    }
+    //
+    //    createCategory(category) {
+    //        let headers = new Headers({'Content-Type': 'application/json'});
+    //        let options = new RequestOptions({headers: headers});
+    //        let body = category;
+    //        return this.http.post
+    //            ('http://localhost:8000/categories', body, headers);
+    //        //.map((res:Response) => res.json());
+    //    }
+    //
+    //    updateCategory(category) {
+    //        let headers = new Headers({'Content-Type': 'application/json'});
+    //        let options = new RequestOptions({headers: headers});
+    //        let body = category;
+    //
+    //        return this.http.put
+    //            ('http://localhost:8000/categories/' + category.id, body, headers)
+    //        //.map((res: Response) => res.json());
+    //    }
+    //
+    //    deleteCategory(category) {
+    //        return this.http.delete
+    //            ('http://localhost:8000/categories/' + category.id);
+    //    }
 
 }

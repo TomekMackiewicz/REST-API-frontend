@@ -3,7 +3,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
-import {CrudService} from '../services/crud.service';
+import {DocumentCategoriesService} from './document-categories.service';
 import {AlertService} from '../alert/alert.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class DocumentCategoriesCreateComponent {
     public category;
 
     constructor(
-        private _crudService: CrudService,
+        private documentCategoriesService: DocumentCategoriesService,
         private alertService: AlertService,
         private route: ActivatedRoute,
         private location: Location
@@ -28,7 +28,7 @@ export class DocumentCategoriesCreateComponent {
 
     createCategory(name) {
         let category = {name: name};
-        this._crudService.createCategory(category).subscribe(
+        this.documentCategoriesService.createCategory(category).subscribe(
             data => {
                 this.alertService.success('Category created.');
                 return true;

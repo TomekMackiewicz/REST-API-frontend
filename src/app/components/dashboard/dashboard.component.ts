@@ -11,14 +11,14 @@ export class DashboardComponent {
 
     public documents: any;
 
-    constructor(private _crudService: CrudService) {}
+    constructor(private crudService: CrudService) {}
 
     ngOnInit() {
         this.getDocuments();
     }
 
     getDocuments() {
-        this._crudService.getDocuments().subscribe(
+        this.crudService.getDocuments().subscribe(
             data => {this.documents = data},
             err => console.error(err),
             () => console.log('done loading documents')

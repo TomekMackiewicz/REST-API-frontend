@@ -3,7 +3,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
-import {CrudService} from '../services/crud.service';
+import {DocumentCategoriesService} from './document-categories.service';
 import {AlertService} from '../alert/alert.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class DocumentCategoriesEditComponent implements OnInit {
     public category;
 
     constructor(
-        private _crudService: CrudService,
+        private documentCategoriesService: DocumentCategoriesService,
         private route: ActivatedRoute,
         private location: Location,
         private alertService: AlertService
@@ -24,7 +24,7 @@ export class DocumentCategoriesEditComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this._crudService.getCategory(+params['id']))
+            .switchMap((params: Params) => this.documentCategoriesService.getCategory(+params['id']))
             .subscribe(category => this.category = category);
     }
 
@@ -33,7 +33,7 @@ export class DocumentCategoriesEditComponent implements OnInit {
     }
 
     updateCategory(category) {
-        this._crudService.updateCategory(category).subscribe(
+        this.documentCategoriesService.updateCategory(category).subscribe(
             data => {
                 this.alertService.success('Category updated.');
                 return true;
