@@ -4,7 +4,7 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpModule, Http} from '@angular/http';
 import {FormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
+//import {RouterModule} from '@angular/router';
 import {AlertModule} from './alert/alert'; // do wywalenia, kiedy wstawię wszędzie, login jeszcze korzysta
 import {DocumentModule} from './document/document.module';
 import {DocumentCategoriesModule} from './document-categories/document-categories';
