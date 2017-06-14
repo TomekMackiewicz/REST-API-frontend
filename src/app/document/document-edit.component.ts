@@ -42,9 +42,8 @@ export class DocumentEditComponent implements OnInit {
     checkIfCategoryAssigned(categoryDocuments, documentId) {
         for (let document of categoryDocuments) {
             if (document.id === documentId) {
+                console.log('true');
                 return true;
-            } else {
-                return false;
             }
         }
     }
