@@ -7,14 +7,14 @@ import {DocumentService} from './document.service';
 import {AlertService} from '../alert/alert.service';
 
 @Component({
-    selector: 'document-detail',
+    selector: 'document-edit',
     templateUrl: './document-edit.component.html',
 })
 
 export class DocumentEditComponent implements OnInit {
 
-    public document;
-    public categories;
+    public document: any;
+    public categories: any;
     public categoriesArray: Array<{id: number, name: string}> = [];
 
     constructor(
@@ -29,47 +29,42 @@ export class DocumentEditComponent implements OnInit {
             .switchMap((params: Params) => this.documentService.getDocument(+params['id']))
             .subscribe(document => this.document = document);
         this.getCategories();
-        this.getDocument(this.route.params['_value']['id']);
     }
-
-    getInitialCategories(document) {
-        for (let initialCategory of this.document.categories) {
-            this.categoriesArray.push({id: initialCategory.id, name: initialCategory.name});
-        }
-        console.log(this.categoriesArray);
-    }
-
-    checkIfCategoryAssigned(categoryDocuments, documentId) {
-        for (let document of categoryDocuments) {
-            if (document.id === documentId) {
-                console.log('true');
-                return true;
+    
+    
+    /*
+     * Push categories already assigned to this document
+     * to an array used in updateDocument method
+     * and check already assigned categories in the template.
+     */
+    documentCategories(document: any, categories: any) {
+        for (let documentCategory of document.categories) {
+            this.categoriesArray.push({id: documentCategory.id, name: documentCategory.name});
+        }           
+        for (let category of categories) {
+            for (let categoryDocument of category.documents) {
+                if (categoryDocument.id === document.id) {
+                    category.checked = true;
+                }                
             }
         }
     }
 
-    goBack(): void {
-        this.location.back();
-    }
-
-    onChange(id, name, isChecked: boolean) {
+    onChange(id: number, name: string, isChecked: boolean) {
         if (isChecked) {
             if (this.categoriesArray.some(x => x.name === name)) {
-                console.log(this.categoriesArray);
                 return;
             } else {
                 this.categoriesArray.push({id: id, name: name});
-                console.log(this.categoriesArray);
             }
         } else {
             let index: number = this.categoriesArray.indexOf(this.categoriesArray.find(x => x.name === name));
             this.categoriesArray.splice(index, 1);
-            console.log(this.categoriesArray);
         }
         return this.categoriesArray;
     }
 
-    updateDocument(id, title, body) {
+    updateDocument(id: number, title: string, body: any) {
         let document = {id: id, title: title, body: body, categories: this.categoriesArray};
         this.documentService.updateDocument(document).subscribe(
             data => {
@@ -87,16 +82,12 @@ export class DocumentEditComponent implements OnInit {
         this.documentService.getCategories().subscribe(
             data => {this.categories = data},
             err => console.error(err),
-            () => console.log('done loading categories')
+            () => this.documentCategories(this.document, this.categories)
         );
     }
 
-    getDocument(id) {
-        this.documentService.getDocument(id).subscribe(
-            data => {this.document = data},
-            err => console.error(err),
-            () => this.getInitialCategories(this.document)
-        );
+    goBack(): void {
+        this.location.back();
     }
 
 }

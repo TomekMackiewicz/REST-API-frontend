@@ -30,7 +30,7 @@
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox"
-                                               [checked]="checkIfCategoryAssigned(category.documents, document.id)"
+                                               [checked]=category.checked
                                                (change)="onChange(category.id, category.name, $event.target.checked)"> {{category.name}}
                                     </label>
                                 </div>
