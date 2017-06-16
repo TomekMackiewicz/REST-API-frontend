@@ -5,10 +5,13 @@ import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
 import {DocumentService} from './document.service';
 import {AlertService} from '../alert/alert.service';
+import {slideInOutAnimation} from '../animations/index';
 
 @Component({
     selector: 'document-edit',
     templateUrl: './document-edit.component.html',
+    animations: [slideInOutAnimation],
+    host: { '[@slideInOutAnimation]': '' }    
 })
 
 export class DocumentEditComponent implements OnInit {
