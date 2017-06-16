@@ -2,11 +2,14 @@ import {Component} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AlertService} from '../../alert/alert.service';
 import {AuthenticationService} from '../../services/authentication.service';
+import {fadeInAnimation} from '../../animations/index';
 
 @Component({
     //moduleId: module.id,
     selector: 'my-login',
     templateUrl: './login.component.html',
+    animations: [fadeInAnimation],
+    host: { '[@fadeInAnimation]': '' }    
 })
 
 export class LoginComponent {
