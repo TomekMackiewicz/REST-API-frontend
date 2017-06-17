@@ -6,6 +6,8 @@ import {DocumentComponent} from './document.component';
 import {DocumentEditComponent} from './document-edit.component';
 import {DocumentCreateComponent} from './document-create.component';
 import {DocumentFrontComponent} from './document-front.component';
+import {MenuComponent} from '../menu/menu.component';
+import {FooterComponent} from '../footer/footer.component';
 
 const documentRoutes: Routes = [
     {
@@ -15,7 +17,12 @@ const documentRoutes: Routes = [
             {path: 'documents', component: DocumentComponent},
         ], canActivate: [AuthGuard]
     },
-    {path: 'documents/:document', component: DocumentFrontComponent},
+    {
+        path: 'documents/:document', children: [
+            {path: '' , component: DocumentFrontComponent},
+            {path: '' , component: MenuComponent, outlet: 'header'},
+            {path: '' , component: FooterComponent, outlet: 'footer'}        
+    ]}
 ];
 
 @NgModule({

@@ -74,18 +74,19 @@
                         </form>-->
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="btn btn-default">{{ 'DOCUMENTS' | translate }}</a></li>
-                <li><a class="btn btn-default"><i class="ion-ios-telephone-outline"></i> 502-509-134</a></li>
+                <li><a class="btn btn-default"><i class="ion-ios-telephone-outline"></i> 500-000-000</a></li>
                 <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+                <li><a class="btn btn-default" (click)="showLocation()">Location</a></li>
                 <label>
-                  {{ 'HOME.SELECT' | translate }}
-                  <select #langSelect (change)="translate.use(langSelect.value)">
-                    <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
-                  </select>
+                    {{ 'HOME.SELECT' | translate }}
+                    <select #langSelect (change)="translate.use(langSelect.value)">
+                        <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+                    </select>
                 </label>                
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<app-menu *ngIf="!username"></app-menu>
+<router-outlet name="header"></router-outlet>
 <router-outlet></router-outlet>
-<app-footer *ngIf="!username"></app-footer>
+<router-outlet name="footer"></router-outlet>

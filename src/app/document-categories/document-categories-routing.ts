@@ -6,6 +6,8 @@ import {DocumentCategoriesComponent} from './document-categories.component';
 import {DocumentCategoriesEditComponent} from './document-categories-edit.component';
 import {DocumentCategoriesCreateComponent} from './document-categories-create.component';
 import {DocumentCategoriesFrontComponent} from './document-categories-front.component';
+import {MenuComponent} from '../menu/menu.component';
+import {FooterComponent} from '../footer/footer.component';
 
 const categoriesRoutes: Routes = [
     {
@@ -15,7 +17,12 @@ const categoriesRoutes: Routes = [
             {path: 'category/create', component: DocumentCategoriesCreateComponent},
         ], canActivate: [AuthGuard]
     },
-    {path: 'categories/:category', component: DocumentCategoriesFrontComponent}
+    {
+        path: 'categories/:category', children: [
+            {path: '' , component: DocumentCategoriesFrontComponent},
+            {path: '' , component: MenuComponent, outlet: 'header'},
+            {path: '' , component: FooterComponent, outlet: 'footer'}        
+    ]}    
 ];
 
 @NgModule({

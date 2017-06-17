@@ -9,7 +9,6 @@ import {DocumentComponent} from './document.component';
 import {DocumentEditComponent} from './document-edit.component';
 import {DocumentCreateComponent} from './document-create.component';
 import {DocumentFrontComponent} from './document-front.component';
-
 import {DocumentService} from './document.service';
 
 import {DocumentRoutingModule} from './document-routing.module';
