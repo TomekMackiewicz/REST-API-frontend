@@ -1,10 +1,8 @@
 <div class="container side-form">
     <div class="row">
         <div class="col-md-12">
-            <div *ngIf="document">   
-                <button class="btn btn-default" (click)="goBack()">Back</button>
-                <h2>Update document</h2>
-                <alert></alert>                 
+            <div *ngIf="document">
+                <h2>Update document</h2>                
                 <form>
                     <div class="row">
                         <div class="col-md-8">
@@ -35,16 +33,15 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>                        
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                            <hr>
+                            <alert></alert>
                             <button type="submit" 
-                                    class="btn btn-default" 
+                                    class="btn btn-primary" 
                                     (click)="updateDocument(document.id, document.title, document.body)">
-                                    Submit
+                                    Save
                             </button>
-                        </div>
+                            <button class="btn btn-default" (click)="goBack()">Back</button>
+                        </div>                        
                     </div>
                 </form>
             </div>

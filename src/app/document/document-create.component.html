@@ -1,9 +1,7 @@
 <div class="container side-form">
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-default" (click)="goBack()">Back</button>
             <h2>Create document</h2>
-            <alert></alert>
             <form>
                 <div class="row">
                     <div class="col-md-8">
@@ -35,14 +33,13 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
+                        <hr>
+                        <alert></alert>
                         <button type="submit"
-                                class="btn btn-default"
+                                class="btn btn-primary"
                                 (click)="createDocument(document_title, document_body)">
-                                Submit</button>
+                                Save</button> 
+                        <button class="btn btn-default" (click)="goBack()">Back</button>
                     </div>
                 </div>
             </form>
