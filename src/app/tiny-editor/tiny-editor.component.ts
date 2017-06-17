@@ -10,8 +10,6 @@ import {
 
 import {forwardRef} from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-
-
 import 'tinymce';
 import 'tinymce/themes/modern';
 import 'tinymce/plugins/table';

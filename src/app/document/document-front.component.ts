@@ -4,6 +4,7 @@ import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
 import {DocumentService} from './document.service';
+import {SafeHtmlPipe} from '../services/safe.html.pipe';
 
 @Component({
     selector: 'app-front-document',
@@ -27,4 +28,3 @@ export class DocumentFrontComponent implements OnInit {
     }
 
 }
-

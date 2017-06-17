@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div *ngIf="document">
                 <h1>{{document.title}}</h1>
-                <p>{{document.body}}</p>
+                <div [innerHTML]="document.body | safeHtml"></div>
             </div>
         </div>
     </div>

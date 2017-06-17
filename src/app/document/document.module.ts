@@ -13,6 +13,8 @@ import {DocumentService} from './document.service';
 
 import {DocumentRoutingModule} from './document-routing.module';
 
+import {SafeHtmlPipe} from '../services/safe.html.pipe';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -26,7 +28,8 @@ import {DocumentRoutingModule} from './document-routing.module';
         DocumentComponent,
         DocumentEditComponent,
         DocumentCreateComponent,
-        DocumentFrontComponent
+        DocumentFrontComponent,
+        SafeHtmlPipe
     ],
     providers: [
         DocumentService
