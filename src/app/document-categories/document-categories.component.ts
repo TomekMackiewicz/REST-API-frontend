@@ -1,32 +1,15 @@
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DocumentCategoriesService} from './document-categories.service';
 import {Observable} from 'rxjs/Rx';
 
 import {Router, ActivatedRoute} from '@angular/router';
-import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
-
-const fadeIn = [
-    query(':leave', style({ position: 'absolute', left: 0, right: 0, opacity: 1 })),
-    query(':enter', style({ position: 'absolute', left: 0, right: 0, opacity: 0 })),
-    group([
-        query(':leave',
-            animate('.3s', style({ opacity: 0 }))),
-        query(':enter',
-            animate('.3s .3s', style({ opacity: 1 })))
-    ])
-];
 
 @Component({
     selector: 'app-document-categories',
     templateUrl: './document-categories.component.html',
-    styleUrls: ['./document-categories.component.css'],
-    encapsulation: ViewEncapsulation.None,
-    animations: [
-        trigger('routerAnimations', [
-            transition('* => *', fadeIn)
-        ])
-    ]    
+    styleUrls: ['./document-categories.component.css'],   
 })
+
 export class DocumentCategoriesComponent implements OnInit {
 
     public categories;
@@ -35,11 +18,6 @@ export class DocumentCategoriesComponent implements OnInit {
 
     ngOnInit() {
         this.getCategories();
-    }
-
-    prepareRouteTransition(outlet) {
-        const animation = outlet.activatedRouteData['animation'] || {};
-        return animation['value'] || null;
     }
 
     getCategories() {

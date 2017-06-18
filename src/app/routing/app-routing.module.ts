@@ -11,15 +11,30 @@ import {FooterComponent} from '../footer/footer.component';
 
 const routes: Routes = [
     {path: 'login', 
-        component: LoginComponent        
+        component: LoginComponent,
+        data: {
+            animation: {
+                value: 'login',
+            }
+        }                
     },
     {path: 'logout', 
-        component: LogoutComponent
+        component: LogoutComponent,
+        data: {
+            animation: {
+                value: 'logout',
+            }
+        }         
     },
     {path: 'admin', 
         children: [
             {path: 'dashboard', component: DashboardComponent},
-        ], 
+        ],
+        data: {
+            animation: {
+                value: 'admin',
+            }
+        },          
         canActivate: [AuthGuard]        
     },
     {path: '', 

@@ -50,6 +50,7 @@ export class AppComponent implements OnDestroy {
 
     prepareRouteTransition(outlet) {
         const animation = outlet.activatedRouteData['animation'] || {};
+        console.log(animation['value']);
         return animation['value'] || null;
     }
 
