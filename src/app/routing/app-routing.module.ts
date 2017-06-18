@@ -10,50 +10,32 @@ import {MenuComponent} from '../menu/menu.component';
 import {FooterComponent} from '../footer/footer.component';
 
 const routes: Routes = [
-//    {
-//        path: 'login', 
-//            component: LoginComponent        
-//    },
-//    {
-//        path: 'logout', 
-//            component: LogoutComponent
-//    },
-//    {
-//        path: 'admin', 
-//            children: [
-//                {path: 'dashboard', component: DashboardComponent},
-//            ], 
-//            canActivate: [AuthGuard],
-//            data: {
-//                animation: {
-//                    value: '*',
-//                }
-//            }        
-//    },
-    {
-        path: '', 
-            children:[
-                {path: 'login', component: LoginComponent},
-                {path: 'logout', component: LogoutComponent},
-                {path: 'admin', 
-                    children: [
-                        {path: 'dashboard', component: DashboardComponent},
-                    ], 
-                    canActivate: [AuthGuard]
-                },                                            
-                {path: '', component: FrontComponent},
-                {path: '', component: MenuComponent, outlet: 'header'},
-                {path: '', component: FooterComponent, outlet: 'footer'}
-            ],
-            data: {
-                animation: {
-                    value: '*',
-                }
-            }    
+    {path: 'login', 
+        component: LoginComponent        
     },
-    {
-        path: '**', 
-            component: PageNotFoundComponent
+    {path: 'logout', 
+        component: LogoutComponent
+    },
+    {path: 'admin', 
+        children: [
+            {path: 'dashboard', component: DashboardComponent},
+        ], 
+        canActivate: [AuthGuard]        
+    },
+    {path: '', 
+        children:[
+            {path: '', component: FrontComponent},
+            {path: '', component: MenuComponent, outlet: 'header'},
+            {path: '', component: FooterComponent, outlet: 'footer'},                
+        ],
+        data: {
+            animation: {
+                value: 'home',
+            }
+        }    
+    },
+    {path: '**', 
+        component: PageNotFoundComponent
     }
 ];
 

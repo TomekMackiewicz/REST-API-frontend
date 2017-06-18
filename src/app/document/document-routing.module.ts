@@ -10,19 +10,31 @@ import {MenuComponent} from '../menu/menu.component';
 import {FooterComponent} from '../footer/footer.component';
 
 const documentRoutes: Routes = [
-    {
-        path: 'admin', children: [
+    {path: 'admin', 
+        children: [
             {path: 'documents/:id', component: DocumentEditComponent},
             {path: 'document/create', component: DocumentCreateComponent},
             {path: 'documents', component: DocumentComponent},
-        ], canActivate: [AuthGuard]
+        ], 
+        data: {
+            animation: {
+                value: 'doc-admin',
+            }
+        },
+        canActivate: [AuthGuard] 
     },
-    {
-        path: 'documents/:document', children: [
+    {path: 'documents/:document', 
+        children: [
             {path: '' , component: DocumentFrontComponent},
             {path: '' , component: MenuComponent, outlet: 'header'},
             {path: '' , component: FooterComponent, outlet: 'footer'}        
-    ]}
+        ],
+        data: {
+            animation: {
+                value: 'doc-front',
+            }
+        }     
+    }
 ];
 
 @NgModule({

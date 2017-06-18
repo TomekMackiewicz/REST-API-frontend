@@ -1,10 +1,29 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {DocumentService} from './document.service';
 import {Observable} from 'rxjs/Rx';
+import {Router, ActivatedRoute} from '@angular/router';
+import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
+
+const fadeIn = [
+    query(':leave', style({ position: 'absolute', left: 0, right: 0, opacity: 1 })),
+    query(':enter', style({ position: 'absolute', left: 0, right: 0, opacity: 0 })),
+    group([
+        query(':leave',
+            animate('.6s', style({ opacity: 0 }))),
+        query(':enter',
+            animate('.6s .6s', style({ opacity: 1 })))
+    ])
+];
 
 @Component({
     selector: 'app-document',
-    templateUrl: './document.component.html'
+    templateUrl: './document.component.html',
+    encapsulation: ViewEncapsulation.None,
+    animations: [
+        trigger('routerAnimations', [
+            transition('* => *', fadeIn)
+        ])
+    ]    
 })
 export class DocumentComponent {
 
@@ -16,6 +35,11 @@ export class DocumentComponent {
     ngOnInit() {
         this.getDocuments();
         this.getCategories();
+    }
+
+    prepareRouteTransition(outlet) {
+        const animation = outlet.activatedRouteData['animation'] || {};
+        return animation['value'] || null;
     }
 
     getDocuments() {
