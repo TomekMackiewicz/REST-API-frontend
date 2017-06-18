@@ -11,18 +11,27 @@ import {FooterComponent} from '../footer/footer.component';
 
 const categoriesRoutes: Routes = [
     {
-        path: 'admin', children: [
-            {path: 'categories', component: DocumentCategoriesComponent},
-            {path: 'categories/:id', component: DocumentCategoriesEditComponent},
-            {path: 'category/create', component: DocumentCategoriesCreateComponent},
-        ], canActivate: [AuthGuard]
+        path: 'admin', 
+            children: [
+                {path: 'categories', component: DocumentCategoriesComponent},
+                {path: 'categories/:id', component: DocumentCategoriesEditComponent},
+                {path: 'category/create', component: DocumentCategoriesCreateComponent},
+            ], 
+            canActivate: [AuthGuard]
     },
     {
-        path: 'categories/:category', children: [
-            {path: '' , component: DocumentCategoriesFrontComponent},
-            {path: '' , component: MenuComponent, outlet: 'header'},
-            {path: '' , component: FooterComponent, outlet: 'footer'}        
-    ]}    
+        path: 'categories/:category', 
+            children: [
+                {path: '' , component: DocumentCategoriesFrontComponent},
+                {path: '' , component: MenuComponent, outlet: 'header'},
+                {path: '' , component: FooterComponent, outlet: 'footer'}        
+            ],
+//            data: {
+//                animation: {
+//                    value: '*',
+//                }
+//            }            
+    }    
 ];
 
 @NgModule({

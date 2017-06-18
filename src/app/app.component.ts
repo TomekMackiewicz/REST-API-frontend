@@ -1,13 +1,31 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, ViewEncapsulation, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {AuthenticationService} from './services/authentication.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Location} from '@angular/common';
 import {Router, ActivatedRoute} from '@angular/router';
+import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
+
+const fadeIn = [
+    query(':leave', style({ position: 'absolute', left: 0, right: 0, opacity: 1 })),
+    query(':enter', style({ position: 'absolute', left: 0, right: 0, opacity: 0 })),
+    group([
+        query(':leave',
+            animate('.5s', style({ opacity: 0 }))),
+        query(':enter',
+            animate('.5s .5s', style({ opacity: 1 })))
+    ])
+];
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
+    encapsulation: ViewEncapsulation.None,
+    animations: [
+        trigger('routerAnimations', [
+            transition('* => *', fadeIn)
+        ])
+    ]            
 })
 
 export class AppComponent implements OnDestroy {
@@ -29,6 +47,11 @@ export class AppComponent implements OnDestroy {
     }
 
     ngOnInit() {}
+
+    prepareRouteTransition(outlet) {
+        const animation = outlet.activatedRouteData['animation'] || {};
+        return animation['value'] || null;
+    }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();

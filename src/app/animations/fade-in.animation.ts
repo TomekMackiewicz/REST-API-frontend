@@ -12,6 +12,12 @@ export const fadeInAnimation =
             style({ opacity: 0 }),
 
             // animation and styles at end of transition
-            animate('.3s', style({ opacity: 1 }))
+            animate('5s', style({ opacity: 1 }))
         ]),
-]);
+    ]);
+
+//    trigger('fadeInAnimation', [
+//        state('hidden' , style({ opacity: 0 })),
+//        state('show', style({ opacity: 1 })),
+//        transition('hidden => shown', animate('900ms')),
+//    ]);

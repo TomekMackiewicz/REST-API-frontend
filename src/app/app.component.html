@@ -76,7 +76,6 @@
                 <li><a class="btn btn-default">{{ 'DOCUMENTS' | translate }}</a></li>
                 <li><a class="btn btn-default"><i class="ion-ios-telephone-outline"></i> 500-000-000</a></li>
                 <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
-                <li><a class="btn btn-default" (click)="showLocation()">Location</a></li>
                 <label>
                     {{ 'HOME.SELECT' | translate }}
                     <select #langSelect (change)="translate.use(langSelect.value)">
@@ -88,5 +87,7 @@
     </div><!-- /.container-fluid -->
 </nav>
 <router-outlet name="header"></router-outlet>
-<router-outlet></router-outlet>
+<div [@routerAnimations]="prepareRouteTransition(outlet)">    
+    <router-outlet #outlet="outlet"></router-outlet>    
+</div>
 <router-outlet name="footer"></router-outlet>
