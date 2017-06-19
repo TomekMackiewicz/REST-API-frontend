@@ -12,11 +12,11 @@ import {DocumentCategoriesModule} from './document-categories/document-categorie
 
 import {AppComponent} from './app.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {FrontComponent} from './components/front/front.component';
+import {FrontComponent} from './front/front.component';
 import {MenuComponent} from './menu/menu.component';
 import {FooterComponent} from './footer/footer.component';
-import {LoginComponent} from './components/login/login.component';
-import {LogoutComponent} from './components/logout/logout.component';
+import {LoginComponent} from './login/login.component';
+import {LogoutComponent} from './logout/logout.component';
 import {PageNotFoundComponent} from './404/page-not-found.component';
 
 import {AuthGuard} from './guards/auth.guard';

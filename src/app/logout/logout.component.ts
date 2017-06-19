@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 
-import {AuthenticationService} from '../../services/authentication.service';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
     //moduleId: module.id,
