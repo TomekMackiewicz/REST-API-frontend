@@ -56,58 +56,60 @@ export class TinyEditorComponent implements AfterViewInit, OnDestroy, ControlVal
     private onChangeCallback: (_: any) => void = noop;
 
     ngAfterViewInit() {
-        tinymce.init({
-            selector: '#' + this.elementId,
-            file_picker_callback: function(callback, value, meta) {
-                // Provide file and text for the link dialog
-                if (meta.filetype == 'file') {
-                    callback('mypage.html', {text: 'My text'});
-                }
-                // Provide image and alt text for the image dialog
-                if (meta.filetype == 'image') {
-                    callback('myimage.jpg', {alt: 'My alt text'});
-                }
-                // Provide alternative source and posted for the media dialog
-                if (meta.filetype == 'media') {
-                    callback('movie.mp4', {source2: 'alt.ogg', poster: 'image.jpg'});
-                }
-            },
-            file_picker_types: 'file image media',
-            //images_upload_url: 'postAcceptor.php',
-            automatic_uploads: true,
-            menubar: true,
-            height: '480',
-            plugins: ['link', 'table', 'image', 'lists', 'advlist', 'anchor', 'code', 'media', 'paste'],
-            toolbar1: 'bold italic indent outdent table | link | lists advlist | code | image media',
-            //toolbar2: 'table lists advlist',
-            skin_url: '/assets/skins/lightgray',
-            setup: editor => {
-                this.editor = editor;
-                editor.on('keyup', (e) => {
-                    const content = editor.getContent();
-                    this.onEditorKeyup.emit(content);
-                    this.value = content;
+        this.ngZone.runOutsideAngular(() => {
+            tinymce.init({
+                selector: '#' + this.elementId,
+                file_picker_callback: function(callback, value, meta) {
+                    // Provide file and text for the link dialog
+                    if (meta.filetype == 'file') {
+                        callback('mypage.html', {text: 'My text'});
+                    }
+                    // Provide image and alt text for the image dialog
+                    if (meta.filetype == 'image') {
+                        callback('myimage.jpg', {alt: 'My alt text'});
+                    }
+                    // Provide alternative source and posted for the media dialog
+                    if (meta.filetype == 'media') {
+                        callback('movie.mp4', {source2: 'alt.ogg', poster: 'image.jpg'});
+                    }
+                },
+                file_picker_types: 'file image media',
+                //images_upload_url: 'postAcceptor.php',
+                automatic_uploads: true,
+                menubar: true,
+                height: '480',
+                plugins: ['link', 'table', 'image', 'lists', 'advlist', 'anchor', 'code', 'media', 'paste'],
+                toolbar1: 'bold italic indent outdent table | link | lists advlist | code | image media',
+                //toolbar2: 'table lists advlist',
+                skin_url: '/assets/skins/lightgray',
+                setup: editor => {
+                    this.editor = editor;
+                    editor.on('keyup', (e) => {
+                        const content = editor.getContent();
+                        this.onEditorKeyup.emit(content);
+                        this.value = content;
 
-                    //
-                    // This tells ng to update the model (div in main area) with new HTML in editor pane
-                    // See:  https://community.tinymce.com/communityQuestion?id=90661000000IetUAAS
-                    // and:  https://blog.thoughtram.io/angular/2016/02/01/zones-in-angular-2.html
-                    //
-                    this.ngZone.run(() => {});
-                });
+                        //
+                        // This tells ng to update the model (div in main area) with new HTML in editor pane
+                        // See:  https://community.tinymce.com/communityQuestion?id=90661000000IetUAAS
+                        // and:  https://blog.thoughtram.io/angular/2016/02/01/zones-in-angular-2.html
+                        //
+                        //this.ngZone.run(() => {});
+                    });
 
-                // This fires when operator clicks toolbar button, e.g. Bold, Italics, Indent, etc.
-                editor.on('ExecCommand', (e) => {
-                    const content = editor.getContent();
-                    this.value = content;
-                });
+                    // This fires when operator clicks toolbar button, e.g. Bold, Italics, Indent, etc.
+                    editor.on('ExecCommand', (e) => {
+                        const content = editor.getContent();
+                        this.value = content;
+                    });
 
-                editor.on('NodeChange', (e) => {
-                    const content = editor.getContent();
-                    this.value = content;
-                });
-            }
-        });
+                    editor.on('NodeChange', (e) => {
+                        const content = editor.getContent();
+                        this.value = content;
+                    });
+                }
+            });
+        })
     }
 
     /**
