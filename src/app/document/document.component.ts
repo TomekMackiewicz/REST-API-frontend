@@ -1,14 +1,14 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DocumentService} from './document.service';
 import {Observable} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-document',
-    templateUrl: './document.component.html',   
+    templateUrl: './document.component.html',
 })
 
-export class DocumentComponent {
+export class DocumentComponent implements OnInit {
 
     public documents: any;
     public categories: any;

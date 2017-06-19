@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
@@ -11,10 +11,10 @@ import {slideInOutAnimation} from '../animations/index';
     selector: 'document-create',
     templateUrl: './document-create.component.html',
     animations: [slideInOutAnimation],
-    host: { '[@slideInOutAnimation]': '' }     
+    host: {'[@slideInOutAnimation]': ''}
 })
 
-export class DocumentCreateComponent {
+export class DocumentCreateComponent implements OnInit {
 
     public document: any;
     public categories: any;
@@ -54,8 +54,6 @@ export class DocumentCreateComponent {
 
     createDocument(title: string, body: string) {
         let document = {title: title, body: body, categories: this.categoriesArray};
-        //console.log(document);
-
         this.documentService.createDocument(document).subscribe(
             data => {
                 this.alertService.success('Document created.');
