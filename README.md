@@ -1,4 +1,5 @@
-
+<strong>TODO</strong><br>
+Keep Safe HTML Pipe?<br>
 
 <strong>Truncate Pipe Usage:</strong><br>
 {{ name }}<br>
