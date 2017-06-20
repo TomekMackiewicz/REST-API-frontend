@@ -3,7 +3,8 @@
         <div class="col-md-12">
             <div *ngIf="document">
                 <h1>{{document.title}}</h1>
-                <div [innerHTML]="document.body | safeHtml"></div>
+                <!-- Why I don't need safe html pipe anymore? !-->
+                <div [innerHTML]="document.body | truncate : 200"></div>
             </div>
         </div>
     </div>
