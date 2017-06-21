@@ -6,12 +6,12 @@ body {
     font-family: 'Open Sans', sans-serif;
     //min-height: 100vh;
     //position: relative;
-    //margin: 0;  
+    //margin: 0;
 }
 
 footer {
-  //position: absolute;
-  //bottom: 0;
+    //position: absolute;
+    //bottom: 0;
 }
 
 code,
@@ -90,7 +90,7 @@ pre,
     //padding-top: 15px;
     //padding-bottom: 15px;
     margin: 7px 15px 0 0;
-    padding: 2px 16px !important;    
+    padding: 2px 16px !important;
 }
 
 #payu-payment-form button[type=submit] {

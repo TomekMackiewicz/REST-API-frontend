@@ -30,58 +30,47 @@ export class DocumentFrontComponent implements OnInit {
             .subscribe(category => this.document = category);
     }
 
-    //    processTransaction() {
-    //        let orderNo = 1;
-    //        let headers = new Headers({
-    //            'Content-Type': 'application/json',
-    //            'Authorization': 'Bearer d9a4536e-62ba-4f60-8017-6053211d3f47'
-    //        });
-    //        let order = {
-    //            continueUrl: 'http://localhost:8000/payu/success/1234',
-    //            currencyCode: 'PLN',
-    //            customerIp: '127.0.0.1',
-    //            description: 'Document',
-    //            merchantPosId: '300746',
-    //            notifyUrl: 'http://localhost:8000/payu/notify',
-    //            product: 'Dokument',
-    //            totalAmount: '1000',
-    //            'OpenPayu-Signature': 'sender=145227;algorithm=SHA-256;signature=bc94a8026d6032b5e216be112a5fb7544e66e23e68d44b4283ff495bdb3983a8'
-    //        };
-    //        this.documentService.processTransaction(order).subscribe(
-    //            data => {
-    //                //this.alertService.success('Document created.');
-    //                return true;
-    //            },
-    //            error => {
-    //                //this.alertService.error("Error saving document! " + error);
-    //                return Observable.throw(error);
-    //            }
-    //        );
-    //    }
-
-    //    processTransaction() {
-    //        //window.location.href='http://www.cnn.com/';
-    //        let orderNo = 1;
-    //        let headers = new Headers({
-    //            'Content-Type': 'application/json',
-    //            'Authorization': 'Bearer d9a4536e-62ba-4f60-8017-6053211d3f47'
-    //        });
-    //        let body = {
-    //            continueUrl: 'http://localhost:8000/payu/success/1234',
-    //            currencyCode: 'PLN',
-    //            customerIp: '127.0.0.1',
-    //            description: 'Document',
-    //            merchantPosId: '300746',
-    //            notifyUrl: 'http://localhost:8000/payu/notify',
-    //            product: 'Dokument',
-    //            totalAmount: '1000',
-    //            'OpenPayu-Signature': 'sender=145227;algorithm=SHA-256;signature=bc94a8026d6032b5e216be112a5fb7544e66e23e68d44b4283ff495bdb3983a8'
-    //        };
-    //        console.log(headers);
-    //        return this.http.post('http://localhost:8000/order/pay' + orderNo, body);
-    //        //return this.http.post('https://secure.snd.payu.com/api/v2_1/orders', body, headers);
-    //
-    //
-    //    }
+    processTransaction() {
+        let body = {
+            "notifyUrl": "https://your.eshop.com/notify",
+            "customerIp": "127.0.0.1",
+            "merchantPosId": "300746",
+            "description": "RTV market",
+            "currencyCode": "PLN",
+            "totalAmount": "21000",
+            "buyer": {
+                "email": "john.doe@example.com",
+                "phone": "654111654",
+                "firstName": "John",
+                "lastName": "Doe",
+                "language": "pl"
+            },
+            "settings": {
+                "invoiceDisabled": "true"
+            },
+            "products": [
+                {
+                    "name": "Wireless Mouse for Laptop",
+                    "unitPrice": "15000",
+                    "quantity": "1"
+                },
+                {
+                    "name": "HDMI cable",
+                    "unitPrice": "6000",
+                    "quantity": "1"
+                }
+            ]
+        };
+        this.documentService.processTransaction(body).subscribe(
+            data => {
+                //this.alertService.success('Document created.');
+                return true;
+            },
+            error => {
+                //this.alertService.error("Error saving document! " + error);
+                return Observable.throw(error);
+            }
+        );
+    }
 
 }
