@@ -92,3 +92,12 @@ pre,
     margin: 7px 15px 0 0;
     padding: 2px 16px !important;    
 }
+
+#payu-payment-form button[type=submit] {
+    border: 0px;
+    height: 50px;
+    width: 300px;
+    background: url('http://static.payu.com/pl/standard/partners/buttons/payu_account_button_long_03.png');
+    background-repeat: no-repeat;
+    cursor: pointer;
+}

@@ -2,14 +2,10 @@ import {Component} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AlertService} from '../alert/alert.service';
 import {AuthenticationService} from '../services/authentication.service';
-//import {fadeInAnimation} from '../animations/index';
 
 @Component({
-    //moduleId: module.id,
     selector: 'my-login',
-    templateUrl: './login.component.html',   
-    //animations: [fadeInAnimation],
-    //host: { '[@fadeInAnimation]': '' }    
+    templateUrl: './login.component.html',       
 })
 
 export class LoginComponent {
@@ -21,8 +17,7 @@ export class LoginComponent {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) {
-    }
+        private alertService: AlertService) {}
 
     ngOnInit() {
         // reset login status
