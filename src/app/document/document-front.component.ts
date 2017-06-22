@@ -7,6 +7,7 @@ import {DocumentService} from './document.service';
 //import {SafeHtmlPipe} from '../pipes/safe.html.pipe';
 import {TruncatePipe} from '../pipes/truncate.pipe';
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
+import {saveAs as importedSaveAs} from "file-saver";
 
 @Component({
     selector: 'app-front-document',
@@ -28,6 +29,13 @@ export class DocumentFrontComponent implements OnInit {
         this.route.params
             .switchMap((params: Params) => this.documentService.getDocument(+params['document']))
             .subscribe(category => this.document = category);
+    }
+
+    downloadFile(id: number, title: string) {
+        this.documentService.downloadFile(id).subscribe(blob => {
+            importedSaveAs(blob, title);
+            }
+        )
     }
 
     processTransaction() {

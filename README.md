@@ -1,5 +1,6 @@
 <strong>TODO</strong><br>
-Keep Safe HTML Pipe?<br>
+- Keep Safe HTML Pipe?<br>
+- Document first time not loaded issue<br>
 
 <strong>Truncate Pipe Usage:</strong><br>
 {{ name }}<br>

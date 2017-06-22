@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from "@angular/http";
+import {Http, Response, Headers, RequestOptions, ResponseContentType} from "@angular/http";
 import {Observable} from 'rxjs/Rx';
 
 @Injectable()
@@ -28,6 +28,13 @@ export class DocumentService {
         return this.http.post
             ('http://localhost:8000/documents', body, headers);
         //.map((res:Response) => res.json());
+    }
+
+    downloadFile(id: number): Observable<Blob> {
+        let options = new RequestOptions({responseType: ResponseContentType.Blob });
+        return this.http.get('http://localhost:8000/documents/' + id, options)
+            .map(res => res.blob())
+            //.catch(this.handleError)
     }
 
     processTransaction(body) {
