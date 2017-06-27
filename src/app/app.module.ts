@@ -9,6 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AlertModule} from './alert/alert'; // do wywalenia, kiedy wstawię wszędzie, login jeszcze korzysta
 import {DocumentModule} from './document/document.module';
 import {DocumentCategoriesModule} from './document-categories/document-categories';
+import {FileModule} from './file/file.module';
 
 import {AppComponent} from './app.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
@@ -40,6 +41,7 @@ export function HttpLoaderFactory(http: Http) {
         AlertModule,
         DocumentModule,
         DocumentCategoriesModule,
+        FileModule,
         AppRoutingModule,
             TranslateModule.forRoot({
                 loader: {
