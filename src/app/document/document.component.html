@@ -8,11 +8,11 @@
                 <thead>
                     <tr>
                         <th><mfDefaultSorter by="title">Title</mfDefaultSorter></th>
-                <th>Categories</th>
-                <th><mfDefaultSorter by="added">Added</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="modified">Modified</mfDefaultSorter></th>
-                <th>Actions</th>
-                </tr>
+                        <th>Categories</th>
+                        <th><mfDefaultSorter by="added">Added</mfDefaultSorter></th>
+                        <th><mfDefaultSorter by="modified">Modified</mfDefaultSorter></th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let document of mf.data">
@@ -29,9 +29,9 @@
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-                </td>
-                </tr>
+                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                        </td>
+                    </tr>
                 </tfoot>
             </table>
         </div>

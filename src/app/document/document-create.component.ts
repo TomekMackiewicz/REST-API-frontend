@@ -15,7 +15,7 @@ import {slideInOutAnimation} from '../animations/index';
 })
 
 export class DocumentCreateComponent implements OnInit {
-
+    
     public document: any;
     public categories: any;
     public categoriesArray: Array<{id: number, name: string}> = [];
