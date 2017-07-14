@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FileAddComponent } from './file-add.component';
 import { FileRoutingModule } from './file-routing.module';
+import {AlertModule} from '../alert/alert';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { FileRoutingModule } from './file-routing.module';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    FileRoutingModule
+    FileRoutingModule,
+    AlertModule
   ],
   declarations: [ FileAddComponent ],
   providers: [],

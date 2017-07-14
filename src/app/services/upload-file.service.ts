@@ -10,7 +10,7 @@ export class UploadFileService {
     
     constructor(private http: Http) {}
     
-    public uploadImage(formData: any) {
+    public uploadFile(formData: any) {
         let url: string = 'http://localhost:8000/files?uploadType=formData';
         return this.http.post(url, formData)
         .catch(this.errorHandler);
