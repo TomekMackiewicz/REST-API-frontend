@@ -16,11 +16,8 @@ export class FileAddComponent {
     
     private maxUploadSize: number = 1000000;
     public files: any;
-    //public filesGrouped:Array<string> = [];
-
-  temp = Array;
-  math = Math;
-  arr= [1,2,3,4,5,6,7,8,9,10,11];    
+    temp = Array;
+    math = Math;    
         
     constructor(
         private fileUploader: UploadFileService,
@@ -31,16 +28,8 @@ export class FileAddComponent {
     ) {}
 
     ngOnInit(): void {
-        this.loadFiles();
-        //this.groupFiles();    
-    }    
-
-//    groupFiles() {
-//      for(let i = 1; i < 100; i = i + 4) {
-//        let group = this.files.slice(i, i + 4);
-//        this.filesGrouped.push(group);
-//      }
-//    }    
+        this.loadFiles();    
+    }       
 
     private loadFiles(): void {
         this.route.params
@@ -83,7 +72,23 @@ export class FileAddComponent {
         }
    
     }    
-        
+
+    deleteFile(file: any) {
+        if (confirm("Are you sure you want to delete " + file + "?")) {
+            this.crudService.deleteFile(file).subscribe(
+                data => {
+                    this.loadFiles();
+                    this.alertService.success('File deleted.');
+                    return true;
+                },
+                error => {
+                    this.alertService.error("Error deleting file! " + error);
+                    return Observable.throw(error);
+                }
+            );
+        }
+    }    
+                
     private maxSize(size) {
         if (size > this.maxUploadSize) {
             return false;

@@ -25,4 +25,9 @@ export class CrudService {
             .map((res: Response) => res.json());
     }
 
+    deleteFile(file: any) {
+        return this.http.delete
+            ('http://localhost:8000/files/' + file);
+    }
+
 }

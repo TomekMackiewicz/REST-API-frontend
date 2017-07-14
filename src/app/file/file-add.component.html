@@ -3,14 +3,19 @@
         <div class="col-md-12">
             <form>
                 <div class="form-group">
-                    <input type="file" id="file" name="file" class="btn btn-default">
+                    <input type="file" id="file" name="file" class="btn btn-default pull-left">
                     <input type="button" class="btn btn-primary" (click)="uploadFile()" value="Upload File">
                 </div>
             </form>
             <alert></alert>
             <div *ngFor="let t of temp(math.ceil(files.length/4)).fill(); let i = index" class="row">
                 <div *ngFor="let file of files.slice(4*i,4*i + 4);" class="col-md-3">
-                    <img src="http://localhost:8000/uploads/{{file}}" class="img-responsive img-thumbnail">
+                    <figure>
+                        <img src="http://localhost:8000/uploads/{{file}}" class="img-responsive img-thumbnail">
+                        <figcaption>{{file}}</figcaption>
+                        <button class="btn btn-default btn-small">Open</button>
+                        <button (click)="deleteFile(file)" class="btn btn-danger btn-small">Delete</button>
+                    </figure>
                 </div>
             </div>
         </div>
