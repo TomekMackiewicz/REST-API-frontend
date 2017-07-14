@@ -25,6 +25,17 @@ export class CrudService {
             .map((res: Response) => res.json());
     }
 
+    renameFile(oldName: string, newName: string) {
+        //console.log(oldName);
+        //console.log(newName);        
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        let body = newName;
+
+        return this.http.put
+            ('http://localhost:8000/files/' + options, body, oldName);
+    }
+
     deleteFile(file: any) {
         return this.http.delete
             ('http://localhost:8000/files/' + file);

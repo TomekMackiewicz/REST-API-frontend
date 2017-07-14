@@ -17,7 +17,8 @@ export class FileAddComponent {
     private maxUploadSize: number = 1000000;
     public files: any;
     temp = Array;
-    math = Math;    
+    math = Math; 
+    testName = 'dupa.jpeg';   
         
     constructor(
         private fileUploader: UploadFileService,
@@ -72,6 +73,19 @@ export class FileAddComponent {
         }
    
     }    
+
+    renameFile(oldName: string, newName: string) {
+        this.crudService.renameFile(oldName, newName).subscribe(
+            data => {
+                this.alertService.success('File renamed.');
+                return true;
+            },
+            error => {
+                this.alertService.error("Error renaming file! " + error);
+                return Observable.throw(error);
+            }
+        );
+    }
 
     deleteFile(file: any) {
         if (confirm("Are you sure you want to delete " + file + "?")) {

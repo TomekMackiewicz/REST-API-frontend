@@ -13,8 +13,9 @@
                     <figure>
                         <img src="http://localhost:8000/uploads/{{file}}" class="img-responsive img-thumbnail">
                         <figcaption>{{file}}</figcaption>
-                        <button class="btn btn-default btn-small">Open</button>
-                        <button (click)="deleteFile(file)" class="btn btn-danger btn-small">Delete</button>
+                        <button class="btn btn-default btn-sm">Open</button>
+                        <button (click)="renameFile(file, testName)" class="btn btn-default btn-sm">Rename</button>
+                        <button (click)="deleteFile(file)" class="btn btn-danger btn-sm">Delete</button>
                     </figure>
                 </div>
             </div>
