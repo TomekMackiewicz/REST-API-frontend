@@ -1,12 +1,18 @@
 <div class="container">
-    <form>
-        <div class="form-group">
-            <input type="file" id="file" name="file" class="btn btn-default">
-            <input type="button" class="btn btn-primary" (click)="uploadFile()" value="Upload File">
+    <div class="row">
+        <div class="col-md-12">
+            <form>
+                <div class="form-group">
+                    <input type="file" id="file" name="file" class="btn btn-default">
+                    <input type="button" class="btn btn-primary" (click)="uploadFile()" value="Upload File">
+                </div>
+            </form>
+            <alert></alert>
+            <div *ngFor="let t of temp(math.ceil(files.length/4)).fill(); let i = index" class="row">
+                <div *ngFor="let file of files.slice(4*i,4*i + 4);" class="col-md-3">
+                    <img src="http://localhost:8000/uploads/{{file}}" class="img-responsive img-thumbnail">
+                </div>
+            </div>
         </div>
-    </form>
-    <alert></alert>
-    <div *ngFor="let file of files">
-        <img src="http://localhost:8000/uploads/{{file}}">
     </div>    
 </div>

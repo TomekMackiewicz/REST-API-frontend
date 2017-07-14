@@ -21,6 +21,7 @@ export class UploadFileService {
         return Observable.throw(error || 'Server error occured.');
     }
     
+    // remove? Tę funkcję dodałem do CrudService
     public getFilesList() {
         let url: string = 'http://get-files';
         return this.http.get(url)

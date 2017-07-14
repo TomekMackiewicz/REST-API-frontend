@@ -16,7 +16,12 @@ export class FileAddComponent {
     
     private maxUploadSize: number = 1000000;
     public files: any;
-    
+    //public filesGrouped:Array<string> = [];
+
+  temp = Array;
+  math = Math;
+  arr= [1,2,3,4,5,6,7,8,9,10,11];    
+        
     constructor(
         private fileUploader: UploadFileService,
         private elem: ElementRef,
@@ -26,15 +31,27 @@ export class FileAddComponent {
     ) {}
 
     ngOnInit(): void {
+        this.loadFiles();
+        //this.groupFiles();    
+    }    
+
+//    groupFiles() {
+//      for(let i = 1; i < 100; i = i + 4) {
+//        let group = this.files.slice(i, i + 4);
+//        this.filesGrouped.push(group);
+//      }
+//    }    
+
+    private loadFiles(): void {
         this.route.params
             .switchMap((params: Params) => this.crudService.getFiles())
             .subscribe(
                 data => {this.files = data},
                 err => console.error(err),
-                () => console.log('done loading categories')            
-            );
-    }    
-        
+                () => console.log('Done loading files.')            
+        );        
+    }
+                
     public uploadFile(): void {
         let files = this.elem.nativeElement.querySelector('#file').files;
         let file = files[0];        
@@ -53,7 +70,10 @@ export class FileAddComponent {
                         this.alertService.error("Error adding file! " + error);
                         return Observable.throw(error);
                     }            
-                );             
+                );
+                
+            this.loadFiles();
+                             
         } else {
             this.alertService
                 .error('Max upload size is ' 
