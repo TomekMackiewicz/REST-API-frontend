@@ -1,6 +1,9 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/switchMap';
 import { UploadFileService } from '../services/upload-file.service';
+import { CrudService } from '../services/crud.service';
 import { AlertService } from '../alert/alert.service';
 
 @Component({
@@ -12,13 +15,26 @@ import { AlertService } from '../alert/alert.service';
 export class FileAddComponent {
     
     private maxUploadSize: number = 1000000;
+    public files: any;
     
     constructor(
         private fileUploader: UploadFileService,
         private elem: ElementRef,
+        private route: ActivatedRoute,
+        private crudService: CrudService,
         private alertService: AlertService
     ) {}
-    
+
+    ngOnInit(): void {
+        this.route.params
+            .switchMap((params: Params) => this.crudService.getFiles())
+            .subscribe(
+                data => {this.files = data},
+                err => console.error(err),
+                () => console.log('done loading categories')            
+            );
+    }    
+        
     public uploadFile(): void {
         let files = this.elem.nativeElement.querySelector('#file').files;
         let file = files[0];        

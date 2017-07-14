@@ -6,4 +6,7 @@
         </div>
     </form>
     <alert></alert>
+    <div *ngFor="let file of files">
+        <img src="http://localhost:8000/uploads/{{file}}">
+    </div>    
 </div>
