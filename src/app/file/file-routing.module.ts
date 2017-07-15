@@ -11,7 +11,12 @@ const fileRoutes: Routes = [
     {path: 'admin', 
         children: [
             {path: 'files/add', component: FileAddComponent},
-        ], 
+        ],
+        data: {
+            animation: {
+                value: 'file-add',
+            }
+        },         
         canActivate: [AuthGuard] 
     },
 ];

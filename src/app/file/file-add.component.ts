@@ -33,12 +33,13 @@ export class FileAddComponent {
     }       
 
     private loadFiles(): void {
+        //alert('Done loading files.');
         this.route.params
             .switchMap((params: Params) => this.crudService.getFiles())
             .subscribe(
                 data => {this.files = data},
                 err => console.error(err),
-                () => console.log('Done loading files.')            
+                () => alert('Done loading files.')            
         );        
     }
                 

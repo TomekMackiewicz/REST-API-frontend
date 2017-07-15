@@ -7,13 +7,15 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
 
 const fadeIn = [
-    query(':leave', style({position: 'absolute', left: 0, right: 0, opacity: 1})),
-    query(':enter', style({position: 'absolute', left: 0, right: 0, opacity: 0})),
+    query(':leave', style({position: 'absolute', left: 0, right: 0, opacity: 1}), { optional: true }),
+    query(':enter', style({position: 'absolute', left: 0, right: 0, opacity: 0}), { optional: true }),
     group([
         query(':leave',
-            animate('.3s', style({opacity: 0}))),
+            animate('.3s', style({opacity: 0})),
+            { optional: true }),
         query(':enter',
-            animate('.3s .3s', style({opacity: 1})))
+            animate('.3s .3s', style({opacity: 1})),
+            { optional: true })
     ])
 ];
 
