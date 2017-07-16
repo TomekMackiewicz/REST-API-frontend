@@ -60,7 +60,8 @@ export class FileAddComponent {
                     error => {
                         this.alertService.error("Error adding file! " + error);
                         return Observable.throw(error);
-                    }            
+                    },
+                    () => console.log('File uploaded.')            
                 );
                 
             this.loadFiles();

@@ -10,6 +10,7 @@ import {AlertModule} from './alert/alert'; // do wywalenia, kiedy wstawię wszę
 import {DocumentModule} from './document/document.module';
 import {DocumentCategoriesModule} from './document-categories/document-categories';
 import {FileModule} from './file/file.module';
+import {FormModule} from './form/form';
 
 import {AppComponent} from './app.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: Http) {
         DocumentModule,
         DocumentCategoriesModule,
         FileModule,
+        FormModule,
         AppRoutingModule,
             TranslateModule.forRoot({
                 loader: {

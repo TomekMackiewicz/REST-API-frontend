@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form #form="ngForm" (ngSubmit)="submitForm(form)">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="name" placeholder="Title" ngModel>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" ngModel></textarea>
+                </div>
+                <label>Questions:</label>
+                <div *ngFor="let question of questions">
+                    <div class="form-group">
+                        <input type="{{question.type}}" class="{{question.class}}" name="{{question.name}}" placeholder="{{question.placeholder}}" ngModel>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+            </form>
+            <button class="btn btn-primary" (click)="addQuestion()">Add question</button>
+        </div>
+    </div>    
+</div>
