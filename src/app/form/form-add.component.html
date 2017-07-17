@@ -14,34 +14,35 @@
             </form>
             <hr>
             <form #addFormFieldForm="ngForm" (ngSubmit)="addFormField(addFormFieldForm)">
-                <label for="message">Message</label>
-                <input type="text" class="form-control" id="message" name="name" placeholder="Message" ngModel>
+                <label for="message">Add Question</label>
+                <input type="text" class="form-control" id="message" name="name" placeholder="Question" ngModel>
                 <label for="type">Choose type</label>
                 <select name="questionType" id="type" [(ngModel)]="selectedValue">
                     <option *ngFor="let type of types" [value]="type.value">  
                     {{type.display}}
                     </option>
                 </select>
-                <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+                <button type="submit" class="btn btn-primary btn-xs" value="Submit">Submit</button>
             </form>
             <hr>
-<!--            <button class="btn btn-primary" (click)="addQuestion()">Add question</button>-->
             <label>Questions:</label>
             <hr>
             <div *ngFor="let field of formFields">
-                <form #questionForm="ngForm" (ngSubmit)="submitQuestionForm(questionForm)">
-                    <div class="form-group">
-                        <label for="{{field.id}}">{{field.label}} (type: {{field.type}})</label>
-                        <input type="{{field.type}}" 
-                               class="form-control" 
-                               name="{{field.name}}" 
-                               placeholder="{{field.placeholder}}" ngModel>
-                    </div>
-<!--                    <div class="form-group">
-                        <input type="hidden" name="questionType" [(ngModel)]="question.type">
-                    </div>-->
-<!--                    <button type="submit" class="btn btn-primary" value="Submit">Submit</button>-->
-                </form>
+                <div class="panel panel-default">
+                    <form #questionForm="ngForm" (ngSubmit)="submitQuestionForm(questionForm)">
+                        <div class="panel-heading">
+                            {{field.label}} (type: {{field.type}}, id: {{field.id}})
+                            <button class="btn btn-danger btn-xs pull-right" (click)="deleteFormField()">Delete</button>
+                        </div>
+                        <div class="panel-body">
+                            <input type="{{field.type}}" 
+                                   class="form-control" 
+                                   name="{{field.name}}" 
+                                   placeholder="{{field.placeholder}}" ngModel>
+<!--                        </div>-->
+                        </div>
+                    </form>
+                </div>
             </div>  
             
         </div>

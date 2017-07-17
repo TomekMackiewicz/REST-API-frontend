@@ -46,7 +46,8 @@ export class FormAddComponent implements OnInit {
     }
     
     private formConfig = new FormConfig(this.formOptions);
-     
+    
+    // make object 
     private options = [{
         questionId: 1010,
         name: "Exception",
@@ -55,21 +56,48 @@ export class FormAddComponent implements OnInit {
 
     ngOnInit() {}       
                 
-    addFormField(addFormFieldForm: NgForm) {                  
-        this.counter++;
+    addFormField(addFormFieldForm: NgForm) {       
+                          
         let values = addFormFieldForm.value;
+        
+        // Check if question already exists.
+        if (this.questions.some(x => x.name === values.name)) {
+            alert('This question already exists.');
+            return;
+        }         
+        
         this.formFields.push({
             label: values.name,
             type: values.questionType,
             id: 'question' + this.counter,
-            name: 'name'
+            name: 'name',
+            placeholder: values.questionType,
         });
-        //console.log(this.formFields);
+        this.counter++;
         this.addQuestion(values);
+        console.log(this.formFields);
     }       
 
-    addQuestion(values) {
+    deleteFormField() {
+        event.preventDefault();
+        //questionPanel.remove();
+        let index: number = this.formFields.indexOf(this.formFields.find(x => x.name === name));
+        this.formFields.splice(index, 1);
+        this.deleteQuestion();
+        console.log(this.formFields);        
+        //return this.formFields;              
+    }
 
+    deleteQuestion() {
+        //questionPanel.remove();
+        let index: number = this.questions.indexOf(this.questions.find(x => x.name === name));
+        this.questions.splice(index, 1);
+        console.log(this.questions);        
+        //return this.questions;              
+    }
+
+    addQuestion(values) {
+    
         switch (values.questionType) {
             case "text":
                 this.questionTypeId = 2;
@@ -115,7 +143,7 @@ export class FormAddComponent implements OnInit {
 //                "isActive": true
 //            }
 //        });
-        console.log(this.questions);
+        console.log(this.questions); 
                 
     }
 
