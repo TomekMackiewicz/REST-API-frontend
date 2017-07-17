@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <form #mainForm="ngForm" (ngSubmit)="submitMainForm(mainForm)">
                 <div class="form-group">
                     <label for="title">Title</label>
@@ -24,27 +24,73 @@
                 </select>
                 <button type="submit" class="btn btn-primary btn-xs" value="Submit">Submit</button>
             </form>
-            <hr>
+        </div>
+        <div class="col-md-6">
             <label>Questions:</label>
-            <hr>
             <div *ngFor="let field of formFields">
                 <div class="panel panel-default">
-                    <form #questionForm="ngForm" (ngSubmit)="submitQuestionForm(questionForm)">
-                        <div class="panel-heading">
-                            {{field.label}} (type: {{field.type}}, id: {{field.id}})
-                            <button class="btn btn-danger btn-xs pull-right" (click)="deleteFormField()">Delete</button>
+                    <div class="panel-heading">
+                        {{field.label}} (type: {{field.type}}, id: {{field.id}})
+                        <button class="btn btn-danger btn-xs pull-right" (click)="deleteFormField()">Delete</button>                                
+                    </div>
+                    <ng-container [ngSwitch]="true">
+                        <!-- TEXT -->
+                        <div class="panel-body" *ngSwitchCase="field.type === 'text'">
+                            <form #questionForm="ngForm" (ngSubmit)="submitQuestionForm(questionForm)">    
+                                <input type="{{field.type}}" 
+                                    class="form-control" 
+                                    name="{{field.name}}" 
+                                    placeholder="{{field.placeholder}}" ngModel>
+                            </form>
+<!--                            <form #addOptionFieldForm="ngForm" (ngSubmit)="addOptionField(addOptionFieldForm)">
+                                <label for="option">Add option</label>
+                                <input type="text" class="form-control" id="option" name="name" placeholder="Answer" ngModel>                            
+                                <label for="optionType">Add buttons</label>
+                                <select name="optionType" id="optionType" [(ngModel)]="selectedValue">
+                                    <option *ngFor="let optionType of optionTypes" [value]="optionType.value">  
+                                    {{optionType.display}}
+                                    </option>
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-xs" value="Submit">Submit</button>    
+                            </form>                            -->
                         </div>
-                        <div class="panel-body">
-                            <input type="{{field.type}}" 
-                                   class="form-control" 
-                                   name="{{field.name}}" 
-                                   placeholder="{{field.placeholder}}" ngModel>
-<!--                        </div>-->
+                        <!-- CHECKBOX -->
+                        <div class="panel-body" *ngSwitchCase="field.type === 'checkbox'">
+                            <form #addCheckboxForm="ngForm" (ngSubmit)="addCheckbox(addCheckboxForm)">
+                                <label for="option">Add checkbox</label>
+                                <input type="text" class="form-control" id="option" name="name" placeholder="Checkbox label" ngModel>
+                                <input type="hidden" name="fieldId" value="{{field.id}}" ngModel> 
+                                <button type="submit" class="btn btn-primary btn-xs" value="Submit">Add checkbox</button>    
+                            </form>                            
                         </div>
-                    </form>
+<!--                        let checkbox of THIS formField checkboxes -->
+                        <div *ngFor="let checkbox of checkboxFields"> 
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="">
+                                    {{checkbox.label}}
+                                </label>
+                            </div>                        
+                        </div>                        
+                        <!-- RADIO -->
+                        <div class="panel-body" *ngSwitchCase="field.type === 'radio'">
+                            <form #addRadioForm="ngForm" (ngSubmit)="addRadio(addRadioForm)">
+                                <label for="radio">Add radio</label>
+                                <input type="text" class="form-control" id="radio" name="name" placeholder="Checkbox label" ngModel>
+                                <button type="submit" class="btn btn-primary btn-xs" value="Submit">Add radio</button>    
+                            </form>                            
+                        </div>
+                        <div *ngFor="let radio of radioFields">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="{{radio.name}}" id="{{radio.id}}" value="option1">
+                                    {{radio.label}}
+                                </label>
+                            </div>                       
+                        </div>                        
+                    </ng-container>                    
                 </div>
             </div>  
-            
         </div>
     </div>    
 </div>

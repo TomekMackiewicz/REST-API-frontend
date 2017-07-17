@@ -6,6 +6,7 @@ import { Http } from '@angular/http';
 import { Form } from './models/form';
 import { FormConfig } from './models/form-config';
 import { Question } from './models/question';
+import { Option } from './models/option';
 
 @Component({
     selector: 'form-add',
@@ -20,15 +21,23 @@ export class FormAddComponent implements OnInit {
     private questionTypeId: number = 0;
     private questionTypeName: string = '';
     private questions = [];
+    private options = [];
     
     public types = [
         { value: 'text', display: 'Text', id: 2 },
         { value: 'radio', display: 'Radio', id: 3 },
-        { value: 'checkbox', display: 'Checkbox', id: 1 },
-        { value: 'email', display: 'Email', id: 4 }
+        { value: 'checkbox', display: 'Checkbox', id: 1 }
     ];    
-                 
-    private formFields = [];  
+
+    public optionTypes = [
+        { value: 'radio', display: 'Radio' },
+        { value: 'checkbox', display: 'Checkbox' }
+    ];    
+                     
+    private formFields = []; 
+    //private optionsFields = [];
+    private radioFields = []; // remove, after assign chb to form field
+    private checkboxFields = []; //remove, after assign radio to form field
 
     private formOptions = {
         allowBack: true,
@@ -48,20 +57,74 @@ export class FormAddComponent implements OnInit {
     private formConfig = new FormConfig(this.formOptions);
     
     // make object 
-    private options = [{
-        questionId: 1010,
-        name: "Exception",
-        isAnswer: false
-    }];
+//    private options = [{
+//        questionId: 1010,
+//        name: "Exception",
+//        isAnswer: false
+//    }];
 
     ngOnInit() {}       
-                
+
+    addCheckbox(addCheckboxForm: NgForm) {                                 
+        let values = addCheckboxForm.value;
+        console.log(values);
+        // Check if question already exists.
+        if (this.checkboxFields.some(x => x.label === values.name)) {
+            alert('This checkbox already exists.');
+            return;
+        }         
+        
+        this.checkboxFields.push({
+            label: values.name,
+            //type: values.optionType,
+            //id: 'question' + this.counter, // radio
+            //name: 'name', // radio
+        });
+        this.counter++;
+        this.addOption(values);
+        //console.log(this.checkboxFields);
+    }    
+
+    addRadio(addRadioForm: NgForm) {                                
+        let values = addRadioForm.value;
+        //console.log(values);
+        // Check if question already exists.
+        if (this.radioFields.some(x => x.label === values.name)) {
+            alert('This option already exists.');
+            return;
+        }         
+        
+        this.radioFields.push({
+            label: values.name,
+            //type: values.optionType,
+            id: 'question' + this.counter, // radio
+            name: 'name', // radio
+        });
+        this.counter++;
+        this.addOption(values);
+        //console.log(this.radioFields);
+    }
+
+    addOption(values) {
+        let data = {        
+            id: null,
+            questionId: 1,
+            name: values.name,
+            isAnswer: true                
+        };
+        let option = new Option(data);
+        this.options.push(option);        
+        //console.log(this.options);
+        this.questions[0].options.push(option);
+        console.log(this.questions);        
+    }
+                        
     addFormField(addFormFieldForm: NgForm) {       
                           
         let values = addFormFieldForm.value;
         
         // Check if question already exists.
-        if (this.questions.some(x => x.name === values.name)) {
+        if (this.formFields.some(x => x.label === values.name)) {
             alert('This question already exists.');
             return;
         }         
@@ -72,10 +135,11 @@ export class FormAddComponent implements OnInit {
             id: 'question' + this.counter,
             name: 'name',
             placeholder: values.questionType,
+            // tu dodać checkboxy, radio
         });
         this.counter++;
         this.addQuestion(values);
-        console.log(this.formFields);
+        //console.log(this.formFields);
     }       
 
     deleteFormField() {
@@ -84,16 +148,8 @@ export class FormAddComponent implements OnInit {
         let index: number = this.formFields.indexOf(this.formFields.find(x => x.name === name));
         this.formFields.splice(index, 1);
         this.deleteQuestion();
-        console.log(this.formFields);        
+        //console.log(this.formFields);        
         //return this.formFields;              
-    }
-
-    deleteQuestion() {
-        //questionPanel.remove();
-        let index: number = this.questions.indexOf(this.questions.find(x => x.name === name));
-        this.questions.splice(index, 1);
-        console.log(this.questions);        
-        //return this.questions;              
     }
 
     addQuestion(values) {
@@ -133,18 +189,17 @@ export class FormAddComponent implements OnInit {
         };
         let question = new Question(data);
         this.questions.push(question);        
-//        this.questions.push({
-//            name: values.name,
-//            questionTypeId: this.questionTypeId,
-//            options: [],
-//            questionType: {
-//                "id": this.questionTypeId,
-//                "name": this.questionTypeName,
-//                "isActive": true
-//            }
-//        });
+
         console.log(this.questions); 
                 
+    }
+
+    deleteQuestion() {
+        //questionPanel.remove();
+        let index: number = this.questions.indexOf(this.questions.find(x => x.name === name));
+        this.questions.splice(index, 1);
+        //console.log(this.questions);        
+        //return this.questions;              
     }
 
     submitMainForm(mainForm: NgForm) {
@@ -170,7 +225,8 @@ export class FormAddComponent implements OnInit {
 //                error => console.error("couldn't post because", error)
 //            );
     }    
-
+    
+    // ?
     submitQuestionForm(questionForm: NgForm) {
         let questionFormValues = questionForm.value;
 
