@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form #form="ngForm" (ngSubmit)="submitForm(form)">
+            <form #mainForm="ngForm" (ngSubmit)="submitMainForm(mainForm)">
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" name="name" placeholder="Title" ngModel>
@@ -10,15 +10,40 @@
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" name="description" rows="3" ngModel></textarea>
                 </div>
-                <label>Questions:</label>
-                <div *ngFor="let question of questions">
-                    <div class="form-group">
-                        <input type="{{question.type}}" class="{{question.class}}" name="{{question.name}}" placeholder="{{question.placeholder}}" ngModel>
-                    </div>
-                </div>
                 <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
             </form>
-            <button class="btn btn-primary" (click)="addQuestion()">Add question</button>
+            <hr>
+            <form #addFormFieldForm="ngForm" (ngSubmit)="addFormField(addFormFieldForm)">
+                <label for="message">Message</label>
+                <input type="text" class="form-control" id="message" name="name" placeholder="Message" ngModel>
+                <label for="type">Choose type</label>
+                <select name="questionType" id="type" [(ngModel)]="selectedValue">
+                    <option *ngFor="let type of types" [value]="type.value">  
+                    {{type.display}}
+                    </option>
+                </select>
+                <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+            </form>
+            <hr>
+<!--            <button class="btn btn-primary" (click)="addQuestion()">Add question</button>-->
+            <label>Questions:</label>
+            <hr>
+            <div *ngFor="let field of formFields">
+                <form #questionForm="ngForm" (ngSubmit)="submitQuestionForm(questionForm)">
+                    <div class="form-group">
+                        <label for="{{field.id}}">{{field.label}} (type: {{field.type}})</label>
+                        <input type="{{field.type}}" 
+                               class="form-control" 
+                               name="{{field.name}}" 
+                               placeholder="{{field.placeholder}}" ngModel>
+                    </div>
+<!--                    <div class="form-group">
+                        <input type="hidden" name="questionType" [(ngModel)]="question.type">
+                    </div>-->
+<!--                    <button type="submit" class="btn btn-primary" value="Submit">Submit</button>-->
+                </form>
+            </div>  
+            
         </div>
     </div>    
 </div>

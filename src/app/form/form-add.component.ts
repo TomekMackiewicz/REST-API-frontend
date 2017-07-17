@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Http } from '@angular/http';
 
+import { Form } from './models/form';
+import { FormConfig } from './models/form-config';
+import { Question } from './models/question';
+
 @Component({
     selector: 'form-add',
     templateUrl: './form-add.component.html',
@@ -13,67 +17,136 @@ import { Http } from '@angular/http';
 export class FormAddComponent implements OnInit {
 
     private counter = 1;
-        
-    private questions = [{
-        type: 'text',
-        class: 'form-control',
-        id: 'question' + this.counter,
-        name: 'question' + this.counter,
-        placeholder: 'Question1'
-    }];
+    private questionTypeId: number = 0;
+    private questionTypeName: string = '';
+    private questions = [];
     
-    private questionsSet = [{"questions": this.questions}];
-    
-    //form: FormGroup;
+    public types = [
+        { value: 'text', display: 'Text', id: 2 },
+        { value: 'radio', display: 'Radio', id: 3 },
+        { value: 'checkbox', display: 'Checkbox', id: 1 },
+        { value: 'email', display: 'Email', id: 4 }
+    ];    
+                 
+    private formFields = [];  
 
-    //constructor(private fbuilder: FormBuilder,
-    //            private http: Http) { }
-
-    ngOnInit(){
-//        this.form = this.fbuilder.group({
-//            name: '',
-//            description: ''
-//        });
-    }    
-        
-    public addQuestion() {
-        this.counter++;
-        this.questions.push({
-            type: 'text',
-            class: 'form-control',
-            id: 'question' + this.counter,
-            name: 'question' + this.counter,
-            placeholder: 'Question1'
-        });
-        //this.questions.push(this.question);
-        //console.log(this.questionsSet);
+    private formOptions = {
+        allowBack: true,
+        allowReview: true,
+        autoMove: true,  // if boolean; it will move to next question automatically when answered.
+        duration: 0,  // indicates the time in which quiz needs to be completed. 0 means unlimited.
+        pageSize: 100,
+        requiredAll: true,  // indicates if you must answer all the questions before submitting.
+        richText: true,
+        shuffleQuestions: false,
+        shuffleOptions: false,
+        showClock: false,
+        showPager: true,
+        theme: ''
     }
     
-//    public submitForm() {
-//        let formData = new FormData();
-//        console.log(formData);
-//    }        
+    private formConfig = new FormConfig(this.formOptions);
+     
+    private options = [{
+        questionId: 1010,
+        name: "Exception",
+        isAnswer: false
+    }];
 
-    submitForm(form: NgForm) {
+    ngOnInit() {}       
+                
+    addFormField(addFormFieldForm: NgForm) {                  
+        this.counter++;
+        let values = addFormFieldForm.value;
+        this.formFields.push({
+            label: values.name,
+            type: values.questionType,
+            id: 'question' + this.counter,
+            name: 'name'
+        });
+        //console.log(this.formFields);
+        this.addQuestion(values);
+    }       
+
+    addQuestion(values) {
+
+        switch (values.questionType) {
+            case "text":
+                this.questionTypeId = 2;
+                this.questionTypeName = 'Text Field';
+                break;
+            case "radio":
+                this.questionTypeId = 3;
+                this.questionTypeName = 'Single Choice';
+                break;
+            case "checkbox":
+                this.questionTypeId = 1;
+                this.questionTypeName = 'Multiple Choice';
+                break;
+            case "email":
+                this.questionTypeId = 4;
+                this.questionTypeName = 'Email Field';
+                break;
+            default:
+                this.questionTypeId = 0;
+                this.questionTypeName = '';
+        }
         
-        //let formValues = JSON.stringify(form.value);
-        let formName = form.value.name;
-        let formDescription = form.value.description;
-        let formQuestions = this.questionsSet;
+        let data = {        
+            id: 1,
+            name: values.name,
+            questionTypeId: this.questionTypeId,
+            options: [],
+//            questionType: {
+//                "id": this.questionTypeId,
+//                "name": this.questionTypeName,
+//                "isActive": true
+//            }                   
+        };
+        let question = new Question(data);
+        this.questions.push(question);        
+//        this.questions.push({
+//            name: values.name,
+//            questionTypeId: this.questionTypeId,
+//            options: [],
+//            questionType: {
+//                "id": this.questionTypeId,
+//                "name": this.questionTypeName,
+//                "isActive": true
+//            }
+//        });
+        console.log(this.questions);
+                
+    }
+
+    submitMainForm(mainForm: NgForm) {
+        let id = 1;
+        let values = mainForm.value;
         
-        let output = JSON.stringify(formName + formDescription + formQuestions);
+        let data = {        
+            id: id,
+            name: values.name,
+            description: values.description,
+            config: this.formConfig,
+            questions: this.questions                
+        };        
+                
+        let form = new Form(data);
         
-        console.log(output);
-        //console.log(formValues);
-        //let formObj = this.form.getRawValue(); // {name: '', description: ''}
+        console.log(form);
 
         //let serializedForm = JSON.stringify(formObj);
-        //console.log(formObj);
 //        this.http.post("www.domain.com/api", serializedForm)
 //            .subscribe(
 //                data => console.log("success!", data),
 //                error => console.error("couldn't post because", error)
 //            );
     }    
-            
+
+    submitQuestionForm(questionForm: NgForm) {
+        let questionFormValues = questionForm.value;
+
+        console.log(questionFormValues);
+    }
+                
 }
