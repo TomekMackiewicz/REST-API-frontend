@@ -20,25 +20,8 @@ export class FormAddComponent implements OnInit {
     private counter = 0;
     private questionTypeId: number = 0;
     private questionTypeName: string = '';
-    private questions = [];
-    //private options = []; // ?
-    
-    public types = [
-        { value: 'text', display: 'Text' },
-        { value: 'radio', display: 'Radio' },
-        { value: 'checkbox', display: 'Checkbox' }
-    ];    
-
-    public optionTypes = [
-        { value: 'radio', display: 'Radio' },
-        { value: 'checkbox', display: 'Checkbox' }
-    ];    
-                     
-    private formFields = []; 
-    //private optionsFields = [];
-    //private radioFields = []; // remove, after assign chb to form field
-    //private checkboxFields = []; //remove, after assign radio to form field
-
+    private questions: Array<any> = [];                    
+    private formFields: Array<any> = []; 
     private formOptions = {
         allowBack: true,
         allowReview: true,
@@ -52,9 +35,13 @@ export class FormAddComponent implements OnInit {
         showClock: false,
         showPager: true,
         theme: ''
-    }
-    
+    }    
     private formConfig = new FormConfig(this.formOptions);
+    public types = [
+        { value: 'text', display: 'Text' },
+        { value: 'radio', display: 'Radio' },
+        { value: 'checkbox', display: 'Checkbox' }
+    ];     
 
     ngOnInit() {}       
 
@@ -71,6 +58,7 @@ export class FormAddComponent implements OnInit {
         }
         this.counter++;
         this.addOption(values);
+
     }    
 
     addRadio(addRadioForm: NgForm) {                                
@@ -82,7 +70,6 @@ export class FormAddComponent implements OnInit {
         } else {
             selectedCategory.radioFields.push({
                 label: values.name,
-                //type: values.optionType,
                 id: 'question' + this.counter,
                 name: 'name'
             });            
@@ -92,30 +79,23 @@ export class FormAddComponent implements OnInit {
     }
 
     addOption(values) {
+        let selectedQuestion = this.questions.find(item => item.name === values.fieldLabel);
         let data = {        
-            id: null,
-            questionId: 1, // ZMIENIĆ
+            //id: null,
+            questionId: selectedQuestion.id,
             name: values.name,
             isAnswer: true                
         };
-        let option = new Option(data);
-        //this.options.push(option); // ?
-        console.log(values);
-        console.log(this.questions);
-        let selectedQuestion = this.questions.find(item => item.name === values.fieldLabel);                         
+        let option = new Option(data);                         
         selectedQuestion.options.push(option);       
     }
                         
-    addFormField(addFormFieldForm: NgForm) {       
-                          
-        let values = addFormFieldForm.value;
-        
-        // Check if question already exists.
+    addFormField(addFormFieldForm: NgForm) {                                 
+        let values = addFormFieldForm.value;        
         if (this.formFields.some(x => x.label === values.name)) {
             alert('This question already exists.');
             return;
-        }         
-        
+        }                 
         this.formFields.push({
             label: values.name,
             type: values.questionType,
@@ -124,26 +104,18 @@ export class FormAddComponent implements OnInit {
             placeholder: values.questionType,
             checkboxFields: [],
             radioFields: []
-            // tu dodać checkboxy, radio
         });
         this.counter++;
         this.addQuestion(values);
-        //console.log(this.formFields);
-        //console.log(this.questions);
     }       
 
     deleteFormField(label) {
-        //event.preventDefault();
-        //let index: number = this.formFields.indexOf(this.formFields.find(x => x.name === name));
         let index: number = this.formFields.indexOf(this.formFields.find(x => x.label === label));
         this.formFields.splice(index, 1);
-        this.deleteQuestion(label);
-        //console.log(this.formFields);        
-        //return this.formFields;              
+        this.deleteQuestion(label);             
     }
 
-    addQuestion(values) {
-    
+    addQuestion(values) {    
         switch (values.questionType) {
             case "text":
                 this.questionTypeId = 2;
@@ -163,7 +135,7 @@ export class FormAddComponent implements OnInit {
         }
         
         let data = {        
-            id: 1, // ZMIENIĆ
+            //id: 1,
             name: values.name,
             questionTypeId: this.questionTypeId,
             options: [],
@@ -175,34 +147,27 @@ export class FormAddComponent implements OnInit {
         };
         let question = new Question(data);
         this.questions.push(question);        
-        //console.log(this.questions); 
                 
     }
 
     deleteQuestion(label) {
         let index: number = this.questions.indexOf(this.questions.find(x => x.name === label));
-        this.questions.splice(index, 1);
-        //console.log(this.questions);        
-        //return this.questions;              
+        this.questions.splice(index, 1);              
     }
 
     submitMainForm(mainForm: NgForm) {
         let id = 1;
-        let values = mainForm.value;
-        
+        let values = mainForm.value;        
         let data = {        
-            id: id,
+            //id: id,
             name: values.name,
             description: values.description,
             config: this.formConfig,
             questions: this.questions                
-        };        
-                
+        };                        
         let form = new Form(data);
-        
-        console.log(form);
-
-        //let serializedForm = JSON.stringify(formObj);
+        let serializedForm = JSON.stringify(form);
+        console.log(serializedForm);
 //        this.http.post("www.domain.com/api", serializedForm)
 //            .subscribe(
 //                data => console.log("success!", data),

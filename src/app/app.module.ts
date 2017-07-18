@@ -45,13 +45,13 @@ export function HttpLoaderFactory(http: Http) {
         FileModule,
         FormModule,
         AppRoutingModule,
-            TranslateModule.forRoot({
-                loader: {
-                    provide: TranslateLoader,
-                    useFactory: HttpLoaderFactory,
-                    deps: [Http]
-                }
-            })
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [Http]
+            }
+        })
     ],
     declarations: [
         AppComponent,
