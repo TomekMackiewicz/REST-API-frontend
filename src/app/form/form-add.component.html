@@ -31,7 +31,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{field.label}} (type: {{field.type}}, id: {{field.id}})
-                        <button class="btn btn-danger btn-xs pull-right" (click)="deleteFormField()">Delete</button>                                
+                        <button class="btn btn-danger btn-xs pull-right" (click)="deleteFormField(field.label)">Delete</button>                                
                     </div>
                     <ng-container [ngSwitch]="true">
                         <!-- TEXT -->
@@ -59,12 +59,13 @@
                             <form #addCheckboxForm="ngForm" (ngSubmit)="addCheckbox(addCheckboxForm)">
                                 <label for="option">Add checkbox</label>
                                 <input type="text" class="form-control" id="option" name="name" placeholder="Checkbox label" ngModel>
-                                <input type="hidden" name="fieldId" value="{{field.id}}" ngModel> 
+                                <input type="hidden" name="fieldId" [(ngModel)]="field.id">
+                                <input type="hidden" name="fieldLabel" [(ngModel)]="field.label">
                                 <button type="submit" class="btn btn-primary btn-xs" value="Submit">Add checkbox</button>    
                             </form>                            
                         </div>
 <!--                        let checkbox of THIS formField checkboxes -->
-                        <div *ngFor="let checkbox of checkboxFields"> 
+                        <div *ngFor="let checkbox of field.checkboxFields"> 
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" value="">
@@ -77,10 +78,12 @@
                             <form #addRadioForm="ngForm" (ngSubmit)="addRadio(addRadioForm)">
                                 <label for="radio">Add radio</label>
                                 <input type="text" class="form-control" id="radio" name="name" placeholder="Checkbox label" ngModel>
+                                <input type="hidden" name="fieldId" [(ngModel)]="field.id">
+                                <input type="hidden" name="fieldLabel" [(ngModel)]="field.label">
                                 <button type="submit" class="btn btn-primary btn-xs" value="Submit">Add radio</button>    
                             </form>                            
                         </div>
-                        <div *ngFor="let radio of radioFields">
+                        <div *ngFor="let radio of field.radioFields">
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="{{radio.name}}" id="{{radio.id}}" value="option1">

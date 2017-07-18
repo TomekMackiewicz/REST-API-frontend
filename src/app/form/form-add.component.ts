@@ -17,11 +17,11 @@ import { Option } from './models/option';
 
 export class FormAddComponent implements OnInit {
 
-    private counter = 1;
+    private counter = 0;
     private questionTypeId: number = 0;
     private questionTypeName: string = '';
     private questions = [];
-    private options = [];
+    //private options = []; // ?
     
     public types = [
         { value: 'text', display: 'Text', id: 2 },
@@ -36,8 +36,8 @@ export class FormAddComponent implements OnInit {
                      
     private formFields = []; 
     //private optionsFields = [];
-    private radioFields = []; // remove, after assign chb to form field
-    private checkboxFields = []; //remove, after assign radio to form field
+    //private radioFields = []; // remove, after assign chb to form field
+    //private checkboxFields = []; //remove, after assign radio to form field
 
     private formOptions = {
         allowBack: true,
@@ -55,68 +55,55 @@ export class FormAddComponent implements OnInit {
     }
     
     private formConfig = new FormConfig(this.formOptions);
-    
-    // make object 
-//    private options = [{
-//        questionId: 1010,
-//        name: "Exception",
-//        isAnswer: false
-//    }];
 
     ngOnInit() {}       
 
     addCheckbox(addCheckboxForm: NgForm) {                                 
         let values = addCheckboxForm.value;
-        console.log(values);
-        // Check if question already exists.
-        if (this.checkboxFields.some(x => x.label === values.name)) {
+        let selectedCategory = this.formFields.find(item => item.id === values.fieldId);
+        if (selectedCategory.checkboxFields.some(x => x.label === values.name)) {
             alert('This checkbox already exists.');
             return;
-        }         
-        
-        this.checkboxFields.push({
-            label: values.name,
-            //type: values.optionType,
-            //id: 'question' + this.counter, // radio
-            //name: 'name', // radio
-        });
+        } else {
+            selectedCategory.checkboxFields.push({
+                label: values.name
+            });            
+        }
         this.counter++;
         this.addOption(values);
-        //console.log(this.checkboxFields);
     }    
 
     addRadio(addRadioForm: NgForm) {                                
         let values = addRadioForm.value;
-        //console.log(values);
-        // Check if question already exists.
-        if (this.radioFields.some(x => x.label === values.name)) {
-            alert('This option already exists.');
+        let selectedCategory = this.formFields.find(item => item.id === values.fieldId);
+        if (selectedCategory.radioFields.some(x => x.label === values.name)) {
+            alert('This radio already exists.');
             return;
+        } else {
+            selectedCategory.radioFields.push({
+                label: values.name,
+                //type: values.optionType,
+                id: 'question' + this.counter,
+                name: 'name'
+            });            
         }         
-        
-        this.radioFields.push({
-            label: values.name,
-            //type: values.optionType,
-            id: 'question' + this.counter, // radio
-            name: 'name', // radio
-        });
         this.counter++;
         this.addOption(values);
-        //console.log(this.radioFields);
     }
 
     addOption(values) {
         let data = {        
             id: null,
-            questionId: 1,
+            questionId: 1, // ZMIENIĆ
             name: values.name,
             isAnswer: true                
         };
         let option = new Option(data);
-        this.options.push(option);        
-        //console.log(this.options);
-        this.questions[0].options.push(option);
-        console.log(this.questions);        
+        //this.options.push(option); // ?
+        console.log(values);
+        console.log(this.questions);
+        let selectedQuestion = this.questions.find(item => item.name === values.fieldLabel);                         
+        selectedQuestion.options.push(option);       
     }
                         
     addFormField(addFormFieldForm: NgForm) {       
@@ -135,19 +122,22 @@ export class FormAddComponent implements OnInit {
             id: 'question' + this.counter,
             name: 'name',
             placeholder: values.questionType,
+            checkboxFields: [],
+            radioFields: []
             // tu dodać checkboxy, radio
         });
         this.counter++;
         this.addQuestion(values);
-        //console.log(this.formFields);
+        console.log(this.formFields);
+        console.log(this.questions);
     }       
 
-    deleteFormField() {
-        event.preventDefault();
-        //questionPanel.remove();
-        let index: number = this.formFields.indexOf(this.formFields.find(x => x.name === name));
+    deleteFormField(label) {
+        //event.preventDefault();
+        //let index: number = this.formFields.indexOf(this.formFields.find(x => x.name === name));
+        let index: number = this.formFields.indexOf(this.formFields.find(x => x.label === label));
         this.formFields.splice(index, 1);
-        this.deleteQuestion();
+        this.deleteQuestion(label);
         //console.log(this.formFields);        
         //return this.formFields;              
     }
@@ -177,7 +167,7 @@ export class FormAddComponent implements OnInit {
         }
         
         let data = {        
-            id: 1,
+            id: 1, // ZMIENIĆ
             name: values.name,
             questionTypeId: this.questionTypeId,
             options: [],
@@ -190,13 +180,12 @@ export class FormAddComponent implements OnInit {
         let question = new Question(data);
         this.questions.push(question);        
 
-        console.log(this.questions); 
+        //console.log(this.questions); 
                 
     }
 
-    deleteQuestion() {
-        //questionPanel.remove();
-        let index: number = this.questions.indexOf(this.questions.find(x => x.name === name));
+    deleteQuestion(label) {
+        let index: number = this.questions.indexOf(this.questions.find(x => x.name === label));
         this.questions.splice(index, 1);
         //console.log(this.questions);        
         //return this.questions;              
