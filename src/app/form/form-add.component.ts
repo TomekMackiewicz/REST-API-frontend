@@ -24,9 +24,9 @@ export class FormAddComponent implements OnInit {
     //private options = []; // ?
     
     public types = [
-        { value: 'text', display: 'Text', id: 2 },
-        { value: 'radio', display: 'Radio', id: 3 },
-        { value: 'checkbox', display: 'Checkbox', id: 1 }
+        { value: 'text', display: 'Text' },
+        { value: 'radio', display: 'Radio' },
+        { value: 'checkbox', display: 'Checkbox' }
     ];    
 
     public optionTypes = [
@@ -128,8 +128,8 @@ export class FormAddComponent implements OnInit {
         });
         this.counter++;
         this.addQuestion(values);
-        console.log(this.formFields);
-        console.log(this.questions);
+        //console.log(this.formFields);
+        //console.log(this.questions);
     }       
 
     deleteFormField(label) {
@@ -157,10 +157,6 @@ export class FormAddComponent implements OnInit {
                 this.questionTypeId = 1;
                 this.questionTypeName = 'Multiple Choice';
                 break;
-            case "email":
-                this.questionTypeId = 4;
-                this.questionTypeName = 'Email Field';
-                break;
             default:
                 this.questionTypeId = 0;
                 this.questionTypeName = '';
@@ -179,7 +175,6 @@ export class FormAddComponent implements OnInit {
         };
         let question = new Question(data);
         this.questions.push(question);        
-
         //console.log(this.questions); 
                 
     }
@@ -214,12 +209,5 @@ export class FormAddComponent implements OnInit {
 //                error => console.error("couldn't post because", error)
 //            );
     }    
-    
-    // ?
-    submitQuestionForm(questionForm: NgForm) {
-        let questionFormValues = questionForm.value;
-
-        console.log(questionFormValues);
-    }
-                
+             
 }

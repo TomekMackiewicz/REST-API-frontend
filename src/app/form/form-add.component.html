@@ -1,32 +1,49 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <form #mainForm="ngForm" (ngSubmit)="submitMainForm(mainForm)">
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" name="name" placeholder="Title" ngModel>
+        <div class="col-md-6">            
+            <div class="panel panel-default">
+                <div class="panel-heading">Add form</div>
+                <div class="panel-body">
+                    <form #mainForm="ngForm" (ngSubmit)="submitMainForm(mainForm)">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" name="name" placeholder="Title" ngModel>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" ngModel></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default" value="Submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" ngModel></textarea>
+            </div>              
+            <div class="panel panel-default">
+                <div class="panel-heading">Add Question</div>
+                <div class="panel-body">
+                    <form #addFormFieldForm="ngForm" (ngSubmit)="addFormField(addFormFieldForm)">
+                        <div class="form-group">
+                            <label for="message">Label</label>
+                            <input type="text" class="form-control" id="message" name="name" placeholder="Question" ngModel>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <select class="form-control" name="questionType" id="type" [(ngModel)]="selectedValue">
+            <!--                    <option value="" disabled selected>Select type</option>-->
+                                <option *ngFor="let type of types" [value]="type.value">  
+                                    {{type.display}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default" value="Submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
-            </form>
-            <hr>
-            <form #addFormFieldForm="ngForm" (ngSubmit)="addFormField(addFormFieldForm)">
-                <label for="message">Add Question</label>
-                <input type="text" class="form-control" id="message" name="name" placeholder="Question" ngModel>
-                <label for="type">Choose type</label>
-                <select name="questionType" id="type" [(ngModel)]="selectedValue">
-                    <option *ngFor="let type of types" [value]="type.value">  
-                    {{type.display}}
-                    </option>
-                </select>
-                <button type="submit" class="btn btn-primary btn-xs" value="Submit">Submit</button>
-            </form>
+            </div> 
         </div>
         <div class="col-md-6">
-            <label>Questions:</label>
             <div *ngFor="let field of formFields">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -36,26 +53,18 @@
                     <ng-container [ngSwitch]="true">
                         <!-- TEXT -->
                         <div class="panel-body" *ngSwitchCase="field.type === 'text'">
-                            <form #questionForm="ngForm" (ngSubmit)="submitQuestionForm(questionForm)">    
+                            <form>    
                                 <input type="{{field.type}}" 
                                     class="form-control" 
                                     name="{{field.name}}" 
-                                    placeholder="{{field.placeholder}}" ngModel>
+                                    placeholder="{{field.placeholder}}" ngModel disabled>
                             </form>
-<!--                            <form #addOptionFieldForm="ngForm" (ngSubmit)="addOptionField(addOptionFieldForm)">
-                                <label for="option">Add option</label>
-                                <input type="text" class="form-control" id="option" name="name" placeholder="Answer" ngModel>                            
-                                <label for="optionType">Add buttons</label>
-                                <select name="optionType" id="optionType" [(ngModel)]="selectedValue">
-                                    <option *ngFor="let optionType of optionTypes" [value]="optionType.value">  
-                                    {{optionType.display}}
-                                    </option>
-                                </select>
-                                <button type="submit" class="btn btn-primary btn-xs" value="Submit">Submit</button>    
-                            </form>                            -->
                         </div>
                         <!-- CHECKBOX -->
                         <div class="panel-body" *ngSwitchCase="field.type === 'checkbox'">
+<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+  Popover on top
+</button>                            
                             <form #addCheckboxForm="ngForm" (ngSubmit)="addCheckbox(addCheckboxForm)">
                                 <label for="option">Add checkbox</label>
                                 <input type="text" class="form-control" id="option" name="name" placeholder="Checkbox label" ngModel>
