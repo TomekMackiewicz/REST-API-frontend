@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 //import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgForm } from '@angular/forms';
-import { Http } from '@angular/http';
-
+import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 import { Form } from './models/form';
 import { FormConfig } from './models/form-config';
 import { Question } from './models/question';
 import { Option } from './models/option';
+
+import { CrudService } from '../services/crud.service';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
     selector: 'form-add',
@@ -42,6 +45,12 @@ export class FormAddComponent implements OnInit {
         { value: 'radio', display: 'Radio' },
         { value: 'checkbox', display: 'Checkbox' }
     ];     
+
+    constructor(
+        private http: Http,
+        private crudService: CrudService,
+        private alertService: AlertService        
+    ) {}
 
     ngOnInit() {}       
 
@@ -82,7 +91,7 @@ export class FormAddComponent implements OnInit {
         let selectedQuestion = this.questions.find(item => item.name === values.fieldLabel);
         let data = {        
             //id: null,
-            questionId: selectedQuestion.id,
+            //questionId: selectedQuestion.id,
             name: values.name,
             isAnswer: true                
         };
@@ -166,13 +175,20 @@ export class FormAddComponent implements OnInit {
             questions: this.questions                
         };                        
         let form = new Form(data);
-        let serializedForm = JSON.stringify(form);
-        console.log(serializedForm);
-//        this.http.post("www.domain.com/api", serializedForm)
-//            .subscribe(
-//                data => console.log("success!", data),
-//                error => console.error("couldn't post because", error)
-//            );
+        //let serializedForm = JSON.stringify(form);
+        console.log(form);
+        
+        this.crudService.createForm(form).subscribe(
+            data => {
+                this.alertService.success('form created.');
+                return true;
+            },
+            error => {
+                this.alertService.error("Error saving form! " + error);
+                return Observable.throw(error);
+            }
+        );
+
     }    
              
 }

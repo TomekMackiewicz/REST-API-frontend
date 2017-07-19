@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { FormFrontComponent } from './form-front.component';
 import { FormAddComponent } from './form-add.component';
 import { FormRoutingModule } from './form-routing.module';
+import { AlertModule } from '../alert/alert';
 
 @NgModule({
     imports: [
@@ -13,7 +14,8 @@ import { FormRoutingModule } from './form-routing.module';
         BrowserModule,
         HttpModule,
         FormsModule,
-        FormRoutingModule
+        FormRoutingModule,
+        AlertModule
     ],
     declarations: [
         FormFrontComponent,

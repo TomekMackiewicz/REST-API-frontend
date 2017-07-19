@@ -41,4 +41,15 @@ export class CrudService {
             ('http://localhost:8000/files/' + file);
     }
 
+    createForm(form: any) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        //let body = JSON.stringify(document);
+        let body = form;
+        //console.log(body);
+        return this.http.post
+            ('http://localhost:8000/forms', body, headers);
+        //.map((res:Response) => res.json());
+    }
+
 }
