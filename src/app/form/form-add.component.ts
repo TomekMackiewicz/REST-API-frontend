@@ -8,7 +8,7 @@ import { FormConfig } from './models/form-config';
 import { Question } from './models/question';
 import { Option } from './models/option';
 
-import { CrudService } from '../services/crud.service';
+import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 
 @Component({
@@ -21,7 +21,7 @@ import { AlertService } from '../alert/alert.service';
 export class FormAddComponent implements OnInit {
 
     private counter = 0;
-    private questionTypeId: number = 0;
+    private questionType: string = '';
     private questionTypeName: string = '';
     private questions: Array<any> = [];                    
     private formFields: Array<any> = []; 
@@ -48,7 +48,7 @@ export class FormAddComponent implements OnInit {
 
     constructor(
         private http: Http,
-        private crudService: CrudService,
+        private formService: FormService,
         private alertService: AlertService        
     ) {}
 
@@ -125,28 +125,28 @@ export class FormAddComponent implements OnInit {
     }
 
     addQuestion(values) {    
-        switch (values.questionType) {
-            case "text":
-                this.questionTypeId = 2;
-                this.questionTypeName = 'Text Field';
-                break;
-            case "radio":
-                this.questionTypeId = 3;
-                this.questionTypeName = 'Single Choice';
-                break;
-            case "checkbox":
-                this.questionTypeId = 1;
-                this.questionTypeName = 'Multiple Choice';
-                break;
-            default:
-                this.questionTypeId = 0;
-                this.questionTypeName = '';
-        }
+//        switch (values.questionType) {
+//            case "text":
+//                this.questionTypeId = 2;
+//                this.questionTypeName = 'Text Field';
+//                break;
+//            case "radio":
+//                this.questionTypeId = 3;
+//                this.questionTypeName = 'Single Choice';
+//                break;
+//            case "checkbox":
+//                this.questionTypeId = 1;
+//                this.questionTypeName = 'Multiple Choice';
+//                break;
+//            default:
+//                this.questionTypeId = 0;
+//                this.questionTypeName = '';
+//        }
         
         let data = {        
             //id: 1,
             name: values.name,
-            questionTypeId: this.questionTypeId,
+            questionType: values.questionType,
             options: [],
 //            questionType: {
 //                "id": this.questionTypeId,
@@ -178,7 +178,7 @@ export class FormAddComponent implements OnInit {
         //let serializedForm = JSON.stringify(form);
         console.log(form);
         
-        this.crudService.createForm(form).subscribe(
+        this.formService.createForm(form).subscribe(
             data => {
                 this.alertService.success('form created.');
                 return true;

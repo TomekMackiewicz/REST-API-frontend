@@ -7,6 +7,7 @@ import { FormFrontComponent } from './form-front.component';
 import { FormAddComponent } from './form-add.component';
 import { FormRoutingModule } from './form-routing.module';
 import { AlertModule } from '../alert/alert';
+import { FormService } from './form.service';
 
 @NgModule({
     imports: [
@@ -22,7 +23,7 @@ import { AlertModule } from '../alert/alert';
         FormAddComponent
     ],
     providers: [
-        //DocumentService
+        FormService
     ],
     //bootstrap: [ FormFrontComponent ]
 })
