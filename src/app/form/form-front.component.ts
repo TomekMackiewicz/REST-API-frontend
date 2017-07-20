@@ -14,9 +14,10 @@ import { Option, Question, Form, FormConfig } from './models/index';
 export class FormFrontComponent implements OnInit {
     
     //form: Form = new Form(null);
-    public form: any;
+    form: any;
+    forms: any;
     //public forms: any;
-    formId: number = 15;
+    formId: number = 5;
 
     constructor(
         private formService: FormService        
@@ -24,6 +25,7 @@ export class FormFrontComponent implements OnInit {
         
     ngOnInit() {      
         this.getForm(this.formId);
+        this.getForms();
     }
     
     getForm(id: number) {
@@ -31,6 +33,14 @@ export class FormFrontComponent implements OnInit {
             data => {this.form = data},
             err => console.error(err),
             () => console.log('done loading form')
+        );
+    }
+
+    getForms() {
+        this.formService.getForms().subscribe(
+            data => {this.forms = data},
+            err => console.error(err),
+            () => console.log('done loading forms')
         );
     }
 

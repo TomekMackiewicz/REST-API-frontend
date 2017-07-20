@@ -1,7 +1,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            {{form.id}}            
+            {{formId}}
+            {{form.id}}
+            {{forms[0].name}}
             <form #form="ngForm" (ngSubmit)="submitForm(form)">
                 <div *ngFor="let question of form.questions">
                     <label for="{{question.id}}">{{question.name}}</label>
@@ -14,6 +16,9 @@
                 </div>
             </form>            
             <button class="btn btn-primary" (click)="showForm()">Show</button>
+            <div *ngFor="let f of forms">
+                {{f.name}}
+            </div>
         </div>
     </div>
 </div>
