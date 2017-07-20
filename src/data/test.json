@@ -1,0 +1,47 @@
+{
+"id": 15,
+"name": "Ankieta",
+"description": "Krótki opis",
+"config": {
+"id": 1,
+"allow_back": true,
+"allow_review": true,
+"auto_move": true,
+"duration": 0,
+"page_size": 100,
+"required_all": true,
+"rich_text": true,
+"show_pager": true
+},
+"questions": [
+{
+"id": 30,
+"name": "Imię?",
+"question_type_id": 2,
+"options": [ ]
+},
+{
+"id": 31,
+"name": "Nazwisko?",
+"question_type_id": 2,
+"options": [ ]
+},
+{
+"id": 32,
+"name": "Piwo czy wino?",
+"question_type_id": 3,
+"options": [
+{
+"id": 16,
+"name": "piwo",
+"is_answer": 1
+},
+{
+"id": 17,
+"name": "wino",
+"is_answer": 1
+}
+]
+}
+]
+}

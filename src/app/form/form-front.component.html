@@ -1,5 +1,24 @@
 <div class="container">
     <div class="row">
+        <div class="col-md-12">
+            {{form.id}}            
+            <form #form="ngForm" (ngSubmit)="submitForm(form)">
+                <div *ngFor="let question of form.questions">
+                    <label for="{{question.id}}">{{question.name}}</label>
+                    <div class="form-group">
+                        <input class="form-control" id="{{question.id}}" [attr.type]="question.questionType">                    
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default" value="Submit">Submit</button>
+                </div>
+            </form>            
+            <button class="btn btn-primary" (click)="showForm()">Show</button>
+        </div>
+    </div>
+</div>
+<!--<div class="container">
+    <div class="row">
         <div class="col-md-6">
             <h3>Form Application</h3>
         </div>
@@ -13,12 +32,11 @@
       <div id="form">
         <h1 class="text-sm-center">{{form.name}}</h1>
         <hr />
-
         <div *ngIf="mode=='form' && form">
           <div *ngFor="let question of filteredQuestions;">
             <div class="badge badge-info">Question {{pager.index + 1}} of {{pager.count}}.</div>
-            <h2>{{pager.index + 1}}. <span [innerHTML]="question.name"></span></h2>
-            <div class="row text-left options">
+            <h2>{{pager.index + 1}}. <span [innerHTML]="question.name"></span></h2>            
+            <div class="row text-left options" *ngIf="question.options[0]; else no_options">                
               <div class="col-md-6" *ngFor="let option of question.options">
                 <div class="option">
                   <label class="" [attr.for]="option.id">
@@ -26,16 +44,28 @@
                       {{option.name}}
                   </label>
                 </div>
-              </div>
+              </div>                
             </div>
+            <ng-template #no_options>
+            <div class="row text-left options">                
+              <div class="col-md-6">
+                <div class="option">
+                  <label class="">
+                      <input [attr.type]="question.questionType" />
+                  </label>
+                </div>
+              </div>                
+            </div>
+            </ng-template>
+            
           </div>
           <hr />
           <div class="text-sm-center">
-            <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(0);">First</button>
-            <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.index - 1);">Prev</button>
+            <button class="btn btn-default" *ngIf="form.config.allowBack" (click)="goTo(0);">First</button>
+            <button class="btn btn-default" *ngIf="form.config.allowBack" (click)="goTo(pager.index - 1);">Prev</button>
             <button class="btn btn-primary" (click)="goTo(pager.index + 1);">Next</button>
-            <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);">Last</button>
-            <!--<pagination *ngIf="config.showPager" direction-links="false" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>-->
+            <button class="btn btn-default" *ngIf="form.config.allowBack" (click)="goTo(pager.count - 1);">Last</button>
+            <pagination *ngIf="config.showPager" direction-links="false" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>
           </div>
         </div>
 
@@ -66,4 +96,4 @@
           <button class="btn btn-default" (click)="onSubmit();">Submit Form</button>
         </div>
     </div>
-</div>
+</div>-->
