@@ -1,24 +1,44 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            {{formId}}
-            {{form.id}}
-            {{forms[0].name}}
-            <form #form="ngForm" (ngSubmit)="submitForm(form)">
+        <div class="col-md-12" *ngIf="form">
+            <h3>{{form.name}}</h3>
+            <p>{{form.description}}</p>
+            <form #f="ngForm" (ngSubmit)="submitForm(f)">
                 <div *ngFor="let question of form.questions">
                     <label for="{{question.id}}">{{question.name}}</label>
-                    <div class="form-group">
-                        <input class="form-control" id="{{question.id}}" [attr.type]="question.questionType">                    
+                    <div *ngIf="question.options[0]; else no_options">
+                        <div class *ngIf="question.questionType === 'checkbox'">
+<!--                            <div class="checkbox" *ngFor="let option of question.options">
+                                <label> 
+                                    <input type="checkbox" id="{{option.id}}" name="checkbox[]" value="{{option.name}}" ngModel> 
+                                    {{option.name}}
+                                </label>
+                            </div>        -->
+                            <select class="form-control" multiple name="options" ngModel>
+                                <option *ngFor="let option of question.options" value="{{option.name}}">  
+                                    {{option.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class *ngIf="question.questionType === 'radio'">
+                            <div class="radio" *ngFor="let option of question.options">
+                                <label>
+                                    <input type="radio" name="radio" value="{{option.name}}" ngModel>
+                                    {{option.name}}
+                                </label>
+                            </div>                             
+                        </div>
                     </div>
+                    <ng-template #no_options>
+                        <div class="form-group">
+                            <input class="form-control" name="{{question.id}}" id="{{question.id}}" [attr.type]="question.questionType" ngModel>
+                        </div>
+                    </ng-template>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default" value="Submit">Submit</button>
                 </div>
             </form>            
-            <button class="btn btn-primary" (click)="showForm()">Show</button>
-            <div *ngFor="let f of forms">
-                {{f.name}}
-            </div>
         </div>
     </div>
 </div>

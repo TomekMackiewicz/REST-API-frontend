@@ -15,19 +15,23 @@ export class FormFrontComponent implements OnInit {
     
     //form: Form = new Form(null);
     form: any;
-    forms: any;
+    //forms: any;
     //public forms: any;
-    formId: number = 5;
+    formId: number = 15;
+    //myForm: FormGroup;
 
     constructor(
-        private formService: FormService        
+        private formService: FormService,
+        //private fb: FormBuilder      
     ) { }
         
     ngOnInit() {      
         this.getForm(this.formId);
-        this.getForms();
-    }
-    
+        //this.getForms();
+    }  
+
+   
+            
     getForm(id: number) {
         this.formService.getForm(id).subscribe(
             data => {this.form = data},
@@ -36,23 +40,11 @@ export class FormFrontComponent implements OnInit {
         );
     }
 
-    getForms() {
-        this.formService.getForms().subscribe(
-            data => {this.forms = data},
-            err => console.error(err),
-            () => console.log('done loading forms')
-        );
-    }
-
-    submitForm(form: NgForm) {
-        console.log('submitted');
+    submitForm(f: NgForm) {
+        let values = f.value; 
+        console.log(values);
     }    
-      
-    showForm() {
-        console.log(this.form);
-    }        
- 
-    
+        
 }
 
 //export class FormFrontComponent implements OnInit {
