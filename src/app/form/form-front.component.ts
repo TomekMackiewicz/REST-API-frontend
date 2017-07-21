@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+//import { NgForm, FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
-import { Option, Question, Form, FormConfig } from './models/index';
+import { Option, Question, Form } from './models/index';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
     selector: 'app-form',
@@ -13,36 +15,80 @@ import { Option, Question, Form, FormConfig } from './models/index';
 
 export class FormFrontComponent implements OnInit {
     
-    //form: Form = new Form(null);
-    form: any;
-    //forms: any;
-    //public forms: any;
+    form: Form = new Form(null);
     formId: number = 15;
-    //myForm: FormGroup;
+    //outputForm: FormGroup;
+    pager = {
+        index: 0,
+        size: 1,
+        count: 1
+    };
+    answers = [];
 
     constructor(
         private formService: FormService,
+        private alertService: AlertService
         //private fb: FormBuilder      
     ) { }
         
     ngOnInit() {      
         this.getForm(this.formId);
-        //this.getForms();
+//        this.outputForm = this.fb.group({
+//            checkbox: this.fb.array([])
+//        });
     }  
 
-   
+//    onChange(checkbox:string, isChecked: boolean) {
+//      const checkoboxFormArray = <FormArray>this.outputForm.controls.checkbox;
+//
+//      if(isChecked) {
+//        checkoboxFormArray.push(new FormControl(checkbox));
+//      } else {
+//        let index = checkoboxFormArray.controls.findIndex(x => x.value == checkbox)
+//        checkoboxFormArray.removeAt(index);
+//      }
+//      console.log(this.outputForm.value);
+//    }   
             
     getForm(id: number) {
         this.formService.getForm(id).subscribe(
-            data => {this.form = data},
+            data => {
+                this.form = data,
+                this.pager.count = this.form.questions.length
+            },
             err => console.error(err),
             () => console.log('done loading form')
-        );
+        );      
+    }
+
+    get filteredQuestions() {
+        return (this.form.questions) ?
+        this.form.questions.slice(this.pager.index, this.pager.index + this.pager.size) : [];
+    }
+    
+    onSelect(f: NgForm, question, option) {
+        this.answers.push(f.value);
+        //console.log(this.answers);
+//        if (question.questionType === 'checkbox') {
+//            question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; });
+//        }
+
+        if (this.form.config.autoMove) {
+            this.goTo(this.pager.index + 1);
+        }
+    }
+
+    goTo(index: number) {
+        if (index >= 0 && index < this.pager.count) {
+            this.pager.index = index;
+            //this.mode = 'form';
+        }
     }
 
     submitForm(f: NgForm) {
-        let values = f.value; 
-        console.log(values);
+        let values = f.value;
+        console.log(this.answers);
+        this.alertService.success('Form successfull submitted.');
     }    
         
 }
