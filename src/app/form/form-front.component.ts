@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 //import { NgForm, FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
-import { Option, Question, Form } from './models/index';
+import { Option, Question, Form, Answer } from './models/index';
 import { AlertService } from '../alert/alert.service';
 
 @Component({
@@ -61,20 +61,24 @@ export class FormFrontComponent implements OnInit {
         );      
     }
 
-    get filteredQuestions() {
-        return (this.form.questions) ?
-        this.form.questions.slice(this.pager.index, this.pager.index + this.pager.size) : [];
-    }
+//    get filteredQuestions() {
+//        return (this.form.questions) ?
+//        this.form.questions.slice(this.pager.index, this.pager.index + this.pager.size) : [];
+//    }
     
-    onSelect(f: NgForm, question, option) {
-        this.answers.push(f.value);
-        //console.log(this.answers);
-//        if (question.questionType === 'checkbox') {
-//            question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; });
-//        }
+    onSelect(f: NgForm, label: number, index: number) {
+        let data = {        
+            answer: f.value,
+            label: label                
+        };
+        let answer = new Answer(data);
+        this.answers.push(answer);
+        console.log(this.answers);
 
         if (this.form.config.autoMove) {
             this.goTo(this.pager.index + 1);
+        } else {
+            this.goTo(index);
         }
     }
 
@@ -87,7 +91,8 @@ export class FormFrontComponent implements OnInit {
 
     submitForm(f: NgForm) {
         let values = f.value;
-        console.log(this.answers);
+        console.log(values);
+        //console.log(this.answers);
         this.alertService.success('Form successfull submitted.');
     }    
         
