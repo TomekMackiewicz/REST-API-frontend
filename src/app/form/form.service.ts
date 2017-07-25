@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, ResponseContentType } from "@angular/http";
 import { Observable } from 'rxjs/Rx';
+import { NgForm } from '@angular/forms';
 
 @Injectable()
 export class FormService {
@@ -40,7 +41,14 @@ export class FormService {
         //.map((res:Response) => res.json());
     }
 
-
+    submitAnswers(answer: any) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        let body = answer;
+        //console.log(body);
+        return this.http.post
+            ('http://localhost:8000/answers', body, headers);        
+    }
 
 //    updateDocument(document: any) {
 //        let headers = new Headers({'Content-Type': 'application/json'});

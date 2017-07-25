@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs/Rx';
 import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
-import { Option, Question, Form, Answer } from './models/index';
+import { Option, Question, Form } from './models/index';
 import { AlertService } from '../alert/alert.service';
 
 @Component({
@@ -15,7 +16,7 @@ import { AlertService } from '../alert/alert.service';
 export class FormFrontComponent implements OnInit {
     
     form: Form = new Form(null);
-    formId: number = 5;
+    formId: number = 15;
     pager = {
         index: 0,
         size: 1,
@@ -48,10 +49,18 @@ export class FormFrontComponent implements OnInit {
         }
     }
 
-    submitForm(f: NgForm) {
-        let values = f.value;
-        console.log(values);
-        this.alertService.success('Form successfull submitted.');
-    }    
-        
+    submitForm(form: NgForm) {        
+        let values = form.value;
+        this.formService.submitAnswers(values).subscribe(
+            data => {
+                this.alertService.success('Form successfull submitted.');
+                return true;
+            },
+            error => {
+                this.alertService.error("Error saving form! " + error);
+                return Observable.throw(error);
+            }
+        );         
+    }       
+            
 }

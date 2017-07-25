@@ -14,7 +14,7 @@
                         <li class="col-sm-4">
                             <ul>
                                 <li class="dropdown-header" >Forms</li>
-                                <li [routerLink]="['/forms']"><a>Forms</a></li>
+                                <li *ngFor="let form of forms" [routerLink]="['/forms', form.id]"><a>{{form.name}}</a></li>
                                 <li><a href="#">Glyphicons</a></li>
                                 <li><a href="#">Pull Right Elements</a></li>
                                 <li class="divider"></li>

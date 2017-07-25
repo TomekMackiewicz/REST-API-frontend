@@ -19,38 +19,7 @@ const formRoutes: Routes = [
         },         
         canActivate: [AuthGuard] 
     },
-    {path: 'forms', 
-        children: [
-            {path: '' , component: FormFrontComponent},
-            {path: '' , component: MenuComponent, outlet: 'header'},
-            {path: '' , component: FooterComponent, outlet: 'footer'}        
-        ],
-        data: {
-            animation: {
-                value: 'categories-front',
-            }
-        }            
-    } 
-//    {path: '', 
-//        children: [
-//            {path: 'forms', component: FormFrontComponent},
-//        ],
-//        data: {
-//            animation: {
-//                value: 'forms',
-//            }
-//        },         
-//        canActivate: [AuthGuard] 
-//    },
 //    {path: 'forms', 
-//        component: FormFrontComponent,
-//        data: {
-//            animation: {
-//                value: 'form-front',
-//            }
-//        }     
-//    }, 
-//    {path: 'forms/:form', 
 //        children: [
 //            {path: '' , component: FormFrontComponent},
 //            {path: '' , component: MenuComponent, outlet: 'header'},
@@ -58,10 +27,22 @@ const formRoutes: Routes = [
 //        ],
 //        data: {
 //            animation: {
+//                value: 'categories-front',
+//            }
+//        }            
+//    } 
+    {path: 'forms/:form', 
+        children: [
+            {path: '' , component: FormFrontComponent},
+            {path: '' , component: MenuComponent, outlet: 'header'},
+            {path: '' , component: FooterComponent, outlet: 'footer'}        
+        ],
+//        data: {
+//            animation: {
 //                value: 'form-front',
 //            }
 //        }     
-//    }    
+    }    
 ];
 
 @NgModule({
