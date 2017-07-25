@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
+import { ActivatedRoute, Params } from '@angular/router';
 import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
 import { Option, Question, Form } from './models/index';
@@ -16,7 +17,6 @@ import { AlertService } from '../alert/alert.service';
 export class FormFrontComponent implements OnInit {
     
     form: Form = new Form(null);
-    formId: number = 15;
     pager = {
         index: 0,
         size: 1,
@@ -24,24 +24,19 @@ export class FormFrontComponent implements OnInit {
     };
 
     constructor(
+        private route: ActivatedRoute,
         private formService: FormService,
         private alertService: AlertService     
-    ) { }
+    ) {}
         
     ngOnInit() {      
-        this.getForm(this.formId);
-    }    
-            
-    getForm(id: number) {
-        this.formService.getForm(id).subscribe(
-            data => {
-                this.form = data,
+        this.route.params
+            .switchMap((params: Params) => this.formService.getForm(+params['form']))
+            .subscribe(form => {
+                this.form = form,
                 this.pager.count = this.form.questions.length
-            },
-            err => console.error(err),
-            () => console.log('done loading form')
-        );      
-    }
+            });        
+    }    
 
     goTo(index: number) {
         if (index >= 0 && index < this.pager.count) {
@@ -50,7 +45,7 @@ export class FormFrontComponent implements OnInit {
     }
 
     submitForm(form: NgForm) {        
-        let values = form.value;
+        let values = form.value;        
         this.formService.submitAnswers(values).subscribe(
             data => {
                 this.alertService.success('Form successfull submitted.');

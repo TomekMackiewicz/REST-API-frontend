@@ -18,7 +18,7 @@ export class DocumentCategoriesFrontComponent implements OnInit {
     constructor(
         private documentCategoriesService: DocumentCategoriesService,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location // usunąć
     ) {}
 
     ngOnInit(): void {
