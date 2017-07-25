@@ -4,6 +4,7 @@ import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
 import {DocumentService} from './document.service';
+import { FormService } from '../form/form.service';
 import {AlertService} from '../alert/alert.service';
 import {slideInOutAnimation} from '../animations/index';
 
@@ -18,10 +19,13 @@ export class DocumentCreateComponent implements OnInit {
     
     public document: any;
     public categories: any;
+    public form: any;
+    public forms: any;
     public categoriesArray: Array<{id: number, name: string}> = [];
 
     constructor(
         private documentService: DocumentService,
+        private formService: FormService,
         private alertService: AlertService,
         private route: ActivatedRoute,
         private location: Location
@@ -29,6 +33,7 @@ export class DocumentCreateComponent implements OnInit {
 
     ngOnInit() {
         this.getCategories();
+        this.getForms();
     }
 
     goBack(): void {
@@ -71,6 +76,22 @@ export class DocumentCreateComponent implements OnInit {
             data => {this.categories = data},
             err => console.error(err),
             () => console.log('done loading categories')
+        );
+    }
+
+    getForms() {
+        this.formService.getForms().subscribe(
+            data => {this.forms = data},
+            err => console.error(err),
+            () => console.log('done loading forms')
+        );
+    }
+    
+    showForm(id: number) {
+        this.formService.getForm(id).subscribe(
+            data => {this.form = data},
+            err => console.error(err),
+            () => console.log('done loading form')
         );
     }
 
