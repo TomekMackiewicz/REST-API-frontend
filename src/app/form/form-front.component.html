@@ -59,7 +59,11 @@
                         </div>                          
                     </div>
                 </div>
-            </form>                                    
+            </form> 
+            <div *ngIf="text">
+                <h2>{{text.title}}</h2>
+                {{text.body}}
+            </div>
         </div>
     </div>
 </div>

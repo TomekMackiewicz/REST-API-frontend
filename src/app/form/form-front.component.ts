@@ -17,6 +17,7 @@ import { AlertService } from '../alert/alert.service';
 export class FormFrontComponent implements OnInit {
     
     form: Form = new Form(null);
+    text: string = '';
     pager = {
         index: 0,
         size: 1,
@@ -44,12 +45,20 @@ export class FormFrontComponent implements OnInit {
         }
     }
 
+    getText(id: number) {
+        this.formService.getText(id).subscribe(
+            data => {this.text = data},
+            err => console.error(err)
+        );        
+    }
+
     submitForm(form: NgForm) {        
         let values = form.value; 
         //console.log(values);       
         this.formService.submitAnswers(values).subscribe(
             data => {
                 this.alertService.success('Form successfull submitted.');
+                this.getText(1);
                 return true;
             },
             error => {
