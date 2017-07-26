@@ -58,7 +58,8 @@ export class DocumentCreateComponent implements OnInit {
     }
 
     createDocument(title: string, body: string) {
-        let document = {title: title, body: body, categories: this.categoriesArray};
+        let document = {title: title, body: body, categories: this.categoriesArray, formId: this.form.id};
+        //console.log(document);
         this.documentService.createDocument(document).subscribe(
             data => {
                 this.alertService.success('Document created.');
