@@ -62,7 +62,7 @@
             </form> 
             <div *ngIf="text">
                 <h2>{{text.title}}</h2>
-                {{text.body}}
+                <div [innerHTML]="text.body"></div> <!-- | truncate : 10 -->
             </div>
         </div>
     </div>

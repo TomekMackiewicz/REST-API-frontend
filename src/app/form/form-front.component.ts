@@ -6,6 +6,7 @@ import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
 import { Option, Question, Form } from './models/index';
 import { AlertService } from '../alert/alert.service';
+//import { TruncatePipe } from '../pipes/truncate.pipe';
 
 @Component({
     selector: 'app-form',
@@ -58,7 +59,7 @@ export class FormFrontComponent implements OnInit {
         this.formService.submitAnswers(values).subscribe(
             data => {
                 this.alertService.success('Form successfull submitted.');
-                this.getText(1);
+                this.getText(4);
                 return true;
             },
             error => {

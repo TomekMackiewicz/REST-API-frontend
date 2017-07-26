@@ -8,6 +8,7 @@ import { FormAddComponent } from './form-add.component';
 import { FormRoutingModule } from './form-routing.module';
 import { AlertModule } from '../alert/alert';
 import { FormService } from './form.service';
+//import { TruncatePipe } from '../pipes/truncate.pipe';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { FormService } from './form.service';
     ],
     declarations: [
         FormFrontComponent,
-        FormAddComponent
+        FormAddComponent,
+        //TruncatePipe
     ],
     providers: [
         FormService
