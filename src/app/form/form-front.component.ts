@@ -46,17 +46,17 @@ export class FormFrontComponent implements OnInit {
 
     submitForm(form: NgForm) {        
         let values = form.value; 
-        console.log(values);       
-//        this.formService.submitAnswers(values).subscribe(
-//            data => {
-//                this.alertService.success('Form successfull submitted.');
-//                return true;
-//            },
-//            error => {
-//                this.alertService.error("Error saving form! " + error);
-//                return Observable.throw(error);
-//            }
-//        );         
+        //console.log(values);       
+        this.formService.submitAnswers(values).subscribe(
+            data => {
+                this.alertService.success('Form successfull submitted.');
+                return true;
+            },
+            error => {
+                this.alertService.error("Error saving form! " + error);
+                return Observable.throw(error);
+            }
+        );         
     }       
             
 }
