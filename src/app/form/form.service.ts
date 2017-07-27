@@ -8,16 +8,6 @@ export class FormService {
 
     constructor(private http: Http) {}
 
-//    get(url: string) {
-//        return this.http.get(url).map(res => res.text().length > 0 ? res.json() : null);
-//    }
-//
-//    getAll() {
-//        return [
-//            { id: 15, name: 'Ankieta' }
-//        ];
-//    }
-
     getForm(id: number) {
         return this.http.get
             ('http://localhost:8000/forms/' + id)

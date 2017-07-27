@@ -1,1 +1,51 @@
+<div class="container side-form">
+    <div class="row">
+        <div class="col-md-12">
+            <div *ngIf="form">
+                <h2>Update form</h2>                
+                <form>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="form-name">Title</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       id="form-name" 
+                                       name="form-name" [(ngModel)]="form.name">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-body">Body</label>
+                                <textarea
+                                    name="form-body"
+                                    elementId="form-body"
+                                    [(ngModel)]="form.body">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Categories</label>                           
+<!--                            <div *ngFor="let category of categories">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"
+                                               [checked]=category.checked
+                                               (change)="onChange(category.id, category.name, $event.target.checked)"> {{category.name}}
+                                    </label>
+                                </div>
+                            </div>-->
+                            <hr>
+                            <alert></alert>
+                            <button type="submit" 
+                                    class="btn btn-primary" 
+                                    (click)="updateForm(form.id, form.name, form.body)">
+                                    Save
+                            </button>
+                            <button class="btn btn-default" (click)="goBack()">Back</button>
+                        </div>                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 

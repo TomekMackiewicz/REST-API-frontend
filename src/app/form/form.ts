@@ -7,7 +7,7 @@ import { DataTableModule } from "angular2-datatable";
 import { FormFrontComponent } from './form-front.component';
 import { FormAddComponent } from './form-add.component';
 import { FormListComponent } from './form-list.component';
-//import { FormEditComponent } from './form-edit.component';
+import { FormEditComponent } from './form-edit.component';
 import { FormRoutingModule } from './form-routing.module';
 import { AlertModule } from '../alert/alert';
 import { FormService } from './form.service';
@@ -27,7 +27,7 @@ import { FormService } from './form.service';
         FormFrontComponent,
         FormAddComponent,
         FormListComponent,
-        //FormEditComponent
+        FormEditComponent
     ],
     providers: [
         FormService

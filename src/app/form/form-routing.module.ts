@@ -4,7 +4,7 @@ import { AuthGuard } from '../guards/auth.guard';
 
 import { FormFrontComponent } from './form-front.component';
 import { FormAddComponent } from './form-add.component';
-//import { FormEditComponent } from './form-edit.component';
+import { FormEditComponent } from './form-edit.component';
 import { FormListComponent } from './form-list.component';
 import { MenuComponent } from '../menu/menu.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -12,7 +12,7 @@ import { FooterComponent } from '../footer/footer.component';
 const formRoutes: Routes = [
     {path: 'admin', 
         children: [
-            //{path: 'forms/:id', component: FormEditComponent},
+            {path: 'forms/:id', component: FormEditComponent},
             {path: 'forms/add', component: FormAddComponent},
             {path: 'forms', component: FormListComponent}
         ],
