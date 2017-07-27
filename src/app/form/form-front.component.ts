@@ -6,7 +6,6 @@ import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
 import { Option, Question, Form } from './models/index';
 import { AlertService } from '../alert/alert.service';
-//import { TruncatePipe } from '../pipes/truncate.pipe';
 
 @Component({
     selector: 'app-form',
@@ -46,7 +45,7 @@ export class FormFrontComponent implements OnInit {
         }
     }
 
-    getText(id: number) {
+    getText(id: number) {         
         this.formService.getText(id).subscribe(
             data => {this.text = data},
             err => console.error(err)
@@ -54,12 +53,12 @@ export class FormFrontComponent implements OnInit {
     }
 
     submitForm(form: NgForm) {        
-        let values = form.value; 
-        //console.log(values);       
+        let values = form.value;      
         this.formService.submitAnswers(values).subscribe(
             data => {
                 this.alertService.success('Form successfull submitted.');
-                this.getText(4);
+                this.getText(data.json());
+                //console.log(data.json());
                 return true;
             },
             error => {
@@ -68,5 +67,5 @@ export class FormFrontComponent implements OnInit {
             }
         );         
     }       
-            
+                  
 }

@@ -43,8 +43,8 @@ export class FormService {
         let body = form;
         //console.log(body);
         return this.http.post
-            ('http://localhost:8000/forms', body, headers);
-        //.map((res:Response) => res.json());
+            ('http://localhost:8000/forms', body, headers)
+            .map((res:Response) => res.json())
     }
 
     submitAnswers(answer: any) {
