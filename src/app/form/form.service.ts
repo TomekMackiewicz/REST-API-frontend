@@ -56,20 +56,20 @@ export class FormService {
             ('http://localhost:8000/answers', body, headers);        
     }
 
-//    updateDocument(document: any) {
-//        let headers = new Headers({'Content-Type': 'application/json'});
-//        let options = new RequestOptions({headers: headers});
-//        let body = document;
+    updateForm(form: any) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        let body = form;
+
+        return this.http.put
+            ('http://localhost:8000/forms/' + form.id, body, headers)
+            .map((res: Response) => res.json());
+    }
 //
-//        return this.http.put
-//            ('http://localhost:8000/documents/' + document.id, body, headers)
-//        //.map((res: Response) => res.json());
-//    }
-//
-//    deleteDocument(document: any) {
-//        return this.http.delete
-//            ('http://localhost:8000/documents/' + document.id);
-//    }
+    deleteForm(form: any) {
+        return this.http.delete
+            ('http://localhost:8000/forms/' + form.id);
+    }
 
 
 }

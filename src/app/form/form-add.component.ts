@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { Location } from '@angular/common';
 import { Form } from './models/form';
 import { FormConfig } from './models/form-config';
 import { Question } from './models/question';
@@ -11,11 +12,13 @@ import { Option } from './models/option';
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 
+import { slideInOutAnimation } from '../animations/index';
+
 @Component({
     selector: 'form-add',
     templateUrl: './form-add.component.html',
-    //animations: [slideInOutAnimation],
-    //host: {'[@slideInOutAnimation]': ''}
+    animations: [slideInOutAnimation],
+    host: {'[@slideInOutAnimation]': ''}
 })
 
 export class FormAddComponent implements OnInit {
@@ -48,6 +51,7 @@ export class FormAddComponent implements OnInit {
 
     constructor(
         private http: Http,
+        private location: Location,
         private formService: FormService,
         private alertService: AlertService        
     ) {}
@@ -190,5 +194,9 @@ export class FormAddComponent implements OnInit {
         );
 
     }    
-             
+
+    goBack(): void {
+        this.location.back();
+    }    
+                 
 }
