@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div *ngIf="text">
+                <h2>{{text.title}}</h2>
+                <div [innerHTML]="text.body"></div> <!-- | truncate : 10 -->               
+            </div>
+        </div>
+    </div>
+</div>    

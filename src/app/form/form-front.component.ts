@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
 import { Option, Question, Form } from './models/index';
@@ -15,9 +15,8 @@ import { AlertService } from '../alert/alert.service';
 })
 
 export class FormFrontComponent implements OnInit {
-    
     form: Form = new Form(null);
-    text: string = '';
+    //text: string = '';
     pager = {
         index: 0,
         size: 1,
@@ -27,7 +26,8 @@ export class FormFrontComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private formService: FormService,
-        private alertService: AlertService     
+        private alertService: AlertService,
+        private router: Router     
     ) {}
         
     ngOnInit() {      
@@ -45,20 +45,20 @@ export class FormFrontComponent implements OnInit {
         }
     }
 
-    getText(id: number) {         
-        this.formService.getText(id).subscribe(
-            data => {this.text = data},
-            err => console.error(err)
-        );        
-    }
+//    getText(id: number) {         
+//        this.formService.getText(id).subscribe(
+//            data => {this.text = data},
+//            err => console.error(err)
+//        );        
+//    }
 
     submitForm(form: NgForm) {        
         let values = form.value;      
         this.formService.submitAnswers(values).subscribe(
             data => {
                 this.alertService.success('Form successfull submitted.');
-                this.getText(data.json());
-                //console.log(data.json());
+                //this.getText(data.json());
+                this.router.navigateByUrl('texts/'+data.json());
                 return true;
             },
             error => {

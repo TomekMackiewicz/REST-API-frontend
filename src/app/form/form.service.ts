@@ -24,11 +24,11 @@ export class FormService {
             .map((res: Response) => res.json());
     }
 
-    getText(id: number) {
-        return this.http.get
-            ('http://localhost:8000/texts/' + id)
-            .map((res: Response) => res.json());
-    }
+//    getText(id: number) {
+//        return this.http.get
+//            ('http://localhost:8000/texts/' + id)
+//            .map((res: Response) => res.json());
+//    }
 
     getForms() {
         return this.http.get
