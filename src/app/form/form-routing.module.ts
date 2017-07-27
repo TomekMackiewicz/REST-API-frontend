@@ -35,7 +35,7 @@ const formRoutes: Routes = [
 //            }
 //        }            
 //    } 
-    {path: 'forms/:form', 
+    {path: 'forms/:id', 
         children: [
             {path: '' , component: FormFrontComponent},
             {path: '' , component: MenuComponent, outlet: 'header'},
