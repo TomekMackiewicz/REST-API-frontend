@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <h3>Forms</h3>
-            <button class="btn btn-default" [routerLink]="['/admin/forms/add']">Add new</button>
+            <button class="btn btn-default" [routerLink]="['/admin/form/add']">Add new</button>
             <hr>
             <table class="table" [mfData]="forms" #mf="mfDataTable" [mfRowsOnPage]="10">
                 <thead>
@@ -18,8 +18,8 @@
                     <tr *ngFor="let form of mf.data">
                         <td>{{form.name}}</td>
 <!--                        <td><span *ngFor="let category of document.categories">{{category.name}}<br></span></td>-->
-                        <td>{{form.add_date | date:'yyyy/MM/dd H:m:s'}}</td>
-                        <td>{{form.modified_date | date:'yyyy/MM/dd H:m:s'}}</td>
+                        <td>{{form.addDate | date:'yyyy/MM/dd H:m:s'}}</td>
+                        <td>{{form.modifiedDate | date:'yyyy/MM/dd H:m:s'}}</td>
                         <td>
                             <button class="btn btn-primary" [routerLink]="['/admin/forms', form.id]">Edit</button>
                             <button class="btn btn-danger" (click)="deleteForm(form)">Delete</button>

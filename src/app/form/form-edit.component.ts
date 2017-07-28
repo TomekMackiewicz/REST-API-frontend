@@ -75,14 +75,14 @@ export class FormEditComponent implements OnInit {
             .switchMap((params: Params) => this.formService.getForm(+params['id']))
             .subscribe(form => {
                 this.form = form; 
-                this.counter = this.form.questions.length;
+                this.counter = this.form.questions.length;              
                 for (let question of this.form.questions) {
                     if(question.questionType === "checkbox") {
                         this.checkboxes = question.options;
-                    }
+                    }  
                     if(question.questionType === "radio") {
-                        this.radios = question.options;                         
-                    }
+                        this.radios = question.options;
+                    }                                          
                     this.formField = {
                         label: question.name,
                         type: question.questionType,
@@ -92,13 +92,29 @@ export class FormEditComponent implements OnInit {
                         checkboxFields: this.checkboxes,
                         radioFields: this.radios
                     }
-                    this.formFields.push(this.formField);                                                            
+                    this.formFields.push(this.formField);
+                    let values = {name: question.name, questionType: question.questionType};
+                    this.addQuestion(values);
+                    
+                    if(question.questionType === "checkbox") {
+                        //this.checkboxes = question.options;
+                        for (let option of question.options) {
+                            let values = {name: option.name, fieldLabel: question.name};
+                            this.addOption(values);                            
+                        }
+                    }
+                    if(question.questionType === "radio") {
+                        //this.radios = question.options;
+                        for (let option of question.options) {
+                            let values = {name: option.name, fieldLabel: question.name};
+                            this.addOption(values);                            
+                        }                                                 
+                    }                    
+                                                                                
                 }
             });
-        //console.log(this.form);
+        console.log(this.questions);
     }       
-
-
 
     addCheckbox(addCheckboxForm: NgForm) {                                 
         let values = addCheckboxForm.value;
@@ -132,18 +148,6 @@ export class FormEditComponent implements OnInit {
         this.counter++;
         this.addOption(values);
     }
-
-    addOption(values) {
-        let selectedQuestion = this.questions.find(item => item.name === values.fieldLabel);
-        let data = {        
-            //id: null,
-            //questionId: selectedQuestion.id,
-            name: values.name,
-            isAnswer: true                
-        };
-        let option = new Option(data);                         
-        selectedQuestion.options.push(option);       
-    }
                         
     addFormField(addFormFieldForm: NgForm) {                                 
         let values = addFormFieldForm.value;        
@@ -170,39 +174,36 @@ export class FormEditComponent implements OnInit {
         this.deleteQuestion(label);             
     }
 
-    addQuestion(values) {    
-//        switch (values.questionType) {
-//            case "text":
-//                this.questionTypeId = 2;
-//                this.questionTypeName = 'Text Field';
-//                break;
-//            case "radio":
-//                this.questionTypeId = 3;
-//                this.questionTypeName = 'Single Choice';
-//                break;
-//            case "checkbox":
-//                this.questionTypeId = 1;
-//                this.questionTypeName = 'Multiple Choice';
-//                break;
-//            default:
-//                this.questionTypeId = 0;
-//                this.questionTypeName = '';
-//        }
-        
+    deleteFormOption(field, optionName, type) {
+        if(type === "checkbox") {
+            let index: number = field.checkboxFields.indexOf(field.checkboxFields.find(x => x.name === optionName));
+            field.checkboxFields.splice(index, 1); 
+        }
+        if(type === "radio") {
+            let index: number = field.radioFields.indexOf(field.radioFields.find(x => x.name === optionName));
+            field.radioFields.splice(index, 1); 
+        }               
+        this.deleteOption(field, optionName);             
+    }
+
+    addQuestion(values) {            
         let data = {        
-            //id: 1,
             name: values.name,
             questionType: values.questionType,
-            options: [],
-//            questionType: {
-//                "id": this.questionTypeId,
-//                "name": this.questionTypeName,
-//                "isActive": true
-//            }                   
+            options: [],                  
         };
         let question = new Question(data);
-        this.questions.push(question);        
-                
+        this.questions.push(question);                        
+    }
+
+    addOption(values) {
+        let selectedQuestion = this.questions.find(item => item.name === values.fieldLabel);
+        let data = {        
+            name: values.name,
+            isAnswer: true                
+        };
+        let option = new Option(data);                         
+        selectedQuestion.options.push(option);       
     }
 
     deleteQuestion(label) {
@@ -210,30 +211,36 @@ export class FormEditComponent implements OnInit {
         this.questions.splice(index, 1);              
     }
 
+    deleteOption(field, optionName) {
+        console.log(this.questions);
+        //let index: number = this.questions.indexOf(this.questions.find(x => x.name === label));
+        //this.questions.splice(index, 1);              
+    }
+
     submitMainForm(mainForm: NgForm) {
-        let values = mainForm.value; 
-        console.log(values);       
-//        let data = {        
-//            //id: id,
-//            name: values.name,
-//            description: values.description,
-//            config: this.formConfig,
-//            questions: this.questions                
-//        };                        
-//        let form = new Form(data);
-//        //let serializedForm = JSON.stringify(form);
-//        console.log(form);
-//        
-//        this.formService.createForm(form).subscribe(
-//            data => {
-//                this.alertService.success('form created.');
-//                return true;
-//            },
-//            error => {
-//                this.alertService.error("Error saving form! " + error);
-//                return Observable.throw(error);
-//            }
-//        );
+        let values = mainForm.value;       
+        let data = {        
+            id: this.form.id,
+            name: values.name,
+            description: values.description,
+            config: this.formConfig,
+            questions: this.questions                
+        };
+        //console.log(data);                                 
+        let form = new Form(data);
+        //let serializedForm = JSON.stringify(form);
+        console.log(form);
+        
+        this.formService.updateForm(form).subscribe(
+            data => {
+                this.alertService.success('form updated.');
+                return true;
+            },
+            error => {
+                this.alertService.error("Error updating form! " + error);
+                return Observable.throw(error);
+            }
+        );
 
     }    
 

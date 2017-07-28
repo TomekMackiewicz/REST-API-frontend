@@ -128,35 +128,11 @@ export class FormAddComponent implements OnInit {
         this.deleteQuestion(label);             
     }
 
-    addQuestion(values) {    
-//        switch (values.questionType) {
-//            case "text":
-//                this.questionTypeId = 2;
-//                this.questionTypeName = 'Text Field';
-//                break;
-//            case "radio":
-//                this.questionTypeId = 3;
-//                this.questionTypeName = 'Single Choice';
-//                break;
-//            case "checkbox":
-//                this.questionTypeId = 1;
-//                this.questionTypeName = 'Multiple Choice';
-//                break;
-//            default:
-//                this.questionTypeId = 0;
-//                this.questionTypeName = '';
-//        }
-        
+    addQuestion(values) {           
         let data = {        
-            //id: 1,
             name: values.name,
             questionType: values.questionType,
-            options: [],
-//            questionType: {
-//                "id": this.questionTypeId,
-//                "name": this.questionTypeName,
-//                "isActive": true
-//            }                   
+            options: []                 
         };
         let question = new Question(data);
         this.questions.push(question);        

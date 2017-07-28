@@ -13,7 +13,7 @@ const formRoutes: Routes = [
     {path: 'admin', 
         children: [
             {path: 'forms/:id', component: FormEditComponent},
-            {path: 'forms/add', component: FormAddComponent},
+            {path: 'form/add', component: FormAddComponent},
             {path: 'forms', component: FormListComponent}
         ],
         data: {

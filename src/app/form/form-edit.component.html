@@ -8,11 +8,11 @@
                     <form #mainForm="ngForm" (ngSubmit)="submitMainForm(mainForm)">
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="name" placeholder="{{form.name}}" ngModel>
+                            <input type="text" class="form-control" id="title" name="name" [(ngModel)]="form.name">
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" id="description" name="description" placeholder="{{form.description}}" rows="3" ngModel></textarea>
+                            <textarea class="form-control" id="description" name="description" [(ngModel)]="form.description" rows="3" ngModel></textarea>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-default" value="Submit">Submit</button>
@@ -50,14 +50,16 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{field.label}} (type: {{field.type}}, id: {{field.id}})
-                        <button class="btn btn-danger btn-xs pull-right" (click)="deleteFormField(field.label)">Delete</button>                        
+                        <button class="btn btn-danger btn-xs pull-right" (click)="deleteFormField(field.label)">
+                            <i class="ion-trash-a"></i>
+                        </button>                        
                         <button class="btn btn-default btn-xs pull-right" 
                                 type="button" 
                                 data-toggle="collapse" 
                                 [attr.data-target]="'#collapse_'+field.id"
                                 aria-expanded="false" 
                                 aria-controls="collapse">
-                          Add option
+                            <i class="ion-plus"></i>
                         </button>
                         <div class="collapse" id="collapse_{{field.id}}">
 <!--                        <div [ngClass]="{'in': visible }" class="collapse" id="collapse_{{field.id}}">-->
@@ -89,7 +91,7 @@
                                 <input type="text" 
                                     class="form-control" 
                                     name="{{field.name}}" 
-                                    placeholder="{{field.label}}" ngModel disabled>
+                                    [(ngModel)]="field.label" disabled>
                             </form>
                         </div>
                         <!-- CHECKBOX -->
@@ -98,7 +100,10 @@
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" value="" disabled>
-                                        {{checkbox.name}}
+                                        {{checkbox.name}} 
+                                        <button class="btn btn-danger btn-xs" (click)="deleteFormOption(field, checkbox.name, field.type)">
+                                            <i class="ion-trash-a"></i>
+                                        </button>
                                     </label>
                                 </div>                        
                             </div>                           
@@ -110,6 +115,9 @@
                                     <label>
                                         <input type="radio" name="{{radio.name}}" id="{{radio.id}}" value="" disabled>
                                         {{radio.name}}
+                                        <button class="btn btn-danger btn-xs" (click)="deleteFormOption(field, radio.name, field.type)">
+                                            <i class="ion-trash-a"></i>
+                                        </button>                            
                                     </label>
                                 </div>                       
                             </div>                             
