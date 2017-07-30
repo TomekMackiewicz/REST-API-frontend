@@ -3,7 +3,22 @@
         <div class="col-md-6">
             <alert></alert>
             <div class="panel panel-default">
-                <div class="panel-heading">Add Question</div>
+                <div class="panel-heading">Form config</div>                          
+                <div class="panel-body">
+                    <li *ngFor="let item of generateArray(form.config)">{{item.key}}: {{item.value}}</li>
+<!--                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" disabled>
+                                            {{checkbox.name}} 
+                                            <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, checkbox.name)">
+                                                <i class="ion-trash-a"></i>
+                                            </button>
+                                        </label>
+                                    </div>                    -->
+                </div> 
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Add Question</div>               
                 <div class="panel-body">
                     <form #addQuestionForm="ngForm" (ngSubmit)="addQuestion(addQuestionForm)">
                         <div class="form-group">
@@ -45,41 +60,33 @@
                         </div>
                     </div>
                 </div>                 
-                <div *ngFor="let question of form.questions">
+                <div *ngFor="let question of form.questions; let i = index">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            {{question.name}} (type: {{question.questionType}}, id: {{question.id}})
-                            <button class="btn btn-danger btn-xs pull-right" (click)="deleteQuestion(question.id)">
+                            {{question.name}}
+                            <button type="button" class="btn btn-danger btn-xs pull-right" (click)="deleteQuestion(question.name)">
                                 <i class="ion-trash-a"></i>
                             </button>                        
-    <!--                        <button class="btn btn-default btn-xs pull-right" 
+                            <button class="btn btn-default btn-xs pull-right" 
                                     type="button" 
                                     data-toggle="collapse" 
-                                    [attr.data-target]="'#collapse_'+field.id"
+                                    [attr.data-target]="'#collapse_'+i"
                                     aria-expanded="false" 
                                     aria-controls="collapse">
                                 <i class="ion-plus"></i>
-                            </button>-->
-    <!--                        <div class="collapse" id="collapse_{{field.id}}">
+                            </button>
+                            <div class="collapse" id="collapse_{{i}}">
                                 <ng-container [ngSwitch]="true">
-                                    <div class="well" *ngSwitchCase="field.type === 'checkbox'">                               
-                                        <form class="form-inline" #addCheckboxForm="ngForm" (ngSubmit)="addCheckbox(addCheckboxForm)">
-                                            <input type="text" class="form-control" name="name" placeholder="Checkbox label" ngModel>
-                                            <input type="hidden" name="fieldId" [(ngModel)]="field.id">
-                                            <input type="hidden" name="fieldLabel" [(ngModel)]="field.label">
-                                            <button type="submit" class="btn btn-default btn-sm" value="Submit">Add checkbox</button>
-                                        </form> 
+                                    <div class="well" *ngSwitchCase="question.questionType === 'checkbox'">                               
+                                        <input type="text" class="form-control" #checkboxName>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, checkboxName.value)">Add checkbox</button>
                                     </div>
-                                    <div class="well" *ngSwitchCase="field.type === 'radio'">
-                                        <form class="form-inline" #addRadioForm="ngForm" (ngSubmit)="addRadio(addRadioForm)">
-                                            <input type="text" class="form-control" name="name" placeholder="Radio label" ngModel>
-                                            <input type="hidden" name="fieldId" [(ngModel)]="field.id">
-                                            <input type="hidden" name="fieldLabel" [(ngModel)]="field.label">
-                                            <button type="submit" class="btn btn-default btn-sm" value="Submit">Add radio</button>    
-                                        </form>                                
+                                    <div class="well" *ngSwitchCase="question.questionType === 'radio'">
+                                        <input type="text" class="form-control" #radioName>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, radioName.value)">Add radio</button>                                   
                                     </div>
                                 </ng-container>     
-                            </div>                                                                                -->
+                            </div>                                                                                
                         </div>
                         <ng-container [ngSwitch]="true">
                             <!-- TEXT -->
@@ -94,9 +101,9 @@
                                 <div *ngFor="let checkbox of question.options"> 
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" value="" disabled>
+                                            <input type="checkbox" disabled>
                                             {{checkbox.name}} 
-                                            <button class="btn btn-danger btn-xs" (click)="deleteOption(checkbox.name)">
+                                            <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, checkbox.name)">
                                                 <i class="ion-trash-a"></i>
                                             </button>
                                         </label>
@@ -108,9 +115,9 @@
                                 <div *ngFor="let radio of question.options">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="{{radio.name}}" id="{{radio.id}}" value="" disabled>
+                                            <input type="radio" disabled>
                                             {{radio.name}}
-                                            <button class="btn btn-danger btn-xs" (click)="deleteOption(radio.name)">
+                                            <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, radio.name)">
                                                 <i class="ion-trash-a"></i>
                                             </button>                            
                                         </label>

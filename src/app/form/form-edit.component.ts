@@ -24,13 +24,17 @@ import { slideInOutAnimation } from '../animations/index';
 
 export class FormEditComponent implements OnInit {
 
-    public form: any;     
+    public form: any;
+    //public index: number = 0;     
     public types = [
         { value: 'text', display: 'Text' },
         { value: 'radio', display: 'Radio' },
         { value: 'checkbox', display: 'Checkbox' }
     ];
-    
+    generateArray(obj){
+        return Object.keys(obj).map((key)=>{ return {key:key, value:obj[key]}});
+    }
+        
     constructor(
         private http: Http,
         private location: Location,
@@ -45,65 +49,61 @@ export class FormEditComponent implements OnInit {
             .subscribe(form => {this.form = form})
     }       
 
-    addQuestion(form: any) {  
-        console.log(form.name);
-        console.log(form.questionType);          
+    addQuestion(form: NgForm) {
+        let values = form.value;                   
         let data = {        
-            name: form.name,
-            questionType: form.questionType,
+            name: values.name,
+            questionType: values.questionType,
             options: [],                  
         };
         //let question = new Question(data);
-        this.form.questions.push(data);
-        //console.log(this.form);
-                                
+        this.form.questions.push(data);                                
     }
-//
-//    addOption(values) {
-//        let selectedQuestion = this.questions.find(item => item.name === values.fieldLabel);
-//        let data = {        
-//            name: values.name,
-//            isAnswer: true                
-//        };
-//        let option = new Option(data);                         
-//        selectedQuestion.options.push(option);       
-//    }
-
-    deleteQuestion(id: number) {
-        let index: number = this.form.questions.indexOf(this.form.questions.find(x => x.id === id));
-        this.form.questions.splice(index, 1);              
+    
+    deleteQuestion(name: string) {
+        let index: number = this.form.questions.indexOf(this.form.questions.find(x => x.name === name));
+        this.form.questions.splice(index, 1);             
+    }    
+    
+    addOption(question, name) {
+        //let selectedQuestion = this.questions.find(item => item.name === values.fieldLabel);
+        let data = {        
+            name: name,
+            //isAnswer: true                
+        };
+        //let option = new Option(data);                         
+        question.options.push(data);       
     }
 
-    deleteOption(field, optionName) {
-        console.log(this.form.questions);
-        //let index: number = this.questions.indexOf(this.questions.find(x => x.name === label));
-        //this.questions.splice(index, 1);              
+    deleteOption(question, name) {
+        let index: number = question.options.indexOf(question.options.find(x => x.name === name));
+        question.options.splice(index, 1); ;             
     }
 
     submitMainForm(mainForm: NgForm) {
-//        let values = mainForm.value;       
-//        let data = {        
-//            id: this.form.id,
-//            name: values.name,
-//            description: values.description,
-//            config: this.form.config,
-//            questions: this.form.questions                
-//        };
+        let values = mainForm.value;       
+        let data = {        
+            id: this.form.id,
+            name: values.name,
+            description: values.description,
+            config: this.form.config,
+            questions: this.form.questions                
+        };
         //console.log(data);                                 
-        //let form = new Form(data);
-        //let serializedForm = JSON.stringify(form);
-        console.log(this.form);
+        let form = new Form(data);
+        let serializedForm = JSON.stringify(form);
+        //console.log(this.form);
         
-//        this.formService.updateForm(this.form).subscribe(
-//            data => {
-//                this.alertService.success('form updated.');
-//                return true;
-//            },
-//            error => {
-//                this.alertService.error("Error updating form! " + error);
-//                return Observable.throw(error);
-//            }
-//        );
+        this.formService.updateForm(this.form).subscribe(
+            data => {
+                this.alertService.success('form updated.');
+                return true;
+            },
+            error => {
+                this.alertService.error("Error updating form! " + error);
+                return Observable.throw(error);
+            }
+        );
 
     }    
 
