@@ -3,21 +3,6 @@
         <div class="col-md-6">
             <alert></alert>
             <div class="panel panel-default">
-                <div class="panel-heading">Form config</div>                          
-                <div class="panel-body">
-                    <li *ngFor="let item of generateArray(form.config)">{{item.key}}: {{item.value}}</li>
-<!--                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" disabled>
-                                            {{checkbox.name}} 
-                                            <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, checkbox.name)">
-                                                <i class="ion-trash-a"></i>
-                                            </button>
-                                        </label>
-                                    </div>                    -->
-                </div> 
-            </div>
-            <div class="panel panel-default">
                 <div class="panel-heading">Add Question</div>               
                 <div class="panel-body">
                     <form #addQuestionForm="ngForm" (ngSubmit)="addQuestion(addQuestionForm)">
@@ -59,7 +44,48 @@
                             <button type="submit" class="btn btn-default" value="Submit">Submit</button>
                         </div>
                     </div>
-                </div>                 
+                </div>    
+                <div class="panel panel-default">
+                    <div class="panel-heading">Form config</div>                          
+                    <div class="panel-body">                    
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="allowBack" [(ngModel)]="form.config.allowBack">
+                                    Allow back
+                            </label>
+                        </div> 
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="autoMove" [(ngModel)]="form.config.autoMove">
+                                    Auto move
+                            </label>
+                        </div>         
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="requiredAll" [(ngModel)]="form.config.requiredAll">
+                                    Required all
+                            </label>
+                        </div> 
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="shuffleQuestions" [(ngModel)]="form.config.shuffleQuestions">
+                                    Shuffle questions
+                            </label>
+                        </div>   
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="shuffleOptions" [(ngModel)]="form.config.shuffleOptions">
+                                    Shuffle options
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="showPager" [(ngModel)]="form.config.showPager">
+                                    Show pager
+                            </label>
+                        </div>                      
+                    </div> 
+                </div>                
                 <div *ngFor="let question of form.questions; let i = index">
                     <div class="panel panel-default">
                         <div class="panel-heading">

@@ -81,15 +81,24 @@ export class FormEditComponent implements OnInit {
     }
 
     submitMainForm(mainForm: NgForm) {
-        let values = mainForm.value;       
+        let values = mainForm.value; 
+        let config = {
+            id: this.form.config.id,
+            allowBack: values.allowBack,
+            autoMove: values.autoMove,
+            requiredAll: values.requiredAll,
+            shuffleQuestions: values.shuffleQuestions,
+            shuffleOptions: values.shuffleOptions,
+            showPager: values.showPager 
+        }     
         let data = {        
             id: this.form.id,
             name: values.name,
             description: values.description,
-            config: this.form.config,
+            config: config,
             questions: this.form.questions                
         };
-        //console.log(data);                                 
+        console.log(data);                                 
         let form = new Form(data);
         let serializedForm = JSON.stringify(form);
         //console.log(this.form);
