@@ -62,7 +62,8 @@ export class FormEditComponent implements OnInit {
     
     deleteQuestion(name: string) {
         let index: number = this.form.questions.indexOf(this.form.questions.find(x => x.name === name));
-        this.form.questions.splice(index, 1);             
+        this.form.questions.splice(index, 1);
+        //this.formService.deleteQuestion(this.form);                     
     }    
     
     addOption(question, name) {
