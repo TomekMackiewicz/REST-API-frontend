@@ -61,8 +61,11 @@ export class FormEditComponent implements OnInit {
     }
     
     deleteQuestion(name: string) {
-        let index: number = this.form.questions.indexOf(this.form.questions.find(x => x.name === name));
-        this.form.questions.splice(index, 1);
+        //console.log(id);
+        console.log(name);
+        console.log("test");
+        //let index: number = this.form.questions.indexOf(this.form.questions.find(x => x.name === name));
+        //this.form.questions.splice(index, 1);
         //this.formService.deleteQuestion(this.form);                     
     }    
     
@@ -99,7 +102,7 @@ export class FormEditComponent implements OnInit {
             config: config,
             questions: this.form.questions                
         };
-        console.log(data);                                 
+        //console.log(this.form.questions);                                 
         let form = new Form(data);
         let serializedForm = JSON.stringify(form);
         //console.log(this.form);
