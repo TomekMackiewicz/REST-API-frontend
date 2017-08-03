@@ -11,13 +11,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class FormListComponent implements OnInit {
 
     public forms: any;
-    //public categories: any;
+    public categories: any;
 
     constructor(private formService: FormService) {}
 
     ngOnInit() {
         this.getForms();
-        //this.getCategories();
+        this.getCategories();
     }
 
     getForms() {
@@ -28,13 +28,13 @@ export class FormListComponent implements OnInit {
         );
     }
 
-//    getCategories() {
-//        this.documentService.getCategories().subscribe(
-//            data => {this.categories = data},
-//            err => console.error(err),
-//            () => console.log('done loading categories')
-//        );
-//    }
+    getCategories() {
+        this.formService.getCategories().subscribe(
+            data => {this.categories = data},
+            err => console.error(err),
+            () => console.log('done loading categories')
+        );
+    }
 
     deleteForm(form: any) {
         if (confirm("Are you sure you want to delete " + form.name + "?")) {

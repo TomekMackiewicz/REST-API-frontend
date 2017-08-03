@@ -18,7 +18,7 @@ import {slideInOutAnimation} from '../animations/index';
 export class DocumentCreateComponent implements OnInit {
     
     public document: any;
-    public categories: any;
+    //public categories: any;
     public form: any;
     public forms: any;
     public categoriesArray: Array<{id: number, name: string}> = [];
@@ -32,7 +32,7 @@ export class DocumentCreateComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.getCategories();
+        //this.getCategories();
         this.getForms();
     }
 
@@ -40,22 +40,22 @@ export class DocumentCreateComponent implements OnInit {
         this.location.back();
     }
 
-    onChange(id: number, name: string, isChecked: boolean) {
-        if (isChecked) {
-            if (this.categoriesArray.some(x => x.name === name)) {
-                //console.log('Already in array');
-                return;
-            } else {
-                this.categoriesArray.push({id: id, name: name});
-                //console.log(this.categoriesArray);
-            }
-        } else {
-            let index: number = this.categoriesArray.indexOf(this.categoriesArray.find(x => x.name === name));
-            this.categoriesArray.splice(index, 1);
-            //console.log(this.categoriesArray);
-        }
-        return this.categoriesArray;
-    }
+//    onChange(id: number, name: string, isChecked: boolean) {
+//        if (isChecked) {
+//            if (this.categoriesArray.some(x => x.name === name)) {
+//                //console.log('Already in array');
+//                return;
+//            } else {
+//                this.categoriesArray.push({id: id, name: name});
+//                //console.log(this.categoriesArray);
+//            }
+//        } else {
+//            let index: number = this.categoriesArray.indexOf(this.categoriesArray.find(x => x.name === name));
+//            this.categoriesArray.splice(index, 1);
+//            //console.log(this.categoriesArray);
+//        }
+//        return this.categoriesArray;
+//    }
 
     createDocument(title: string, body: string) {
         let document = {title: title, body: body, categories: this.categoriesArray, formId: this.form.id};
@@ -72,13 +72,13 @@ export class DocumentCreateComponent implements OnInit {
         );
     }
 
-    getCategories() {
-        this.documentService.getCategories().subscribe(
-            data => {this.categories = data},
-            err => console.error(err),
-            () => console.log('done loading categories')
-        );
-    }
+//    getCategories() {
+//        this.documentService.getCategories().subscribe(
+//            data => {this.categories = data},
+//            err => console.error(err),
+//            () => console.log('done loading categories')
+//        );
+//    }
 
     getForms() {
         this.formService.getForms().subscribe(

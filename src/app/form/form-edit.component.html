@@ -3,6 +3,18 @@
         <div class="col-md-6">
             <alert></alert>
             <div class="panel panel-default">
+                <div class="panel-heading">Categories</div>               
+                <div class="panel-body">
+                    <div class="checkbox" *ngFor="let category of categories">
+                        <label>
+                            <input type="checkbox"
+                                   (change)="assignCategories(category, $event)">
+                                   {{category.name}}
+                        </label>
+                    </div>                    
+                </div>
+            </div>             
+            <div class="panel panel-default">
                 <div class="panel-heading">Add Question</div>               
                 <div class="panel-body">
                     <form #addQuestionForm="ngForm" (ngSubmit)="addQuestion(addQuestionForm)">

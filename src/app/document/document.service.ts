@@ -66,10 +66,10 @@ export class DocumentService {
             ('http://localhost:8000/documents/' + document.id);
     }
 
-    getCategories() {
-        return this.http.get
-            ('http://localhost:8000/categories')
-            .map((res: Response) => res.json());
-    }
+//    getCategories() {
+//        return this.http.get
+//            ('http://localhost:8000/categories')
+//            .map((res: Response) => res.json());
+//    }
 
 }

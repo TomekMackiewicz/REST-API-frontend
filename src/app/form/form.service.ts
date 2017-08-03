@@ -37,6 +37,12 @@ export class FormService {
             //.map((res:Response) => res.json())
     }
 
+    getCategories() {
+        return this.http.get
+            ('http://localhost:8000/categories')
+            .map((res: Response) => res.json());
+    }
+
     submitAnswers(answer: any) {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});

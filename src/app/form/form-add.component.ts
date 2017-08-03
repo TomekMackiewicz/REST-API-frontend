@@ -23,7 +23,8 @@ export class FormAddComponent implements OnInit {
     private formOptions;
     private formConfig;
     private formProperties;
-    public form;             
+    public form; 
+    public categories: any;            
     public types = [
         { value: 'text', display: 'Text' },
         { value: 'radio', display: 'Radio' },
@@ -51,10 +52,20 @@ export class FormAddComponent implements OnInit {
             name: '',
             description: '',
             config: this.formConfig,
-            questions: []
+            questions: [],
+            categories: []
         }
         this.form = new Form(this.formProperties);
+        this.getCategories();
     }       
+
+    getCategories() {
+        this.formService.getCategories().subscribe(
+            data => {this.categories = data},
+            err => console.error(err),
+            () => console.log('done loading categories')
+        );
+    }
 
     addQuestion(form: NgForm) {
         let values = form.value;                   
@@ -109,24 +120,42 @@ export class FormAddComponent implements OnInit {
         }                          
     }
 
-    submitMainForm(mainForm: NgForm) {
-        let values = mainForm.value; 
-        let config = {
-            allowBack: values.allowBack,
-            autoMove: values.autoMove,
-            requiredAll: values.requiredAll,
-            shuffleQuestions: values.shuffleQuestions,
-            shuffleOptions: values.shuffleOptions,
-            showPager: values.showPager 
-        }     
-        let data = {        
-            name: values.name,
-            description: values.description,
-            config: config,
-            questions: this.form.questions                
-        };                                 
-        let form = new Form(data);
-        let serializedForm = JSON.stringify(form);       
+    assignCategories(category, event) {
+        var index = this.form.categories.indexOf(category.name);
+        if (event.target.checked) {
+            if (index === -1) {
+                this.form.categories.push({id: category.id, name: category.name});
+            }
+        } else {
+            if (index !== -1) {
+                this.form.categories.splice(index, 1);
+            }
+        }
+        //console.log(this.categoriesArray);
+        return this.form.categories;
+    }
+
+    submitMainForm() {
+//        let values = mainForm.value; 
+//        let config = {
+//            allowBack: values.allowBack,
+//            autoMove: values.autoMove,
+//            requiredAll: values.requiredAll,
+//            shuffleQuestions: values.shuffleQuestions,
+//            shuffleOptions: values.shuffleOptions,
+//            showPager: values.showPager 
+//        }     
+//        let data = {        
+//            name: values.name,
+//            description: values.description,
+//            config: config,
+//            questions: this.form.questions,
+//            categories: this.form.categories                
+//        };                                 
+//        let form = new Form(data);
+//        let serializedForm = JSON.stringify(form);  
+        //console.log(form);
+        //console.log(this.form);     
         this.formService.createForm(this.form).subscribe(
             data => {
                 this.alertService.success('form created.');

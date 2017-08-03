@@ -23,7 +23,8 @@ import { slideInOutAnimation } from '../animations/index';
 
 export class FormEditComponent implements OnInit {
 
-    public form: any;     
+    public form: any; 
+    public categories: any;     
     public types = [
         { value: 'text', display: 'Text' },
         { value: 'radio', display: 'Radio' },
@@ -41,8 +42,44 @@ export class FormEditComponent implements OnInit {
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.formService.getForm(+params['id']))
-            .subscribe(form => {this.form = form})
+            .subscribe(form => {this.form = form});
+        this.getCategories();    
     }       
+
+    getCategories() {
+        this.formService.getCategories().subscribe(
+            data => { this.categories = data },
+            err => console.error(err),
+            () => { 
+                this.checkCategories(this.categories, this.form.categories);
+                console.log('done loading categories'); 
+            }
+        );
+    }
+
+    checkCategories(allCategories, formCategories) {
+        var res = allCategories.filter(function(v) {
+            return formCategories.indexOf(v) > -1;
+        });
+        console.log(allCategories); 
+        console.log(formCategories);        
+    }
+
+//    /*
+//     * Push categories already assigned to this form
+//     */
+//    formCategories() {
+//        for (let documentCategory of document.categories) {
+//            this.categoriesArray.push({id: documentCategory.id, name: documentCategory.name});
+//        }           
+//        for (let category of categories) {
+//            for (let categoryDocument of category.documents) {
+//                if (categoryDocument.id === document.id) {
+//                    category.checked = true;
+//                }                
+//            }
+//        }
+//    }
 
     addQuestion(form: NgForm) {
         let values = form.value;                   

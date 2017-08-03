@@ -8,7 +8,7 @@
                 <thead>
                     <tr>
                         <th><mfDefaultSorter by="title">Title</mfDefaultSorter></th>
-<!--                        <th>Categories</th>-->
+                        <th>Categories</th>
                         <th><mfDefaultSorter by="added">Added</mfDefaultSorter></th>
                         <th><mfDefaultSorter by="modified">Modified</mfDefaultSorter></th>
                         <th>Actions</th>
@@ -17,7 +17,7 @@
                 <tbody>
                     <tr *ngFor="let form of mf.data">
                         <td>{{form.name}}</td>
-<!--                        <td><span *ngFor="let category of document.categories">{{category.name}}<br></span></td>-->
+                        <td><span *ngFor="let category of form.categories">{{category.name}}<br></span></td>
                         <td>{{form.addDate | date:'yyyy/MM/dd H:m:s'}}</td>
                         <td>{{form.modifiedDate | date:'yyyy/MM/dd H:m:s'}}</td>
                         <td>
