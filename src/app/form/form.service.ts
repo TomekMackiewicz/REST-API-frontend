@@ -61,14 +61,14 @@ export class FormService {
             ('http://localhost:8000/forms/' + form.id);
     }
 
-    deleteQuestion(question: any) {
+    deleteQuestion(id: number) {
         return this.http.delete
-            ('http://localhost:8000/questions/' + question.id);
+            ('http://localhost:8000/questions/' + id);
     }
 
-    deleteOption(option: any) {
+    deleteOption(id: number) {
         return this.http.delete
-            ('http://localhost:8000/options/' + option.id);
+            ('http://localhost:8000/options/' + id);
     }
 
 }

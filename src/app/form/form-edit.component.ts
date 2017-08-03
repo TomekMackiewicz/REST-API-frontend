@@ -60,16 +60,25 @@ export class FormEditComponent implements OnInit {
         this.form.questions.push(data);                                
     }
     
-    deleteQuestion(name: string) {
-        //console.log(id);
-        console.log(name);
-        console.log("test");
-        //let index: number = this.form.questions.indexOf(this.form.questions.find(x => x.name === name));
-        //this.form.questions.splice(index, 1);
-        //this.formService.deleteQuestion(this.form);                     
-    }    
-    
-    addOption(question, name) {
+    deleteQuestion(id: number, name: string) {
+        let index: number = this.form.questions.indexOf(this.form.questions.find(x => x.name === name));
+        this.form.questions.splice(index, 1);
+        if(typeof id !== 'undefined') {
+            if (confirm("Are you sure you want to delete " + name + "?")) {
+                this.formService.deleteQuestion(id).subscribe(
+                    data => {
+                        return true;
+                    },
+                    error => {
+                        console.error("Error deleting question!");
+                        return Observable.throw(error);
+                    }
+                );
+            }                           
+        }                    
+    }      
+        
+    addOption(question:any, name: string) {
         //let selectedQuestion = this.questions.find(item => item.name === values.fieldLabel);
         let data = {        
             name: name,
@@ -79,9 +88,22 @@ export class FormEditComponent implements OnInit {
         question.options.push(data);       
     }
 
-    deleteOption(question, name) {
+    deleteOption(question:any, id:number, name: string) {
         let index: number = question.options.indexOf(question.options.find(x => x.name === name));
-        question.options.splice(index, 1); ;             
+        question.options.splice(index, 1);
+        if(typeof id !== 'undefined') {
+            if (confirm("Are you sure you want to delete " + name + "?")) {
+                this.formService.deleteOption(id).subscribe(
+                    data => {
+                        return true;
+                    },
+                    error => {
+                        console.error("Error deleting option!");
+                        return Observable.throw(error);
+                    }
+                );
+            }                           
+        }                      
     }
 
     submitMainForm(mainForm: NgForm) {
