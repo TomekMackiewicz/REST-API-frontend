@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -8,10 +7,8 @@ import { Form } from './models/form';
 import { FormConfig } from './models/form-config';
 import { Question } from './models/question';
 import { Option } from './models/option';
-
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
-
 import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -22,157 +19,128 @@ import { slideInOutAnimation } from '../animations/index';
 })
 
 export class FormAddComponent implements OnInit {
-
-    private counter = 0;
-    private questionType: string = '';
-    private questionTypeName: string = '';
-    private questions: Array<any> = [];                    
-    private formFields: Array<any> = []; 
-    private formOptions = {
-        allowBack: true,
-        allowReview: true,
-        autoMove: true,  // if boolean; it will move to next question automatically when answered.
-        duration: 0,  // indicates the time in which quiz needs to be completed. 0 means unlimited.
-        pageSize: 100,
-        requiredAll: true,  // indicates if you must answer all the questions before submitting.
-        richText: true,
-        shuffleQuestions: false,
-        shuffleOptions: false,
-        showClock: false,
-        showPager: true,
-        theme: ''
-    }    
-    private formConfig = new FormConfig(this.formOptions);
+    
+    private formOptions;
+    private formConfig;
+    private formProperties;
+    public form;             
     public types = [
         { value: 'text', display: 'Text' },
         { value: 'radio', display: 'Radio' },
         { value: 'checkbox', display: 'Checkbox' }
-    ];     
-
+    ];
+        
     constructor(
         private http: Http,
         private location: Location,
         private formService: FormService,
-        private alertService: AlertService        
+        private alertService: AlertService       
     ) {}
 
-    ngOnInit() {}       
-
-    addCheckbox(addCheckboxForm: NgForm) {                                 
-        let values = addCheckboxForm.value;
-        let selectedCategory = this.formFields.find(item => item.id === values.fieldId);
-        if (selectedCategory.checkboxFields.some(x => x.label === values.name)) {
-            alert('This checkbox already exists.');
-            return;
-        } else {
-            selectedCategory.checkboxFields.push({
-                label: values.name
-            });            
+    ngOnInit(): void {
+        this.formOptions = {
+            allowBack: false,
+            autoMove: false, 
+            requiredAll: false,
+            shuffleQuestions: false,
+            shuffleOptions: false,
+            showPager: false,
+        }    
+        this.formConfig = new FormConfig(this.formOptions);
+        this.formProperties = {
+            name: '',
+            description: '',
+            config: this.formConfig,
+            questions: []
         }
-        this.counter++;
-        this.addOption(values);
-
-    }    
-
-    addRadio(addRadioForm: NgForm) {                                
-        let values = addRadioForm.value;
-        let selectedCategory = this.formFields.find(item => item.id === values.fieldId);
-        if (selectedCategory.radioFields.some(x => x.label === values.name)) {
-            alert('This radio already exists.');
-            return;
-        } else {
-            selectedCategory.radioFields.push({
-                label: values.name,
-                id: 'question' + this.counter,
-                name: 'name'
-            });            
-        }         
-        this.counter++;
-        this.addOption(values);
-    }
-
-    addOption(values) {
-        let selectedQuestion = this.questions.find(item => item.name === values.fieldLabel);
-        let data = {        
-            //id: null,
-            //questionId: selectedQuestion.id,
-            name: values.name,
-            isAnswer: true                
-        };
-        let option = new Option(data);                         
-        selectedQuestion.options.push(option);       
-    }
-                        
-    addFormField(addFormFieldForm: NgForm) {                                 
-        let values = addFormFieldForm.value;        
-        if (this.formFields.some(x => x.label === values.name)) {
-            alert('This question already exists.');
-            return;
-        }                 
-        this.formFields.push({
-            label: values.name,
-            type: values.questionType,
-            id: 'question' + this.counter,
-            name: 'name',
-            placeholder: values.questionType,
-            checkboxFields: [],
-            radioFields: []
-        });
-        this.counter++;
-        this.addQuestion(values);
+        this.form = new Form(this.formProperties);
     }       
 
-    deleteFormField(label) {
-        let index: number = this.formFields.indexOf(this.formFields.find(x => x.label === label));
-        this.formFields.splice(index, 1);
-        this.deleteQuestion(label);             
-    }
-
-    addQuestion(values) {           
+    addQuestion(form: NgForm) {
+        let values = form.value;                   
         let data = {        
             name: values.name,
             questionType: values.questionType,
-            options: []                 
+            options: [],                  
         };
-        let question = new Question(data);
-        this.questions.push(question);        
-                
+        this.form.questions.push(data);                                
+    }
+    
+    deleteQuestion(id: number, name: string) {
+        let index: number = this.form.questions.indexOf(this.form.questions.find(x => x.name === name));
+        this.form.questions.splice(index, 1);
+        if(typeof id !== 'undefined') {
+            if (confirm("Are you sure you want to delete " + name + "?")) {
+                this.formService.deleteQuestion(id).subscribe(
+                    data => {
+                        return true;
+                    },
+                    error => {
+                        console.error("Error deleting question!");
+                        return Observable.throw(error);
+                    }
+                );
+            }                           
+        }                    
+    }      
+        
+    addOption(question:any, name: string) {
+        let data = {        
+            name: name                
+        };                         
+        question.options.push(data);       
     }
 
-    deleteQuestion(label) {
-        let index: number = this.questions.indexOf(this.questions.find(x => x.name === label));
-        this.questions.splice(index, 1);              
+    deleteOption(question:any, id:number, name: string) {
+        let index: number = question.options.indexOf(question.options.find(x => x.name === name));
+        question.options.splice(index, 1);
+        if(typeof id !== 'undefined') {
+            if (confirm("Are you sure you want to delete " + name + "?")) {
+                this.formService.deleteOption(id).subscribe(
+                    data => {
+                        return true;
+                    },
+                    error => {
+                        console.error("Error deleting option!");
+                        return Observable.throw(error);
+                    }
+                );
+            }                           
+        }                      
     }
 
     submitMainForm(mainForm: NgForm) {
-        let id = 1;
-        let values = mainForm.value;        
+        let values = mainForm.value; 
+        let config = {
+            allowBack: values.allowBack,
+            autoMove: values.autoMove,
+            requiredAll: values.requiredAll,
+            shuffleQuestions: values.shuffleQuestions,
+            shuffleOptions: values.shuffleOptions,
+            showPager: values.showPager 
+        }     
         let data = {        
-            //id: id,
             name: values.name,
             description: values.description,
-            config: this.formConfig,
-            questions: this.questions                
-        };                        
+            config: config,
+            questions: this.form.questions                
+        };                                 
         let form = new Form(data);
-        //let serializedForm = JSON.stringify(form);
-        console.log(form);
-        
-        this.formService.createForm(form).subscribe(
+        let serializedForm = JSON.stringify(form);       
+        this.formService.createForm(this.form).subscribe(
             data => {
                 this.alertService.success('form created.');
                 return true;
             },
             error => {
-                this.alertService.error("Error saving form! " + error);
+                this.alertService.error("Error creating form! " + error);
                 return Observable.throw(error);
             }
         );
-
     }    
 
     goBack(): void {
         this.location.back();
-    }    
+    } 
                  
 }
