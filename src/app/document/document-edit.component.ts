@@ -4,6 +4,7 @@ import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
 import {DocumentService} from './document.service';
+import { FormService } from '../form/form.service';
 import {AlertService} from '../alert/alert.service';
 import {slideInOutAnimation} from '../animations/index';
 
@@ -17,23 +18,29 @@ import {slideInOutAnimation} from '../animations/index';
 export class DocumentEditComponent implements OnInit {
 
     public document: any;
-    public categoriesArray: Array<{id: number, name: string}> = [];
+    public forms: any;
+    public currentForm: any;    
 
     constructor(
         private documentService: DocumentService,
+        private formService: FormService,
         private alertService: AlertService,
         private route: ActivatedRoute,
         private location: Location
     ) {}
 
     ngOnInit(): void {
+        this.getForms();
         this.route.params
             .switchMap((params: Params) => this.documentService.getDocument(+params['id']))
-            .subscribe(document => this.document = document);
+            .subscribe(document => {
+                this.document = document;
+                this.initialForm(this.document.formId);
+            });            
     }
 
     updateDocument(id: number, title: string, body: any) {
-        let document = {id: id, title: title, body: body, categories: this.categoriesArray};
+        let document = {id: id, title: title, body: body, formId: this.currentForm.id};
         this.documentService.updateDocument(document).subscribe(
             data => {
                 this.alertService.success('Document updated.');
@@ -43,6 +50,27 @@ export class DocumentEditComponent implements OnInit {
                 this.alertService.error("Error updating document! " + error);
                 return Observable.throw(error);
             }
+        );
+    }
+
+    getForms() {
+        this.formService.getForms().subscribe(
+            data => {this.forms = data},
+            err => console.error(err),
+            () => console.log('done loading forms')
+        );
+    }
+    
+    initialForm(id: number) {
+        let result = this.forms.filter(x => x.id === id);
+        this.currentForm = result[0];
+    }
+
+    changeForm(id: number) {
+        this.formService.getForm(id).subscribe(
+            data => {this.currentForm = data},
+            err => console.error(err),
+            () => console.log('done loading current form')
         );
     }
 

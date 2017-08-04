@@ -23,7 +23,30 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label *ngIf="currentForm">Current form: {{currentForm.name}}</label>
                             <hr>
+                            <label>Browse forms</label>
+                            <select class="form-control" (change)="changeForm($event.target.value)">
+                                <option value="" selected disabled hidden>Choose form...</option> 
+                                <option *ngFor="let form of forms" value="{{form.id}}">  
+                                    {{form.name}}
+                                </option>
+                            </select>
+                            <table class="table table-striped" *ngIf="currentForm">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                </tr>
+                                <tr *ngFor="let question of currentForm.questions">
+                                    <td>
+                                        {{question.id}}
+                                    </td>
+                                    <td>
+                                        {{question.name}}
+                                    </td>
+                                </tr>
+                            </table>
+                            <hr>                            
                             <alert></alert>
                             <button type="submit" 
                                     class="btn btn-primary" 
