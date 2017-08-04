@@ -11,13 +11,13 @@ import {Router, ActivatedRoute} from '@angular/router';
 export class DocumentComponent implements OnInit {
 
     public documents: any;
-    public categories: any;
+    //public categories: any;
 
     constructor(private documentService: DocumentService) {}
 
     ngOnInit() {
         this.getDocuments();
-        this.getCategories();
+        //this.getCategories();
     }
 
     getDocuments() {
@@ -28,13 +28,13 @@ export class DocumentComponent implements OnInit {
         );
     }
 
-    getCategories() {
-        this.documentService.getCategories().subscribe(
-            data => {this.categories = data},
-            err => console.error(err),
-            () => console.log('done loading categories')
-        );
-    }
+//    getCategories() {
+//        this.documentService.getCategories().subscribe(
+//            data => {this.categories = data},
+//            err => console.error(err),
+//            () => console.log('done loading categories')
+//        );
+//    }
 
     deleteDocument(document: any) {
         if (confirm("Are you sure you want to delete " + document.title + "?")) {

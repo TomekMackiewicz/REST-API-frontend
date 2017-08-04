@@ -8,8 +8,9 @@
                     <div class="checkbox" *ngFor="let category of categories">
                         <label>
                             <input type="checkbox"
-                                   (change)="assignCategories(category, $event)">
-                                   {{category.name}}
+                                [checked]="findCategories(category.id, form.categories)"   
+                                (change)="assignCategories(category.id, category.name, $event.target.checked)">
+                                {{category.name}}
                         </label>
                     </div>                    
                 </div>
@@ -40,7 +41,7 @@
             </div> 
         </div>
         <div class="col-md-6">
-            <form #mainForm="ngForm" (ngSubmit)="submitMainForm(mainForm)">
+            <form #mainForm="ngForm" (ngSubmit)="submitMainForm()">
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit form</div>
                     <div class="panel-body">                    

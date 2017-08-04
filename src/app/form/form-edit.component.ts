@@ -42,7 +42,7 @@ export class FormEditComponent implements OnInit {
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.formService.getForm(+params['id']))
-            .subscribe(form => {this.form = form});
+            .subscribe(form => { this.form = form });
         this.getCategories();    
     }       
 
@@ -50,36 +50,34 @@ export class FormEditComponent implements OnInit {
         this.formService.getCategories().subscribe(
             data => { this.categories = data },
             err => console.error(err),
-            () => { 
-                this.checkCategories(this.categories, this.form.categories);
-                console.log('done loading categories'); 
-            }
+            () => { console.log('done loading categories') }
         );
     }
 
-    checkCategories(allCategories, formCategories) {
-        var res = allCategories.filter(function(v) {
-            return formCategories.indexOf(v) > -1;
-        });
-        console.log(allCategories); 
-        console.log(formCategories);        
+    findCategories(categoryId: number, formCategories: any[]) {
+        let i: number = 0;
+        while (i < formCategories.length) {
+            if (categoryId === formCategories[i].id) {
+                return true;
+            }
+            ++i;
+        }
     }
 
-//    /*
-//     * Push categories already assigned to this form
-//     */
-//    formCategories() {
-//        for (let documentCategory of document.categories) {
-//            this.categoriesArray.push({id: documentCategory.id, name: documentCategory.name});
-//        }           
-//        for (let category of categories) {
-//            for (let categoryDocument of category.documents) {
-//                if (categoryDocument.id === document.id) {
-//                    category.checked = true;
-//                }                
-//            }
-//        }
-//    }
+    assignCategories(categoryId: number, categoryName: string, isChecked: boolean) {
+        if (isChecked) {
+            if (this.form.categories.some(x => x.id === categoryId)) {
+                return;
+            } else {
+                this.form.categories.push({id: categoryId, name: categoryName});
+            }
+        } else {
+            let index: number = this.form.categories.indexOf(this.form.categories.find(x => x.id === categoryId));
+            this.form.categories.splice(index, 1);
+        }
+        
+        return this.form.categories;
+    }
 
     addQuestion(form: NgForm) {
         let values = form.value;                   
@@ -134,26 +132,29 @@ export class FormEditComponent implements OnInit {
         }                          
     }
 
-    submitMainForm(mainForm: NgForm) {
-        let values = mainForm.value; 
-        let config = {
-            id: this.form.config.id,
-            allowBack: values.allowBack,
-            autoMove: values.autoMove,
-            requiredAll: values.requiredAll,
-            shuffleQuestions: values.shuffleQuestions,
-            shuffleOptions: values.shuffleOptions,
-            showPager: values.showPager 
-        }     
-        let data = {        
-            id: this.form.id,
-            name: values.name,
-            description: values.description,
-            config: config,
-            questions: this.form.questions                
-        };                                 
-        let form = new Form(data);
-        let serializedForm = JSON.stringify(form);       
+    submitMainForm() {
+//        let values = mainForm.value; 
+//        let config = {
+//            id: this.form.config.id,
+//            allowBack: values.allowBack,
+//            autoMove: values.autoMove,
+//            requiredAll: values.requiredAll,
+//            shuffleQuestions: values.shuffleQuestions,
+//            shuffleOptions: values.shuffleOptions,
+//            showPager: values.showPager 
+//        }     
+//        let data = {        
+//            id: this.form.id,
+//            name: values.name,
+//            description: values.description,
+//            config: config,
+//            questions: this.form.questions,
+//            categories: this.form.categories                
+//        };                                 
+//        let form = new Form(data);
+//        let serializedForm = JSON.stringify(form);
+//        console.log(form);
+        //console.log(this.form.categories);       
         this.formService.updateForm(this.form).subscribe(
             data => {
                 this.alertService.success('form updated.');
