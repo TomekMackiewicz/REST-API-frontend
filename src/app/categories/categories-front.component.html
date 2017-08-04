@@ -3,15 +3,15 @@
         <div class="col-md-12">
             <div *ngIf="category">
                 <h1>{{category.name}}</h1>
-                <table class="table" [mfData]="category.documents" #mf="mfDataTable" [mfRowsOnPage]="10">
+                <table class="table" [mfData]="category.forms" #mf="mfDataTable" [mfRowsOnPage]="10">
                     <thead>
                         <tr>
                             <th><mfDefaultSorter by="title">Title</mfDefaultSorter></th>
                     </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let document of mf.data">
-                            <td><h3><a [routerLink]="['/documents', document.id]">{{document.title}}</a></h3></td>
+                        <tr *ngFor="let form of mf.data">
+                            <td><h3><a [routerLink]="['/forms', form.id]">{{form.name}}</a></h3></td>
                         </tr>
                     </tbody>
                     <tfoot>

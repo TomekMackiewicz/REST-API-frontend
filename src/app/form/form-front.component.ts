@@ -32,7 +32,7 @@ export class FormFrontComponent implements OnInit {
         
     ngOnInit() {      
         this.route.params
-            .switchMap((params: Params) => this.formService.getForm(+params['form']))
+            .switchMap((params: Params) => this.formService.getForm(+params['id']))
             .subscribe(form => {
                 this.form = form,
                 this.pager.count = this.form.questions.length

@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Rx';
 import { CategoriesService } from './categories.service';
 
 @Component({
-    selector: 'app-category',
-    templateUrl: './document-categories-front.component.html',
+    selector: 'category-front',
+    templateUrl: './categories-front.component.html',
     //styleUrls: ['./category.component.css'],
 })
 
@@ -25,6 +25,7 @@ export class CategoriesFrontComponent implements OnInit {
         this.route.params
             .switchMap((params: Params) => this.categoriesService.getCategory(+params['category']))
             .subscribe(category => this.category = category);
+        console.log(this.category);
     }
 
     //    getCategory(id) {

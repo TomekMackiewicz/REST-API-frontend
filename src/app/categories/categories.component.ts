@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'app-document-categories',
-    templateUrl: './document-categories.component.html',
-    styleUrls: ['./document-categories.component.css'],   
+    selector: 'app-categories',
+    templateUrl: './categories.component.html',
+    styleUrls: ['./categories.component.css'],   
 })
 
 export class CategoriesComponent implements OnInit {

@@ -8,8 +8,8 @@ import { AlertService } from '../alert/alert.service';
 import { slideInOutAnimation } from '../animations/index';
 
 @Component({
-    selector: 'document-category-create',
-    templateUrl: './document-categories-create.component.html',
+    selector: 'category-create',
+    templateUrl: './categories-create.component.html',
     animations: [slideInOutAnimation],
     host: { '[@slideInOutAnimation]': '' }    
 })
@@ -19,7 +19,7 @@ export class CategoriesCreateComponent {
     public category;
 
     constructor(
-        private documentCategoriesService: CategoriesService,
+        private categoriesService: CategoriesService,
         private alertService: AlertService,
         private route: ActivatedRoute,
         private location: Location
@@ -31,7 +31,7 @@ export class CategoriesCreateComponent {
 
     createCategory(name) {
         let category = {name: name};
-        this.documentCategoriesService.createCategory(category).subscribe(
+        this.categoriesService.createCategory(category).subscribe(
             data => {
                 this.alertService.success('Category created.');
                 return true;

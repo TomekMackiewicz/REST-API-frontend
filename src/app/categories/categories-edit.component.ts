@@ -8,8 +8,8 @@ import { AlertService } from '../alert/alert.service';
 import { slideInOutAnimation } from '../animations/index';
 
 @Component({
-    selector: 'document-category-edit',
-    templateUrl: './document-categories-edit.component.html',
+    selector: 'category-edit',
+    templateUrl: './categories-edit.component.html',
     animations: [slideInOutAnimation],
     host: { '[@slideInOutAnimation]': '' }    
 })
