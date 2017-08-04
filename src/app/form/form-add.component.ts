@@ -120,21 +120,22 @@ export class FormAddComponent implements OnInit {
         }                          
     }
 
-    assignCategories(category, event) {
-        var index = this.form.categories.indexOf(category.name);
-        if (event.target.checked) {
-            if (index === -1) {
-                this.form.categories.push({id: category.id, name: category.name});
+    assignCategories(categoryId: number, categoryName: string, isChecked: boolean) {
+        if (isChecked) {
+            if (this.form.categories.some(x => x.id === categoryId)) {
+                return;
+            } else {
+                this.form.categories.push({id: categoryId, name: categoryName});
             }
         } else {
-            if (index !== -1) {
-                this.form.categories.splice(index, 1);
-            }
+            let index: number = this.form.categories.indexOf(this.form.categories.find(x => x.id === categoryId));
+            this.form.categories.splice(index, 1);
         }
+        console.log(this.form.categories);
         return this.form.categories;
     }
 
-    submitMainForm() {    
+    saveForm() {    
         this.formService.createForm(this.form).subscribe(
             data => {
                 this.alertService.success('form created.');

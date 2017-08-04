@@ -73,7 +73,6 @@ export class FormEditComponent implements OnInit {
             let index: number = this.form.categories.indexOf(this.form.categories.find(x => x.id === categoryId));
             this.form.categories.splice(index, 1);
         }
-        
         return this.form.categories;
     }
 
@@ -130,7 +129,7 @@ export class FormEditComponent implements OnInit {
         }                          
     }
 
-    submitMainForm() {      
+    saveForm() {      
         this.formService.updateForm(this.form).subscribe(
             data => {
                 this.alertService.success('form updated.');

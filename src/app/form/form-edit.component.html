@@ -1,172 +1,187 @@
 <div class="container side-form" *ngIf="form">
     <div class="row">        
         <div class="col-md-6">
-            <alert></alert>
             <div class="panel panel-default">
-                <div class="panel-heading">Categories</div>               
                 <div class="panel-body">
-                    <div class="checkbox" *ngFor="let category of categories">
-                        <label>
-                            <input type="checkbox"
-                                [checked]="findCategories(category.id, form.categories)"   
-                                (change)="assignCategories(category.id, category.name, $event.target.checked)">
-                                {{category.name}}
-                        </label>
-                    </div>                    
-                </div>
-            </div>             
-            <div class="panel panel-default">
-                <div class="panel-heading">Add Question</div>               
-                <div class="panel-body">
-                    <form #addQuestionForm="ngForm" (ngSubmit)="addQuestion(addQuestionForm)">
-                        <div class="form-group">
-                            <label for="message">Label</label>
-                            <input type="text" class="form-control" id="message" name="name" placeholder="Question" ngModel>
-                        </div>
-                        <div class="form-group">
-                            <label for="type">Type</label>
-                            <select class="form-control" name="questionType" id="type" [(ngModel)]="selectedValue">
-                                <option value="" disabled selected>Select type</option>
-                                <option *ngFor="let type of types" [value]="type.value">  
-                                    {{type.display}}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-default" value="Submit">Submit</button>
-                        </div>
-                        <button class="btn btn-default" (click)="goBack()">Back</button>
-                    </form>
+                    <button type="button" class="btn btn-primary" (click)="saveForm()">Save</button>
+                    <button class="btn btn-default" (click)="goBack()">Back</button> 
+                    <alert></alert>
                 </div>
             </div> 
-        </div>
-        <div class="col-md-6">
-            <form #mainForm="ngForm" (ngSubmit)="submitMainForm()">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Edit form</div>
-                    <div class="panel-body">                    
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="name" [(ngModel)]="form.name">
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" id="description" name="description" [(ngModel)]="form.description" rows="3" ngModel></textarea>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-default" value="Submit">Submit</button>
-                        </div>
-                    </div>
-                </div>    
-                <div class="panel panel-default">
-                    <div class="panel-heading">Form config</div>                          
-                    <div class="panel-body">                    
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="allowBack" [(ngModel)]="form.config.allowBack">
-                                    Allow back
-                            </label>
-                        </div> 
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="autoMove" [(ngModel)]="form.config.autoMove">
-                                    Auto move
-                            </label>
-                        </div>         
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="requiredAll" [(ngModel)]="form.config.requiredAll">
-                                    Required all
-                            </label>
-                        </div> 
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="shuffleQuestions" [(ngModel)]="form.config.shuffleQuestions">
-                                    Shuffle questions
-                            </label>
-                        </div>   
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="shuffleOptions" [(ngModel)]="form.config.shuffleOptions">
-                                    Shuffle options
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="showPager" [(ngModel)]="form.config.showPager">
-                                    Show pager
-                            </label>
-                        </div>                      
-                    </div> 
-                </div>                
-                <div *ngFor="let question of form.questions; let i = index">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            {{question.name}}
-                            <button type="button" class="btn btn-danger btn-xs pull-right" (click)="deleteQuestion(question.id, question.name)">
-                                <i class="ion-trash-a"></i>
-                            </button>                        
-                            <button class="btn btn-default btn-xs pull-right" 
-                                    type="button" 
-                                    data-toggle="collapse" 
-                                    [attr.data-target]="'#collapse_'+i"
-                                    aria-expanded="false" 
-                                    aria-controls="collapse">
-                                <i class="ion-plus"></i>
-                            </button>
-                            <div class="collapse" id="collapse_{{i}}">
-                                <ng-container [ngSwitch]="true">
-                                    <div class="well" *ngSwitchCase="question.questionType === 'checkbox'">                               
-                                        <input type="text" class="form-control" #checkboxName>
-                                        <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, checkboxName.value)">Add checkbox</button>
-                                    </div>
-                                    <div class="well" *ngSwitchCase="question.questionType === 'radio'">
-                                        <input type="text" class="form-control" #radioName>
-                                        <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, radioName.value)">Add radio</button>                                   
-                                    </div>
-                                </ng-container>     
-                            </div>                                                                                
-                        </div>
-                        <ng-container [ngSwitch]="true">
-                            <!-- TEXT -->
-                            <div class="panel-body" *ngSwitchCase="question.questionType === 'text'">
-                                <input type="text" 
-                                    class="form-control" 
-                                    name="question_{{i}}" 
-                                    [(ngModel)]="question.name">
+            <div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#title" aria-controls="title" role="tab" data-toggle="tab">Title & Description</a></li>
+                    <li role="presentation"><a href="#categories" aria-controls="categories" role="tab" data-toggle="tab">Categories</a></li>
+                    <li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab">Config</a></li>
+                    <li role="presentation"><a href="#questions" aria-controls="questions" role="tab" data-toggle="tab">Questions</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="title">
+                        <div class="panel panel-default">
+                            <div class="panel-body">                    
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" name="name" [(ngModel)]="form.name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" id="description" name="description" [(ngModel)]="form.description" rows="3" ngModel></textarea>
+                                </div>
                             </div>
-                            <!-- CHECKBOX -->
-                            <div class="panel-body" *ngSwitchCase="question.questionType === 'checkbox'">
-                                <div *ngFor="let checkbox of question.options"> 
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" disabled>
-                                            {{checkbox.name}} 
-                                            <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, checkbox.id, checkbox.name)">
-                                                <i class="ion-trash-a"></i>
-                                            </button>
-                                        </label>
-                                    </div>                        
-                                </div>                           
-                            </div>                       
-                            <!-- RADIO -->
-                            <div class="panel-body" *ngSwitchCase="question.questionType === 'radio'">
-                                <div *ngFor="let radio of question.options">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" disabled>
-                                            {{radio.name}}
-                                            <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, radio.id, radio.name)">
-                                                <i class="ion-trash-a"></i>
-                                            </button>                            
-                                        </label>
-                                    </div>                       
-                                </div>                             
-                            </div>                       
-                        </ng-container>                    
+                        </div>                         
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="categories">
+                        <div class="panel panel-default">               
+                            <div class="panel-body">
+                                <div class="checkbox" *ngFor="let category of categories">
+                                    <label>
+                                        <input type="checkbox"
+                                               [checked]="findCategories(category.id, form.categories)"
+                                               (change)="assignCategories(category.id, category.name, $event.target.checked)">
+                                               {{category.name}}
+                                    </label>
+                                </div>                    
+                            </div>
+                        </div>        
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="config">
+                        <div class="panel panel-default">                         
+                            <div class="panel-body">                    
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="allowBack" [(ngModel)]="form.config.allowBack">
+                                            Allow back
+                                    </label>
+                                </div> 
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="autoMove" [(ngModel)]="form.config.autoMove">
+                                            Auto move
+                                    </label>
+                                </div>         
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="requiredAll" [(ngModel)]="form.config.requiredAll">
+                                            Required all
+                                    </label>
+                                </div> 
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="shuffleQuestions" [(ngModel)]="form.config.shuffleQuestions">
+                                            Shuffle questions
+                                    </label>
+                                </div>   
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="shuffleOptions" [(ngModel)]="form.config.shuffleOptions">
+                                            Shuffle options
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="showPager" [(ngModel)]="form.config.showPager">
+                                            Show pager
+                                    </label>
+                                </div>                      
+                            </div> 
+                        </div>                         
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="questions">
+                        <div class="panel panel-default">              
+                            <div class="panel-body">
+                                <form #addQuestionForm="ngForm" (ngSubmit)="addQuestion(addQuestionForm)">
+                                    <div class="form-group">
+                                        <label for="message">Label</label>
+                                        <input type="text" class="form-control" id="message" name="name" placeholder="Question" ngModel>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="type">Type</label>
+                                        <select class="form-control" name="questionType" id="type" [(ngModel)]="selectedValue">
+                                            <option value="" disabled selected>Select type</option>
+                                            <option *ngFor="let type of types" [value]="type.value">  
+                                                {{type.display}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default" value="Submit">Submit</button>
+                                    </div>
+                                    <button class="btn btn-default" (click)="goBack()">Back</button>
+                                </form>
+                            </div>
+                        </div>                         
                     </div>
                 </div>
-            </form>
+            </div>                         
+        </div>
+        <div class="col-md-6">                 
+            <div *ngFor="let question of form.questions; let i = index">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{question.name}}
+                        <button type="button" class="btn btn-danger btn-xs pull-right" (click)="deleteQuestion(question.id, question.name)">
+                            <i class="ion-trash-a"></i>
+                        </button>                        
+                        <button class="btn btn-default btn-xs pull-right" 
+                                type="button" 
+                                data-toggle="collapse" 
+                                [attr.data-target]="'#collapse_'+i"
+                                aria-expanded="false" 
+                                aria-controls="collapse">
+                            <i class="ion-plus"></i>
+                        </button>
+                        <div class="collapse" id="collapse_{{i}}">
+                            <ng-container [ngSwitch]="true">
+                                <div class="well" *ngSwitchCase="question.questionType === 'checkbox'">                               
+                                    <input type="text" class="form-control" #checkboxName>
+                                    <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, checkboxName.value)">Add checkbox</button>
+                                </div>
+                                <div class="well" *ngSwitchCase="question.questionType === 'radio'">
+                                    <input type="text" class="form-control" #radioName>
+                                    <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, radioName.value)">Add radio</button>                                   
+                                </div>
+                            </ng-container>     
+                        </div>                                                                                
+                    </div>
+                    <ng-container [ngSwitch]="true">
+                        <!-- TEXT -->
+                        <div class="panel-body" *ngSwitchCase="question.questionType === 'text'">
+                            <input type="text" 
+                                class="form-control" 
+                                name="question_{{i}}" 
+                                [(ngModel)]="question.name">
+                        </div>
+                        <!-- CHECKBOX -->
+                        <div class="panel-body" *ngSwitchCase="question.questionType === 'checkbox'">
+                            <div *ngFor="let checkbox of question.options"> 
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" disabled>
+                                        {{checkbox.name}} 
+                                        <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, checkbox.id, checkbox.name)">
+                                            <i class="ion-trash-a"></i>
+                                        </button>
+                                    </label>
+                                </div>                        
+                            </div>                           
+                        </div>                       
+                        <!-- RADIO -->
+                        <div class="panel-body" *ngSwitchCase="question.questionType === 'radio'">
+                            <div *ngFor="let radio of question.options">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" disabled>
+                                        {{radio.name}}
+                                        <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, radio.id, radio.name)">
+                                            <i class="ion-trash-a"></i>
+                                        </button>                            
+                                    </label>
+                                </div>                       
+                            </div>                             
+                        </div>                       
+                    </ng-container>                    
+                </div>
+            </div>
         </div>
     </div>    
 </div>
