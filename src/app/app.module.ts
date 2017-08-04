@@ -8,7 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 //import {RouterModule} from '@angular/router';
 import {AlertModule} from './alert/alert'; // do wywalenia, kiedy wstawię wszędzie, login jeszcze korzysta
 import {DocumentModule} from './document/document.module';
-import {DocumentCategoriesModule} from './document-categories/document-categories';
+import {CategoriesModule} from './categories/categories';
 import {FileModule} from './file/file.module';
 import {FormModule} from './form/form';
 import { TextModule } from './text/text.module';
@@ -42,7 +42,7 @@ export function HttpLoaderFactory(http: Http) {
         FormsModule,
         AlertModule,
         DocumentModule,
-        DocumentCategoriesModule,
+        CategoriesModule,
         FileModule,
         FormModule,
         TextModule,

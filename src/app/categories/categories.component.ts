@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {DocumentCategoriesService} from './document-categories.service';
-import {Observable} from 'rxjs/Rx';
-
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { CategoriesService } from './categories.service';
+import { Observable } from 'rxjs/Rx';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-document-categories',
@@ -10,18 +9,18 @@ import {Router, ActivatedRoute} from '@angular/router';
     styleUrls: ['./document-categories.component.css'],   
 })
 
-export class DocumentCategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit {
 
     public categories;
 
-    constructor(private documentCategoriesService: DocumentCategoriesService) {}
+    constructor(private categoriesService: CategoriesService) {}
 
     ngOnInit() {
         this.getCategories();
     }
 
     getCategories() {
-        this.documentCategoriesService.getCategories().subscribe(
+        this.categoriesService.getCategories().subscribe(
             data => {this.categories = data},
             err => console.error(err),
             () => console.log('done loading categories')
@@ -30,7 +29,7 @@ export class DocumentCategoriesComponent implements OnInit {
 
     deleteCategory(category) {
         if (confirm("Are you sure you want to delete " + category.name + "?")) {
-            this.documentCategoriesService.deleteCategory(category).subscribe(
+            this.categoriesService.deleteCategory(category).subscribe(
                 data => {
                     this.getCategories();
                     return true;

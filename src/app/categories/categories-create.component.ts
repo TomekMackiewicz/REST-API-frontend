@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Location} from '@angular/common';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-import {Observable} from 'rxjs/Rx';
-import {DocumentCategoriesService} from './document-categories.service';
-import {AlertService} from '../alert/alert.service';
-import {slideInOutAnimation} from '../animations/index';
+import { Observable } from 'rxjs/Rx';
+import { CategoriesService } from './categories.service';
+import { AlertService } from '../alert/alert.service';
+import { slideInOutAnimation } from '../animations/index';
 
 @Component({
     selector: 'document-category-create',
@@ -14,12 +14,12 @@ import {slideInOutAnimation} from '../animations/index';
     host: { '[@slideInOutAnimation]': '' }    
 })
 
-export class DocumentCategoriesCreateComponent {
+export class CategoriesCreateComponent {
 
     public category;
 
     constructor(
-        private documentCategoriesService: DocumentCategoriesService,
+        private documentCategoriesService: CategoriesService,
         private alertService: AlertService,
         private route: ActivatedRoute,
         private location: Location

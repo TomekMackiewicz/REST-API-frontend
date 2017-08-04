@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Location} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-import {Observable} from 'rxjs/Rx';
-import {DocumentCategoriesService} from './document-categories.service';
+import { Observable } from 'rxjs/Rx';
+import { CategoriesService } from './categories.service';
 
 @Component({
     selector: 'app-category',
@@ -11,19 +11,19 @@ import {DocumentCategoriesService} from './document-categories.service';
     //styleUrls: ['./category.component.css'],
 })
 
-export class DocumentCategoriesFrontComponent implements OnInit {
+export class CategoriesFrontComponent implements OnInit {
 
     public category: any;
 
     constructor(
-        private documentCategoriesService: DocumentCategoriesService,
+        private categoriesService: CategoriesService,
         private route: ActivatedRoute,
         private location: Location // usunąć
     ) {}
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.documentCategoriesService.getCategory(+params['category']))
+            .switchMap((params: Params) => this.categoriesService.getCategory(+params['category']))
             .subscribe(category => this.category = category);
     }
 

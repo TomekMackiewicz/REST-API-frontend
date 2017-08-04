@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Location} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-import {Observable} from 'rxjs/Rx';
-import {DocumentCategoriesService} from './document-categories.service';
-import {AlertService} from '../alert/alert.service';
-import {slideInOutAnimation} from '../animations/index';
+import { Observable } from 'rxjs/Rx';
+import { CategoriesService } from './categories.service';
+import { AlertService } from '../alert/alert.service';
+import { slideInOutAnimation } from '../animations/index';
 
 @Component({
     selector: 'document-category-edit',
@@ -14,12 +14,12 @@ import {slideInOutAnimation} from '../animations/index';
     host: { '[@slideInOutAnimation]': '' }    
 })
 
-export class DocumentCategoriesEditComponent implements OnInit {
+export class CategoriesEditComponent implements OnInit {
 
     public category;
 
     constructor(
-        private documentCategoriesService: DocumentCategoriesService,
+        private categoriesService: CategoriesService,
         private route: ActivatedRoute,
         private location: Location,
         private alertService: AlertService
@@ -27,7 +27,7 @@ export class DocumentCategoriesEditComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.documentCategoriesService.getCategory(+params['id']))
+            .switchMap((params: Params) => this.categoriesService.getCategory(+params['id']))
             .subscribe(category => this.category = category);
     }
 
@@ -36,7 +36,7 @@ export class DocumentCategoriesEditComponent implements OnInit {
     }
 
     updateCategory(category) {
-        this.documentCategoriesService.updateCategory(category).subscribe(
+        this.categoriesService.updateCategory(category).subscribe(
             data => {
                 this.alertService.success('Category updated.');
                 return true;
