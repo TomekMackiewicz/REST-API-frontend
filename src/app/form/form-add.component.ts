@@ -131,31 +131,10 @@ export class FormAddComponent implements OnInit {
                 this.form.categories.splice(index, 1);
             }
         }
-        //console.log(this.categoriesArray);
         return this.form.categories;
     }
 
-    submitMainForm() {
-//        let values = mainForm.value; 
-//        let config = {
-//            allowBack: values.allowBack,
-//            autoMove: values.autoMove,
-//            requiredAll: values.requiredAll,
-//            shuffleQuestions: values.shuffleQuestions,
-//            shuffleOptions: values.shuffleOptions,
-//            showPager: values.showPager 
-//        }     
-//        let data = {        
-//            name: values.name,
-//            description: values.description,
-//            config: config,
-//            questions: this.form.questions,
-//            categories: this.form.categories                
-//        };                                 
-//        let form = new Form(data);
-//        let serializedForm = JSON.stringify(form);  
-        //console.log(form);
-        //console.log(this.form);     
+    submitMainForm() {    
         this.formService.createForm(this.form).subscribe(
             data => {
                 this.alertService.success('form created.');

@@ -8,10 +8,8 @@ import { Form } from './models/form';
 import { FormConfig } from './models/form-config';
 import { Question } from './models/question';
 import { Option } from './models/option';
-
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
-
 import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -132,29 +130,7 @@ export class FormEditComponent implements OnInit {
         }                          
     }
 
-    submitMainForm() {
-//        let values = mainForm.value; 
-//        let config = {
-//            id: this.form.config.id,
-//            allowBack: values.allowBack,
-//            autoMove: values.autoMove,
-//            requiredAll: values.requiredAll,
-//            shuffleQuestions: values.shuffleQuestions,
-//            shuffleOptions: values.shuffleOptions,
-//            showPager: values.showPager 
-//        }     
-//        let data = {        
-//            id: this.form.id,
-//            name: values.name,
-//            description: values.description,
-//            config: config,
-//            questions: this.form.questions,
-//            categories: this.form.categories                
-//        };                                 
-//        let form = new Form(data);
-//        let serializedForm = JSON.stringify(form);
-//        console.log(form);
-        //console.log(this.form.categories);       
+    submitMainForm() {      
         this.formService.updateForm(this.form).subscribe(
             data => {
                 this.alertService.success('form updated.');
