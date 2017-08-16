@@ -23,7 +23,7 @@ export class TextComponent implements OnInit {
         
     ngOnInit() {      
         this.route.params
-            .switchMap((params: Params) => this.textService.getText(+params['id']))
+            .switchMap((params: Params) => this.textService.getText(+params['token']))
             .subscribe(text => { this.text = text });       
     }    
 

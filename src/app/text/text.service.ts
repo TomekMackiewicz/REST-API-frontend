@@ -7,9 +7,9 @@ export class TextService {
 
     constructor(private http: Http) {}
 
-    getText(id: number) {
+    getText(token: number) {
         return this.http.get
-            ('http://localhost:8000/texts/' + id)
+            ('http://localhost:8000/texts/' + token)
             .map((res: Response) => res.json());
     }
 

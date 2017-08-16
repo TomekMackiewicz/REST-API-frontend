@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { trigger, animate, style, group, animateChild, query, stagger, transition } from '@angular/animations';
 import { LoaderService } from './services/loader.service';
+import { NgForm } from '@angular/forms';
 
 const fadeIn = [
     query(':leave', style({ position: 'absolute', left: 0, right: 0, opacity: 1 }), { optional: true }),
@@ -42,7 +43,8 @@ export class AppComponent implements OnInit, OnDestroy {
     constructor(
         private translate: TranslateService,
         private authenticationService: AuthenticationService,
-        private loaderService: LoaderService
+        private loaderService: LoaderService,
+        private router: Router
     ) {
         translate.addLangs(["pl", "en", "uk"]);
         translate.setDefaultLang('pl');
@@ -62,6 +64,12 @@ export class AppComponent implements OnInit, OnDestroy {
     prepareRouteTransition(outlet) {
         const animation = outlet.activatedRouteData['animation'] || {};
         return animation['value'] || null;
+    }
+
+    submitForm(form: NgForm) {        
+        let values = form.value;      
+        console.log(values.token);
+        this.router.navigateByUrl('texts/'+values.token);
     }
 
     ngOnDestroy() {

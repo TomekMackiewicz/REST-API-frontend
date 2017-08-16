@@ -20,7 +20,7 @@ const textRoutes: Routes = [
 //            }
 //        }            
 //    } 
-    {path: 'texts/:id', 
+    {path: 'texts/:token', 
         children: [
             {path: '' , component: TextComponent},
             {path: '' , component: MenuComponent, outlet: 'header'},
