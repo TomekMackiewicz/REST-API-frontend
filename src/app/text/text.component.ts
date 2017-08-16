@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TextService } from './text.service';
+import { saveAs } from 'file-saver';
 
 @Component({
     selector: 'app-text',
@@ -11,7 +12,8 @@ import { TextService } from './text.service';
 
 export class TextComponent implements OnInit {
 
-    text: string = '';
+    text: any;
+    showToken: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -22,13 +24,14 @@ export class TextComponent implements OnInit {
     ngOnInit() {      
         this.route.params
             .switchMap((params: Params) => this.textService.getText(+params['id']))
-            .subscribe(text => {
-                this.text = text
-            });
-        //console.log(this.text);        
+            .subscribe(text => { this.text = text });       
     }    
 
-         
+    saveText() {
+        this.showToken = true;
+        let blob = new Blob([this.text.body], {type: "text/plain;charset=utf-8"}); //type: 'application/pdf' 
+        saveAs(blob, this.text.title+".txt");        
+    }     
                   
 }
 

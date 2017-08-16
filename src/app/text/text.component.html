@@ -3,10 +3,17 @@
         <div class="col-md-12">
             <div *ngIf="text">
                 <h2 class="text-center">{{text.title}}</h2>
-                <h3>token: {{text.token}}</h3>
                 <div [innerHTML]="text.body | truncate: 1000 | safeHtml"></div> 
                 <div class="fadeout"></div>
-                <p class="text-center">Jeśli chcesz czytać dalej...</p>
+                <div class="jumbotron">
+                    <h2 class="text-center">Jeśli chcesz czytać dalej...</h2>
+                    <p class="text-center">
+                        <a class="btn btn-primary btn-lg" role="button" (click)="saveText()">Pay and save</a>
+                    </p>
+                    <div *ngIf="showToken">
+                        <h3 class="text-center">Your token: {{text.token}}</h3>
+                    </div>
+                </div>                
             </div>
         </div>
     </div>
