@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { trigger, animate, style, group, animateChild, query, stagger, transition } from '@angular/animations';
+import { LoaderService } from './services/loader.service';
 
 const fadeIn = [
     query(':leave', style({ position: 'absolute', left: 0, right: 0, opacity: 1 }), { optional: true }),
@@ -36,20 +37,26 @@ export class AppComponent implements OnInit, OnDestroy {
     title = 'Main page';
     username: any;
     subscription: Subscription;
+    objLoaderStatus: boolean;
 
     constructor(
         private translate: TranslateService,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private loaderService: LoaderService
     ) {
         translate.addLangs(["pl", "en", "uk"]);
         translate.setDefaultLang('pl');
         let browserLang = translate.getBrowserLang();
         translate.use(browserLang.match(/pl|en/) ? browserLang : 'pl');
         this.username = localStorage.getItem('currentUsername');
+        this.objLoaderStatus = false;
     }
 
     ngOnInit() {
         this.authenticationService.getUsername().subscribe(currentUsername => this.username = currentUsername);
+        this.loaderService.loaderStatus.subscribe((val: boolean) => {
+            this.objLoaderStatus = val;
+        });        
     }
 
     prepareRouteTransition(outlet) {
