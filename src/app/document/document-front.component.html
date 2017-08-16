@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div *ngIf="document">
                 <h1>{{document.title}}</h1>
-                <div [innerHTML]="document.body | truncate : 100"></div>
+                <div [innerHTML]="document.body"></div>
                 <!--                <form ngNoForm id="payu-payment-form" method="post" action="https://secure.payu.com/api/v2_1/orders">
                                     <input type="hidden" name="continueUrl" value="http://shop.url/continue">
                                     <input type="hidden" name="currencyCode" value="PLN">

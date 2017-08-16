@@ -1,8 +1,8 @@
-import {Pipe, PipeTransform} from '@angular/core'
+import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({name: 'truncate'})
+@Pipe({ name: 'truncate' })
 
-export class TruncatePipe implements PipeTransform {
+export class TruncatePipe implements PipeTransform {         
     transform(value: string, limit: number, trail: string, position: string): string {
         value = value || '';  // handle undefined/null value
         limit = limit || 10;

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common'; // ?
 import { BrowserModule } from '@angular/platform-browser'; // ?
 import { TextRoutingModule } from './text-routing.module';
 import { TextComponent } from './text.component';
+import { TruncatePipe } from '../pipes/truncate.pipe';
+import { SafeHtmlPipe } from '../pipes/safe.html.pipe';
 
 @NgModule({
     imports: [
@@ -10,7 +12,11 @@ import { TextComponent } from './text.component';
         BrowserModule,
         TextRoutingModule
     ],
-    declarations: [TextComponent],
+    declarations: [
+        TextComponent, 
+        TruncatePipe,
+        SafeHtmlPipe
+    ],
     providers: []
 })
 export class TextModule {}

@@ -25,7 +25,7 @@ export class TextComponent implements OnInit {
             .subscribe(text => {
                 this.text = text
             });
-        console.log(this.text);        
+        //console.log(this.text);        
     }    
 
          

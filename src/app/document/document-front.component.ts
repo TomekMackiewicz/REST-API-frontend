@@ -5,7 +5,7 @@ import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Rx';
 import {DocumentService} from './document.service';
 //import {SafeHtmlPipe} from '../pipes/safe.html.pipe';
-import {TruncatePipe} from '../pipes/truncate.pipe';
+//import {TruncatePipe} from '../pipes/truncate.pipe';
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {saveAs as importedSaveAs} from "file-saver";
 

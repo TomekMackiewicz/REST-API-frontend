@@ -14,7 +14,7 @@ import {DocumentService} from './document.service';
 import {DocumentRoutingModule} from './document-routing.module';
 
 //import {SafeHtmlPipe} from '../pipes/safe.html.pipe';
-import {TruncatePipe} from '../pipes/truncate.pipe';
+//import {TruncatePipe} from '../pipes/truncate.pipe';
 
 @NgModule({
     imports: [
@@ -31,7 +31,7 @@ import {TruncatePipe} from '../pipes/truncate.pipe';
         DocumentCreateComponent,
         DocumentFrontComponent,
         //SafeHtmlPipe,
-        TruncatePipe
+        //TruncatePipe
     ],
     providers: [
         DocumentService
