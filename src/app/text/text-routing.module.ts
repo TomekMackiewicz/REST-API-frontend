@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-//import { AuthGuard } from '../guards/auth.guard';
+import { FlagGuard } from '../guards/flag.guard';
 import { TextPreviewComponent } from './text-preview.component';
 import { TextFullComponent } from './text-full.component';
 import { MenuComponent } from '../menu/menu.component';
 import { FooterComponent } from '../footer/footer.component';
-import {PageNotFoundComponent} from '../404/page-not-found.component';
 
 const textRoutes: Routes = [
 
     {path: 'texts/full/:token', 
         children: [
-            {path: '' , component: TextFullComponent},
-            {path: '' , component: MenuComponent, outlet: 'header'},
-            {path: '' , component: FooterComponent, outlet: 'footer'}        
+            { path: '' , component: TextFullComponent},
+            { path: '' , component: MenuComponent, outlet: 'header' },
+            { path: '' , component: FooterComponent, outlet: 'footer' }        
         ],
 //        data: {
 //            animation: {
@@ -23,10 +22,11 @@ const textRoutes: Routes = [
     }, 
     {path: 'texts/preview/:id', 
         children: [
-            {path: '' , component: TextPreviewComponent},
-            {path: '' , component: MenuComponent, outlet: 'header'},
-            {path: '' , component: FooterComponent, outlet: 'footer'}        
+            { path: '' , component: TextPreviewComponent},
+            { path: '' , component: MenuComponent, outlet: 'header' },
+            { path: '' , component: FooterComponent, outlet: 'footer' }        
         ],
+        //canActivate: [ FlagGuard ]
 //        data: {
 //            animation: {
 //                value: 'form-front',

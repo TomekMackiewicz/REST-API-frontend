@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TextService } from './text.service';
 import { saveAs } from 'file-saver';
+//import { FlagGuard } from '../guards/flag.guard';
 
 @Component({
     selector: 'app-text',
@@ -18,7 +19,8 @@ export class TextPreviewComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private textService: TextService    
+        private textService: TextService,
+        //private flagGuard: FlagGuard   
     ) {}
         
     ngOnInit() {      

@@ -6,6 +6,7 @@ import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
 import { Option, Question, Form } from './models/index';
 import { AlertService } from '../alert/alert.service';
+//import { FlagGuard } from '../guards/flag.guard';
 
 @Component({
     selector: 'app-form',
@@ -27,7 +28,8 @@ export class FormFrontComponent implements OnInit {
         private route: ActivatedRoute,
         private formService: FormService,
         private alertService: AlertService,
-        private router: Router     
+        private router: Router,
+        //private flagGuard: FlagGuard     
     ) {}
         
     ngOnInit() {      
@@ -53,12 +55,14 @@ export class FormFrontComponent implements OnInit {
 //    }
 
     submitForm(form: NgForm) {        
-        let values = form.value;      
+        let values = form.value; 
+        //this.flagGuard.allow = true;     
         this.formService.submitAnswers(values).subscribe(
             data => {
                 this.alertService.success('Form successfull submitted.');
                 //this.getText(data.json());
-                this.router.navigateByUrl('texts/'+data.json());
+                //this.flagGuard.allow = true;
+                this.router.navigateByUrl('texts/preview/' + data.json());
                 return true;
             },
             error => {
