@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'; // ?
 import { BrowserModule } from '@angular/platform-browser'; // ?
 import { TextRoutingModule } from './text-routing.module';
-import { TextComponent } from './text.component';
+import { TextPreviewComponent } from './text-preview.component';
+import { TextFullComponent } from './text-full.component';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { SafeHtmlPipe } from '../pipes/safe.html.pipe';
 
@@ -13,7 +14,8 @@ import { SafeHtmlPipe } from '../pipes/safe.html.pipe';
         TextRoutingModule
     ],
     declarations: [
-        TextComponent, 
+        TextPreviewComponent,
+        TextFullComponent, 
         TruncatePipe,
         SafeHtmlPipe
     ],

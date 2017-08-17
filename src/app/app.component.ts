@@ -68,8 +68,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
     submitForm(form: NgForm) {        
         let values = form.value;      
-        console.log(values.token);
-        this.router.navigateByUrl('texts/'+values.token);
+        //console.log(values.token);
+        this.router.navigateByUrl('texts/full/'+values.token);
     }
 
     ngOnDestroy() {

@@ -1,28 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 //import { AuthGuard } from '../guards/auth.guard';
-
-import { TextComponent } from './text.component';
+import { TextPreviewComponent } from './text-preview.component';
+import { TextFullComponent } from './text-full.component';
 import { MenuComponent } from '../menu/menu.component';
 import { FooterComponent } from '../footer/footer.component';
 
 const textRoutes: Routes = [
 
-//    {path: 'forms', 
-//        children: [
-//            {path: '' , component: FormFrontComponent},
-//            {path: '' , component: MenuComponent, outlet: 'header'},
-//            {path: '' , component: FooterComponent, outlet: 'footer'}        
-//        ],
+    {path: 'texts/full/:token', 
+        children: [
+            {path: '' , component: TextFullComponent},
+            {path: '' , component: MenuComponent, outlet: 'header'},
+            {path: '' , component: FooterComponent, outlet: 'footer'}        
+        ],
 //        data: {
 //            animation: {
-//                value: 'categories-front',
+//                value: 'form-front',
 //            }
-//        }            
-//    } 
-    {path: 'texts/:token', 
+//        }     
+    }, 
+    {path: 'texts/preview/:id', 
         children: [
-            {path: '' , component: TextComponent},
+            {path: '' , component: TextPreviewComponent},
             {path: '' , component: MenuComponent, outlet: 'header'},
             {path: '' , component: FooterComponent, outlet: 'footer'}        
         ],
