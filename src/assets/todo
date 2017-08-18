@@ -1,0 +1,17 @@
+Jak usunąć tagi html z tekstu?
+
+Po co zapisywać odpowiedzi do bazy? (usunąć cały kod, na razie usunąłem w answer controller)
+
+front - jeden dokument - jeden formularz !
+
+po co document-front ?
+
+
+przemyśleć routingi (debug router)
+przemyśleć front (jakie widoki)
+
+payu przenieść do text
+
+dopracować formularz użytkownika - walidacja itd
+
+spinner w doc / form edit / create

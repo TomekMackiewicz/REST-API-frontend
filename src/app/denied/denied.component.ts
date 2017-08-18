@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  template: '<h2>Access denied</h2>'
+  templateUrl: './denied.component.html'
 })
 
 export class AccessDeniedComponent {}
