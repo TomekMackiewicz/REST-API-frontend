@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Location} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-import {Observable} from 'rxjs/Rx';
-import {DocumentService} from './document.service';
+import { Observable} from 'rxjs/Rx';
+import { DocumentService } from './document.service';
 import { FormService } from '../form/form.service';
-import {AlertService} from '../alert/alert.service';
-import {slideInOutAnimation} from '../animations/index';
+import { AlertService } from '../alert/alert.service';
+import { LoaderService } from '../services/loader.service';
+import { slideInOutAnimation } from '../animations/index';
 
 @Component({
     selector: 'document-create',
@@ -25,6 +26,7 @@ export class DocumentCreateComponent implements OnInit {
         private documentService: DocumentService,
         private formService: FormService,
         private alertService: AlertService,
+        private loaderService: LoaderService,
         private route: ActivatedRoute,
         private location: Location
     ) {}
@@ -39,12 +41,15 @@ export class DocumentCreateComponent implements OnInit {
 
     createDocument(title: string, body: string) {
         let document = {title: title, body: body, formId: this.form.id};
+        this.loaderService.displayLoader(true); 
         this.documentService.createDocument(document).subscribe(
             data => {
+                this.loaderService.displayLoader(false); 
                 this.alertService.success('Document created.');
                 return true;
             },
             error => {
+                this.loaderService.displayLoader(false); 
                 this.alertService.error("Error saving document! " + error);
                 return Observable.throw(error);
             }
