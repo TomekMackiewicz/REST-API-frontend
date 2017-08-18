@@ -10,6 +10,7 @@ import { Question } from './models/question';
 import { Option } from './models/option';
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
+import { LoaderService } from '../services/loader.service';
 import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -34,6 +35,7 @@ export class FormEditComponent implements OnInit {
         private location: Location,
         private formService: FormService,
         private alertService: AlertService,
+        private loaderService: LoaderService,
         private route: ActivatedRoute        
     ) {}
 
@@ -129,13 +131,16 @@ export class FormEditComponent implements OnInit {
         }                          
     }
 
-    saveForm() {      
+    saveForm() { 
+        this.loaderService.displayLoader(true);     
         this.formService.updateForm(this.form).subscribe(
             data => {
+                this.loaderService.displayLoader(false);
                 this.alertService.success('form updated.');
                 return true;
             },
             error => {
+                this.loaderService.displayLoader(false);
                 this.alertService.error("Error updating form! " + error);
                 return Observable.throw(error);
             }

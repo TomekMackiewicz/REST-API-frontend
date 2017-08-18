@@ -11,7 +11,6 @@ import { LoaderService } from '../services/loader.service';
 
 export class LoginComponent {
     model: any = {};
-    //loading = false;
     returnUrl: string;
 
     constructor(
@@ -29,7 +28,6 @@ export class LoginComponent {
     }
 
     login() {
-        //this.loading = true;
         this.loaderService.displayLoader(true);
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(
@@ -39,7 +37,6 @@ export class LoginComponent {
             },
             error => {
                 this.alertService.error(error);
-                //this.loading = false;
                 this.loaderService.displayLoader(false);
             });
     }

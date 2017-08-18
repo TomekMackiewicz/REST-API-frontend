@@ -9,6 +9,7 @@ import { Question } from './models/question';
 import { Option } from './models/option';
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
+import { LoaderService } from '../services/loader.service';
 import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -35,7 +36,8 @@ export class FormAddComponent implements OnInit {
         private http: Http,
         private location: Location,
         private formService: FormService,
-        private alertService: AlertService       
+        private alertService: AlertService,
+        private loaderService: LoaderService       
     ) {}
 
     ngOnInit(): void {
@@ -135,13 +137,16 @@ export class FormAddComponent implements OnInit {
         return this.form.categories;
     }
 
-    saveForm() {    
+    saveForm() { 
+        this.loaderService.displayLoader(true);    
         this.formService.createForm(this.form).subscribe(
             data => {
+                this.loaderService.displayLoader(false);
                 this.alertService.success('form created.');
                 return true;
             },
             error => {
+                this.loaderService.displayLoader(false);
                 this.alertService.error("Error creating form! " + error);
                 return Observable.throw(error);
             }
