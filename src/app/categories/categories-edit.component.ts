@@ -5,6 +5,7 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Rx';
 import { CategoriesService } from './categories.service';
 import { AlertService } from '../alert/alert.service';
+import { LoaderService } from '../services/loader.service';
 import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -22,7 +23,8 @@ export class CategoriesEditComponent implements OnInit {
         private categoriesService: CategoriesService,
         private route: ActivatedRoute,
         private location: Location,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private loaderService: LoaderService
     ) {}
 
     ngOnInit(): void {
@@ -36,12 +38,15 @@ export class CategoriesEditComponent implements OnInit {
     }
 
     updateCategory(category) {
+        this.loaderService.displayLoader(true);
         this.categoriesService.updateCategory(category).subscribe(
             data => {
+                this.loaderService.displayLoader(false);
                 this.alertService.success('Category updated.');
                 return true;
             },
             error => {
+                this.loaderService.displayLoader(false);
                 this.alertService.error("Error saving category! " + error);
                 return Observable.throw(error);
             }

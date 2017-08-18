@@ -5,6 +5,7 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Rx';
 import { CategoriesService } from './categories.service';
 import { AlertService } from '../alert/alert.service';
+import { LoaderService } from '../services/loader.service';
 import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -21,6 +22,7 @@ export class CategoriesCreateComponent {
     constructor(
         private categoriesService: CategoriesService,
         private alertService: AlertService,
+        private loaderService: LoaderService,
         private route: ActivatedRoute,
         private location: Location
     ) {}
@@ -31,12 +33,15 @@ export class CategoriesCreateComponent {
 
     createCategory(name) {
         let category = {name: name};
+        this.loaderService.displayLoader(true);
         this.categoriesService.createCategory(category).subscribe(
             data => {
+                this.loaderService.displayLoader(false);
                 this.alertService.success('Category created.');
                 return true;
             },
             error => {
+                this.loaderService.displayLoader(false);
                 this.alertService.error("Error saving category! " + error);
                 return Observable.throw(error);
             }
