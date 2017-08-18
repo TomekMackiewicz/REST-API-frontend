@@ -6,7 +6,6 @@ import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
 import { Option, Question, Form } from './models/index';
 import { AlertService } from '../alert/alert.service';
-//import { FlagGuard } from '../guards/flag.guard';
 
 @Component({
     selector: 'app-form',
@@ -16,8 +15,8 @@ import { AlertService } from '../alert/alert.service';
 })
 
 export class FormFrontComponent implements OnInit {
+    
     form: Form = new Form(null);
-    //text: string = '';
     pager = {
         index: 0,
         size: 1,
@@ -28,8 +27,7 @@ export class FormFrontComponent implements OnInit {
         private route: ActivatedRoute,
         private formService: FormService,
         private alertService: AlertService,
-        private router: Router,
-        //private flagGuard: FlagGuard     
+        private router: Router    
     ) {}
         
     ngOnInit() {      
@@ -47,21 +45,13 @@ export class FormFrontComponent implements OnInit {
         }
     }
 
-//    getText(id: number) {         
-//        this.formService.getText(id).subscribe(
-//            data => {this.text = data},
-//            err => console.error(err)
-//        );        
-//    }
-
     submitForm(form: NgForm) {        
-        let values = form.value; 
-        //this.flagGuard.allow = true;     
+        let values = form.value;     
         this.formService.submitAnswers(values).subscribe(
             data => {
-                this.alertService.success('Form successfull submitted.');
-                //this.getText(data.json());
-                //this.flagGuard.allow = true;
+                this.alertService.success('Form successfull submitted.'); // po co tu alert skoro redirect?
+                let allow = true;
+                localStorage.setItem("allow", JSON.stringify(allow));
                 this.router.navigateByUrl('texts/preview/' + data.json());
                 return true;
             },

@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 @Injectable()
 export class FlagGuard implements CanActivate {
 
-    //must be set to true for navigation to succeed
-    allow = false;
+    constructor(private router: Router) {}
 
-    canActivate(){
-        if(this.allow){
-            this.allow = false;
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        console.log(localStorage.getItem("allow"));
+        if(localStorage.getItem("allow") === "true") {
+            let allow = false;
+            localStorage.setItem("allow", JSON.stringify(allow));
             return true;
         }
-        else return false;
+        else {
+            this.router.navigate(['/denied'], {queryParams: {returnUrl: state.url}});
+            return false;
+        }
     }
 }

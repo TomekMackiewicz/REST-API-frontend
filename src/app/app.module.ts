@@ -19,6 +19,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { PageNotFoundComponent } from './404/page-not-found.component';
+import { AccessDeniedComponent } from './denied/denied.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CrudService } from './services/crud.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -59,7 +60,8 @@ export function HttpLoaderFactory(http: Http) {
         LoginComponent,
         LogoutComponent,
         MenuComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        AccessDeniedComponent
     ],
     providers: [
         AuthGuard,
