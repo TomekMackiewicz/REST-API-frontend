@@ -40,20 +40,25 @@ export class DocumentCreateComponent implements OnInit {
     }
 
     createDocument(title: string, body: string) {
-        let document = {title: title, body: body, formId: this.form.id};
-        this.loaderService.displayLoader(true); 
-        this.documentService.createDocument(document).subscribe(
-            data => {
-                this.loaderService.displayLoader(false); 
-                this.alertService.success('Document created.');
-                return true;
-            },
-            error => {
-                this.loaderService.displayLoader(false); 
-                this.alertService.error("Error saving document! " + error);
-                return Observable.throw(error);
-            }
-        );
+        if (this.form) {
+            let document = { title: title, body: body, formId: this.form.id };
+            this.loaderService.displayLoader(true); 
+            this.documentService.createDocument(document).subscribe(
+                data => {
+                    this.loaderService.displayLoader(false); 
+                    this.alertService.success('Document created.');
+                    return true;
+                },
+                error => {
+                    this.loaderService.displayLoader(false); 
+                    this.alertService.error("Error saving document! " + error);
+                    return Observable.throw(error);
+                }
+            );
+        } else {
+            this.alertService.error("Please choose the form.");
+        }
+
     }
 
     getForms() {
