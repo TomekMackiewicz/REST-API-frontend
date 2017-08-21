@@ -38,24 +38,58 @@
                         </div>
                         <ng-template #no_options>
                             <div class="form-group">
-                                <input class="form-control" name="{{question.id}}" id="{{question.id}}" [attr.type]="question.questionType" ngModel required>
+                                <input class="form-control" 
+                                       name="{{question.id}}" 
+                                       id="{{question.id}}" 
+                                       [attr.type]="question.questionType" 
+                                       ngModel 
+                                       required>
                             </div>
                         </ng-template>
                         <hr>
                         <div class="text-sm-center">
-                            <a class="btn btn-default" [attr.href]="'#'+0" [attr.aria-controls]="0" role="tab" data-toggle="tab" (click)="goTo(0);">
+                            <a class="btn btn-default"
+                               [class.disabled]="first"
+                               [attr.href]="'#'+0" 
+                               [attr.aria-controls]="0" 
+                               role="tab" 
+                               data-toggle="tab" 
+                               (click)="goTo(0);">
                                 First
                             </a>                             
-                            <a class="btn btn-default" [attr.href]="'#'+(i-1)" [attr.aria-controls]="i-1" role="tab" data-toggle="tab" (click)="goTo(pager.index - 1);">
+                            <a class="btn btn-default" 
+                               [class.disabled]="first"
+                               [attr.href]="'#'+(i-1)" 
+                               [attr.aria-controls]="i-1" 
+                               role="tab" 
+                               data-toggle="tab" 
+                               (click)="goTo(pager.index - 1);">
                                 Previous
                             </a>                            
-                            <a class="btn btn-primary" [attr.href]="'#'+(i+1)" [attr.aria-controls]="i+1" role="tab" data-toggle="tab" (click)="goTo(pager.index + 1);">
+                            <a class="btn btn-primary"
+                               [class.disabled]="last"
+                               [attr.href]="'#'+(i+1)" 
+                               [attr.aria-controls]="i+1" 
+                               role="tab" 
+                               data-toggle="tab" 
+                               (click)="goTo(pager.index + 1);">
                                 Next
                             </a>
-                            <a class="btn btn-default" [attr.href]="'#'+(pager.count - 1)" [attr.aria-controls]="pager.count - 1" role="tab" data-toggle="tab" (click)="goTo(pager.count - 1);">
+                            <a class="btn btn-default"
+                               [class.disabled]="last"
+                               [attr.href]="'#'+(pager.count - 1)" 
+                               [attr.aria-controls]="pager.count - 1" 
+                               role="tab" 
+                               data-toggle="tab" 
+                               (click)="goTo(pager.count - 1);">
                                 Last
                             </a>
-                            <button type="submit" class="btn btn-success pull-right" value="Submit" *ngIf="last">Submit</button>                            
+                            <button type="submit" 
+                                    class="btn btn-success pull-right" 
+                                    value="Submit" 
+                                    *ngIf="last">
+                                Submit
+                            </button>                            
                         </div>                          
                     </div>
                 </div>
