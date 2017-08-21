@@ -8,6 +8,7 @@
                 <thead>
                     <tr>
                         <th><mfDefaultSorter by="title">Title</mfDefaultSorter></th>
+                        <th>Form</th>
                         <th><mfDefaultSorter by="added">Added</mfDefaultSorter></th>
                         <th><mfDefaultSorter by="modified">Modified</mfDefaultSorter></th>
                         <th>Actions</th>
@@ -16,6 +17,8 @@
                 <tbody>
                     <tr *ngFor="let document of mf.data">
                         <td>{{document.title}}</td>
+                        <td *ngIf="document.form; else noForm">{{document.form.name}}</td>
+                        <ng-template #noForm><td>---</td></ng-template>
                         <td>{{document.add_date | date:'yyyy/MM/dd H:m:s'}}</td>
                         <td>{{document.modified_date | date:'yyyy/MM/dd H:m:s'}}</td>
                         <td>

@@ -37,7 +37,9 @@ export class DocumentEditComponent implements OnInit {
             .switchMap((params: Params) => this.documentService.getDocument(+params['id']))
             .subscribe(document => {
                 this.document = document;
-                this.initialForm(this.document.formId);
+                if(this.document.form) {
+                    this.initialForm(this.document.form.id);                    
+                }
             });            
     }
 
