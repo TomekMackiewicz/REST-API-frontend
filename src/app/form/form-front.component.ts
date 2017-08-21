@@ -41,17 +41,10 @@ export class FormFrontComponent implements OnInit {
             console.log(this.pager.index);        
     }    
 
-//    goToPrevious(index: number) {
-//        if (index >= 0 && index < this.pager.count) {
-//            this.pager.index = index;
-//        }
-//    }
-
-    goTo(index: number, val: boolean, form: NgForm, qId: number) {
-        //console.log(this.pager.index);
+    goTo(index: number, val: boolean, form: NgForm, question: any) {
         if (index >= 0 && index < this.pager.count) {
             if(val) {
-                this.validate(form.value[qId]);
+                this.validate(form.value[question.id], question);
             }
             if(this.next === true) {
                 this.pager.index = index;
@@ -64,10 +57,39 @@ export class FormFrontComponent implements OnInit {
         console.log(this.form);
     }
 
-    validate(field: any) {
-        if(field === "") {
+    validate(value: any, question: any) {
+        switch(question.validation) { 
+            case "email": {  
+                var EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+                if (!EMAIL_REGEXP.test(value)) {
+                    this.alertService.error("Not valid email.");
+                    this.next = false;
+                    return;
+                } else {
+                    this.next = true;
+                }                
+                break; 
+            } 
+            case "code": { 
+                var POSTAL_CODE_REGEXP = /[0-9]{2}-[0-9]{3}/; 
+                if (!POSTAL_CODE_REGEXP.test(value)) {
+                    this.alertService.error("Not valid postal code.");
+                    this.next = false;
+                    return;
+                } else {
+                    this.next = true;
+                }                  
+                break; 
+            } 
+            default: { 
+                break; 
+            } 
+        }        
+                
+        if(question.required === true && value === "") {
             this.alertService.error("Question number " + (this.pager.index+1) + " is required.");
             this.next = false;
+            return;
         } else {
             this.alertService.clear();
             this.next = true;

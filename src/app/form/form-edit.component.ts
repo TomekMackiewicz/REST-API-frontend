@@ -29,6 +29,7 @@ export class FormEditComponent implements OnInit {
         { value: 'radio', display: 'Radio' },
         { value: 'checkbox', display: 'Checkbox' }
     ];
+    public checked: boolean = true;
         
     constructor(
         private http: Http,

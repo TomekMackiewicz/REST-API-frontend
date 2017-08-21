@@ -80,7 +80,7 @@
                                [attr.aria-controls]="pager.index" 
                                role="tab" 
                                data-toggle="tab" 
-                               (click)="goTo(pager.index + 1, true, f, question.id);">
+                               (click)="goTo(pager.index + 1, true, f, question);">
                                 Next
                             </a>
                             <a class="btn btn-default"
@@ -89,7 +89,7 @@
                                [attr.aria-controls]="pager.count - 1" 
                                role="tab" 
                                data-toggle="tab" 
-                               (click)="goTo(pager.count - 1, true, f, question.id);">
+                               (click)="goTo(pager.count - 1, true, f, question);">
                                 Last
                             </a>
                             <a class="btn btn-danger" (click)="checkIndex();">
