@@ -22,6 +22,7 @@ export class FormFrontComponent implements OnInit {
         size: 1,
         count: 1
     };
+    next: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -36,30 +37,67 @@ export class FormFrontComponent implements OnInit {
             .subscribe(form => {
                 this.form = form,
                 this.pager.count = this.form.questions.length
-            });        
+            });
+            console.log(this.pager.index);        
     }    
 
-    goTo(index: number) {
+//    goToPrevious(index: number) {
+//        if (index >= 0 && index < this.pager.count) {
+//            this.pager.index = index;
+//        }
+//    }
+
+    goTo(index: number, val: boolean, form: NgForm, qId: number) {
+        //console.log(this.pager.index);
         if (index >= 0 && index < this.pager.count) {
-            this.pager.index = index;
+            if(val) {
+                this.validate(form.value[qId]);
+            }
+            if(this.next === true) {
+                this.pager.index = index;
+            }
         }
     }
 
-    submitForm(form: NgForm) {        
-        let values = form.value;     
-        this.formService.submitAnswers(values).subscribe(
-            data => {
-                this.alertService.success('Form successfull submitted.'); // po co tu alert skoro redirect?
-                let allow = true;
-                localStorage.setItem("allow", JSON.stringify(allow));
-                this.router.navigateByUrl('texts/preview/' + data.json());
-                return true;
-            },
-            error => {
-                this.alertService.error("Error saving form! " + error);
-                return Observable.throw(error);
-            }
-        );         
+    checkIndex() {
+        console.log(this.pager.index);
+        console.log(this.form);
+    }
+
+    validate(field: any) {
+        if(field === "") {
+            this.alertService.error("Question number " + (this.pager.index+1) + " is required.");
+            this.next = false;
+        } else {
+            this.alertService.clear();
+            this.next = true;
+        }
+    }
+
+    submitForm(form: NgForm) {
+        //if(form.valid)
+        console.log(form);
+//        let values = form.value; 
+//        for(let value of values) {
+//            if(value === null) {
+//                this.alertService.error("Answer all questions.");
+//                break;
+//            }
+//        }        
+//        let values = form.value;     
+//        this.formService.submitAnswers(values).subscribe(
+//            data => {
+//                this.alertService.success('Form successfull submitted.'); // po co tu alert skoro redirect?
+//                let allow = true;
+//                localStorage.setItem("allow", JSON.stringify(allow));
+//                this.router.navigateByUrl('texts/preview/' + data.json());
+//                return true;
+//            },
+//            error => {
+//                this.alertService.error("Error saving form! " + error);
+//                return Observable.throw(error);
+//            }
+//        );         
     }       
                   
 }
