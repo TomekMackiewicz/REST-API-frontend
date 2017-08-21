@@ -83,6 +83,8 @@ export class FormEditComponent implements OnInit {
         let data = {        
             name: values.name,
             questionType: values.questionType,
+            validation: values.validation,
+            required: values.required,            
             options: [],                  
         };
         this.form.questions.push(data);                                

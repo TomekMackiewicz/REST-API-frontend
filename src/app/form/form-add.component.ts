@@ -31,6 +31,7 @@ export class FormAddComponent implements OnInit {
         { value: 'radio', display: 'Radio' },
         { value: 'checkbox', display: 'Checkbox' }
     ];
+    public checked: boolean = true;
         
     constructor(
         private http: Http,
@@ -74,7 +75,9 @@ export class FormAddComponent implements OnInit {
         let data = {        
             name: values.name,
             questionType: values.questionType,
-            options: [],                  
+            validation: values.validation,
+            required: values.required,
+            options: []                  
         };
         this.form.questions.push(data);                                
     }
@@ -138,19 +141,20 @@ export class FormAddComponent implements OnInit {
     }
 
     saveForm() { 
-        this.loaderService.displayLoader(true);    
-        this.formService.createForm(this.form).subscribe(
-            data => {
-                this.loaderService.displayLoader(false);
-                this.alertService.success('form created.');
-                return true;
-            },
-            error => {
-                this.loaderService.displayLoader(false);
-                this.alertService.error("Error creating form! " + error);
-                return Observable.throw(error);
-            }
-        );
+        console.log(this.form);
+//        this.loaderService.displayLoader(true);    
+//        this.formService.createForm(this.form).subscribe(
+//            data => {
+//                this.loaderService.displayLoader(false);
+//                this.alertService.success('form created.');
+//                return true;
+//            },
+//            error => {
+//                this.loaderService.displayLoader(false);
+//                this.alertService.error("Error creating form! " + error);
+//                return Observable.throw(error);
+//            }
+//        );
     }    
 
     goBack(): void {
