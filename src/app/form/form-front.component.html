@@ -1,4 +1,4 @@
-<div class="container" *ngIf="form">
+<div class="container" *ngIf="form.config">
     <div class="row">
         <div class="col-md-12">           
             <h3>{{form.name}}</h3>
@@ -52,7 +52,6 @@
                             </div>
                         </ng-template>
                         <hr>
-<!--                        <span ng-show="!f.35.$valid">{{question.name}} is required.</span>-->
                         <div class="text-sm-center">
                             <a class="btn btn-default"
                                *ngIf="form.config.allowBack"
@@ -91,10 +90,7 @@
                                data-toggle="tab" 
                                (click)="goTo(pager.count - 1, true, f, question);">
                                 Last
-                            </a>
-                            <a class="btn btn-danger" (click)="checkIndex();">
-                                Check index
-                            </a>                            
+                            </a>                          
                             <button type="submit" 
                                     class="btn btn-success pull-right" 
                                     value="Submit" 

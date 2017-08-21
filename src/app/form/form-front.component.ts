@@ -37,8 +37,7 @@ export class FormFrontComponent implements OnInit {
             .subscribe(form => {
                 this.form = form,
                 this.pager.count = this.form.questions.length
-            });
-            console.log(this.pager.index);        
+            });       
     }    
 
     goTo(index: number, val: boolean, form: NgForm, question: any) {
@@ -50,11 +49,6 @@ export class FormFrontComponent implements OnInit {
                 this.pager.index = index;
             }
         }
-    }
-
-    checkIndex() {
-        console.log(this.pager.index);
-        console.log(this.form);
     }
 
     validate(value: any, question: any) {
@@ -96,30 +90,21 @@ export class FormFrontComponent implements OnInit {
         }
     }
 
-    submitForm(form: NgForm) {
-        //if(form.valid)
-        console.log(form);
-//        let values = form.value; 
-//        for(let value of values) {
-//            if(value === null) {
-//                this.alertService.error("Answer all questions.");
-//                break;
-//            }
-//        }        
-//        let values = form.value;     
-//        this.formService.submitAnswers(values).subscribe(
-//            data => {
-//                this.alertService.success('Form successfull submitted.'); // po co tu alert skoro redirect?
-//                let allow = true;
-//                localStorage.setItem("allow", JSON.stringify(allow));
-//                this.router.navigateByUrl('texts/preview/' + data.json());
-//                return true;
-//            },
-//            error => {
-//                this.alertService.error("Error saving form! " + error);
-//                return Observable.throw(error);
-//            }
-//        );         
+    submitForm(form: NgForm) {       
+        let values = form.value;     
+        this.formService.submitAnswers(values).subscribe(
+            data => {
+                this.alertService.success('Form successfull submitted.'); // po co tu alert skoro redirect?
+                let allow = true;
+                localStorage.setItem("allow", JSON.stringify(allow));
+                this.router.navigateByUrl('texts/preview/' + data.json());
+                return true;
+            },
+            error => {
+                this.alertService.error("Error saving form! " + error);
+                return Observable.throw(error);
+            }
+        );         
     }       
                   
 }
