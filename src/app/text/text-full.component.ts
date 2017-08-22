@@ -4,7 +4,6 @@ import { TextService } from './text.service';
 import { saveAs } from 'file-saver';
 import { AlertService } from '../alert/alert.service';
 import * as jsPDF from "jspdf";
-import * as html2canvas from "html2canvas";
 
 @Component({
     selector: 'app-text',
