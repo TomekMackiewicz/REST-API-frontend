@@ -1,106 +1,108 @@
 <div class="container" *ngIf="form.config">
     <div class="row">
-        <div class="col-md-12">           
-            <h3>{{form.name}}</h3>
-            <alert></alert>             
-            <p>{{form.description}}</p>
-            <div class="progress" *ngIf="form.config.showPager">
-                <div class="progress-bar" 
-                     role="progressbar"                     
-                     [attr.aria-valuenow]="pager.index + 1" 
-                     aria-valuemin="0" 
-                     [attr.aria-valuemax]="pager.count" 
-                     [style.width]="((pager.index+1)*100)/pager.count + '%'" ngDefaultControl>
-                    {{pager.index + 1}}/{{pager.count}}
-                </div>
-            </div> 
-            <form #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
-                <input type="hidden" name="formId" [(ngModel)]="form.id">
-                <div class="tab-content">
-                    <div *ngFor="let question of form.questions; let i = index; let first = first; let last = last" 
-                        [class.active]="first" 
-                        [class.in]="first" 
-                        role="tabpanel" 
-                        class="tab-pane fade" 
-                        id="{{i}}">
-                        <label for="{{question.id}}">{{question.name}}</label>
-                        <div *ngIf="question.options[0]; else no_options">
-                            <div class *ngIf="question.questionType === 'checkbox'">
-                                <select class="form-control" multiple name="{{question.id}}" ngModel required>
-                                    <option *ngFor="let option of question.options" value="{{option.name}}">  
-                                        {{option.name}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class *ngIf="question.questionType === 'radio'">
-                                <div class="radio" *ngFor="let option of question.options">
-                                    <label>
-                                        <input type="radio" name="{{question.id}}" value="{{option.name}}" ngModel required>
-                                        {{option.name}}
-                                    </label>
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <h3>{{form.name}}</h3>
+                <alert></alert>             
+                <p>{{form.description}}</p>
+                <div class="progress" *ngIf="form.config.showPager">
+                    <div class="progress-bar" 
+                         role="progressbar"                     
+                         [attr.aria-valuenow]="pager.index + 1" 
+                         aria-valuemin="0" 
+                         [attr.aria-valuemax]="pager.count" 
+                         [style.width]="((pager.index+1)*100)/pager.count + '%'" ngDefaultControl>
+                        {{pager.index + 1}}/{{pager.count}}
+                    </div>
+                </div> 
+                <form #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+                    <input type="hidden" name="formId" [(ngModel)]="form.id">
+                    <div class="tab-content">
+                        <div *ngFor="let question of form.questions; let i = index; let first = first; let last = last" 
+                            [class.active]="first" 
+                            [class.in]="first" 
+                            role="tabpanel" 
+                            class="tab-pane fade" 
+                            id="{{i}}">
+                            <label for="{{question.id}}">{{question.name}}</label>
+                            <div *ngIf="question.options[0]; else no_options">
+                                <div class *ngIf="question.questionType === 'checkbox'">
+                                    <select class="form-control" multiple name="{{question.id}}" ngModel required>
+                                        <option *ngFor="let option of question.options" value="{{option.name}}">  
+                                            {{option.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class *ngIf="question.questionType === 'radio'">
+                                    <div class="radio" *ngFor="let option of question.options">
+                                        <label>
+                                            <input type="radio" name="{{question.id}}" value="{{option.name}}" ngModel required>
+                                            {{option.name}}
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
+                            <ng-template #no_options>
+                                <div class="form-group">
+                                    <input class="form-control" 
+                                           name="{{question.id}}" 
+                                           id="{{question.id}}" 
+                                           [attr.type]="question.questionType" 
+                                           ngModel 
+                                           required>
+                                </div>
+                            </ng-template>
+                            <hr>
+                            <div class="text-sm-center">
+                                <a class="btn btn-default"
+                                   *ngIf="form.config.allowBack"
+                                   [class.disabled]="first"
+                                   [attr.href]="'#'+0" 
+                                   [attr.aria-controls]="0" 
+                                   role="tab" 
+                                   data-toggle="tab" 
+                                   (click)="goTo(0, false);">
+                                    First
+                                </a>                             
+                                <a class="btn btn-default" 
+                                   *ngIf="form.config.allowBack"
+                                   [class.disabled]="first"
+                                   [attr.href]="'#'+(pager.index)" 
+                                   [attr.aria-controls]="pager.index" 
+                                   role="tab" 
+                                   data-toggle="tab" 
+                                   (click)="goTo(pager.index - 1, false);">
+                                    Previous
+                                </a>                            
+                                <a class="btn btn-primary"
+                                   [class.disabled]="pager.index === pager.count - 1"
+                                   [attr.href]="'#'+(pager.index)" 
+                                   [attr.aria-controls]="pager.index" 
+                                   role="tab" 
+                                   data-toggle="tab" 
+                                   (click)="goTo(pager.index + 1, true, f, question);">
+                                    Next
+                                </a>
+                                <a class="btn btn-default"
+                                   [class.disabled]="pager.index === pager.count - 1"
+                                   [attr.href]="'#'+(pager.count - 1)" 
+                                   [attr.aria-controls]="pager.count - 1" 
+                                   role="tab" 
+                                   data-toggle="tab" 
+                                   (click)="goTo(pager.count - 1, true, f, question);">
+                                    Last
+                                </a>                          
+                                <button type="submit" 
+                                        class="btn btn-success pull-right" 
+                                        value="Submit" 
+                                        *ngIf="last">
+                                    Submit
+                                </button>                            
+                            </div>                          
                         </div>
-                        <ng-template #no_options>
-                            <div class="form-group">
-                                <input class="form-control" 
-                                       name="{{question.id}}" 
-                                       id="{{question.id}}" 
-                                       [attr.type]="question.questionType" 
-                                       ngModel 
-                                       required>
-                            </div>
-                        </ng-template>
-                        <hr>
-                        <div class="text-sm-center">
-                            <a class="btn btn-default"
-                               *ngIf="form.config.allowBack"
-                               [class.disabled]="first"
-                               [attr.href]="'#'+0" 
-                               [attr.aria-controls]="0" 
-                               role="tab" 
-                               data-toggle="tab" 
-                               (click)="goTo(0, false);">
-                                First
-                            </a>                             
-                            <a class="btn btn-default" 
-                               *ngIf="form.config.allowBack"
-                               [class.disabled]="first"
-                               [attr.href]="'#'+(pager.index)" 
-                               [attr.aria-controls]="pager.index" 
-                               role="tab" 
-                               data-toggle="tab" 
-                               (click)="goTo(pager.index - 1, false);">
-                                Previous
-                            </a>                            
-                            <a class="btn btn-primary"
-                               [class.disabled]="pager.index === pager.count - 1"
-                               [attr.href]="'#'+(pager.index)" 
-                               [attr.aria-controls]="pager.index" 
-                               role="tab" 
-                               data-toggle="tab" 
-                               (click)="goTo(pager.index + 1, true, f, question);">
-                                Next
-                            </a>
-                            <a class="btn btn-default"
-                               [class.disabled]="pager.index === pager.count - 1"
-                               [attr.href]="'#'+(pager.count - 1)" 
-                               [attr.aria-controls]="pager.count - 1" 
-                               role="tab" 
-                               data-toggle="tab" 
-                               (click)="goTo(pager.count - 1, true, f, question);">
-                                Last
-                            </a>                          
-                            <button type="submit" 
-                                    class="btn btn-success pull-right" 
-                                    value="Submit" 
-                                    *ngIf="last">
-                                Submit
-                            </button>                            
-                        </div>                          
                     </div>
-                </div>
-            </form> 
+                </form> 
+            </div>    
         </div>
     </div>
 </div>

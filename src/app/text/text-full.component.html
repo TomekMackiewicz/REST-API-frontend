@@ -2,12 +2,16 @@
     <div class="row">
         <div class="col-md-12">
             <alert></alert>
-            <div *ngIf="text">
+            <div *ngIf="text">               
+                <div class="jumbotron text-center">
+                    <h3>Your token: {{text.token}}</h3>
+                    <button class="btn btn-danger" (click)="downloadPDF()">download PDF</button>
+                    <button class="btn btn-primary" (click)="downloadDOC()">download DOC</button>
+                </div> 
                 <div class="jumbotron">
-                    <h3 class="text-center">Your token: {{text.token}}</h3>
-                </div>                  
-                <h2 class="text-center">{{text.title}}</h2>
-                <div [innerHTML]="text.body | safeHtml"></div>               
+                    <h2 class="text-center">{{text.title}}</h2>
+                    <div [innerHTML]="text.body | safeHtml"></div> 
+                </div>
             </div>
         </div>
     </div>
