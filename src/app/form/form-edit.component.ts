@@ -135,20 +135,24 @@ export class FormEditComponent implements OnInit {
         }                          
     }
 
-    saveForm() { 
-        this.loaderService.displayLoader(true);     
-        this.formService.updateForm(this.form).subscribe(
-            data => {
-                this.loaderService.displayLoader(false);
-                this.alertService.success('form updated.');
-                return true;
-            },
-            error => {
-                this.loaderService.displayLoader(false);
-                this.alertService.error("Error updating form! " + error);
-                return Observable.throw(error);
-            }
-        );
+    saveForm() {
+        if(this.form.name !== "") {
+            this.loaderService.displayLoader(true);     
+            this.formService.updateForm(this.form).subscribe(
+                data => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.success('form updated.');
+                    return true;
+                },
+                error => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.error("Error updating form! " + error);
+                    return Observable.throw(error);
+                }
+            );            
+        } else {
+            this.alertService.error("Form name is required.");
+        }
     }    
 
     goBack(): void {
