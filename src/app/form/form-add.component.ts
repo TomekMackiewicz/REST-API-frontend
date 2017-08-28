@@ -142,20 +142,23 @@ export class FormAddComponent implements OnInit {
     }
 
     saveForm() { 
-        //console.log(this.form);
-        this.loaderService.displayLoader(true);    
-        this.formService.createForm(this.form).subscribe(
-            data => {
-                this.loaderService.displayLoader(false);
-                this.alertService.success('form created.');
-                return true;
-            },
-            error => {
-                this.loaderService.displayLoader(false);
-                this.alertService.error("Error creating form! " + error);
-                return Observable.throw(error);
-            }
-        );
+        if(this.form.name !== "") {
+            this.loaderService.displayLoader(true);    
+            this.formService.createForm(this.form).subscribe(
+                data => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.success('form created.');
+                    return true;
+                },
+                error => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.error("Error creating form! " + error);
+                    return Observable.throw(error);
+                }
+            );            
+        } else {
+            this.alertService.error("Form name is required."); 
+        }
     }    
 
     goBack(): void {
