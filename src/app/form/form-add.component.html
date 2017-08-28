@@ -52,7 +52,7 @@
                                             Allow back
                                     </label>
                                 </div> 
-                                <div class="checkbox">
+<!--                                <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="autoMove" [(ngModel)]="form.config.autoMove">
                                             Auto move
@@ -63,7 +63,7 @@
                                         <input type="checkbox" name="requiredAll" [(ngModel)]="form.config.requiredAll">
                                             Required all
                                     </label>
-                                </div> 
+                                </div> -->
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="shuffleQuestions" [(ngModel)]="form.config.shuffleQuestions">
@@ -104,19 +104,19 @@
                                     <label>Validation</label>  
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="validation" id="none" value="none" ngModel>
+                                            <input type="radio" name="validation" id="none" value="none" [(ngModel)]="selectedOption">
                                             None
                                         </label>
                                     </div>                                    
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="validation" id="email" value="email" ngModel>
+                                            <input type="radio" name="validation" id="email" value="email" [(ngModel)]="selectedOption">
                                             E-mail
                                         </label>
                                     </div>  
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="validation" id="code" value="code" ngModel>
+                                            <input type="radio" name="validation" id="code" value="code" [(ngModel)]="selectedOption">
                                             Postal code
                                         </label>
                                     </div>  
@@ -144,7 +144,7 @@
                         <button type="button" class="btn btn-danger btn-xs pull-right" (click)="deleteQuestion(question.id, question.name)">
                             <i class="ion-trash-a"></i>
                         </button>                        
-                        <button *ngIf="question.questionType !=='text'" class="btn btn-default btn-xs pull-right" 
+                        <button class="btn btn-default btn-xs pull-right" 
                                 type="button" 
                                 data-toggle="collapse" 
                                 [attr.data-target]="'#collapse_'+i"
@@ -154,14 +154,53 @@
                         </button>
                         <div class="collapse" id="collapse_{{i}}">
                             <ng-container [ngSwitch]="true">
-                                <div class="well" *ngSwitchCase="question.questionType === 'checkbox'">                               
+                                <div class="well" *ngSwitchCase="question.questionType === 'checkbox'">
+                                    <label>Required?</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
+                                        </label>
+                                    </div>                                    
                                     <input type="text" class="form-control" #checkboxName>
                                     <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, checkboxName.value)">Add checkbox</button>
                                 </div>
-                                <div class="well" *ngSwitchCase="question.questionType === 'radio'">
+                                <div class="well" *ngSwitchCase="question.questionType === 'radio'">  
+                                    <label>Required?</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
+                                        </label>
+                                    </div>                                     
                                     <input type="text" class="form-control" #radioName>
                                     <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, radioName.value)">Add radio</button>                                   
                                 </div>
+                                <div class="well" *ngSwitchCase="question.questionType === 'text'">
+                                    <label>Validation</label>  
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="validation_{{i}}" value="none" [(ngModel)]="question.validation">
+                                            None
+                                        </label>
+                                    </div>                                    
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="validation_{{i}}" value="email" [(ngModel)]="question.validation">
+                                            E-mail
+                                        </label>
+                                    </div>  
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="validation_{{i}}" value="code" [(ngModel)]="question.validation">
+                                            Postal code
+                                        </label>
+                                    </div>  
+                                    <label>Required?</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
+                                        </label>
+                                    </div>                                    
+                                </div>                                 
                             </ng-container>     
                         </div>                                                                                
                     </div>

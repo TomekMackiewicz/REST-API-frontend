@@ -4,7 +4,7 @@ export class Question {
     id: number;
     name: string;
     questionType: string;
-    validation: string; 
+    validation: string = "none"; 
     required: boolean = true;   
     options: Option[];
 

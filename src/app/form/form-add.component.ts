@@ -32,6 +32,7 @@ export class FormAddComponent implements OnInit {
         { value: 'checkbox', display: 'Checkbox' }
     ];
     public checked: boolean = true;
+    public selectedOption: string = "none";
         
     constructor(
         private http: Http,
