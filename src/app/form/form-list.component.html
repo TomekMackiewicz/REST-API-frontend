@@ -18,8 +18,8 @@
                     <tr *ngFor="let form of mf.data">
                         <td>{{form.name}}</td>
                         <td><span *ngFor="let category of form.categories">{{category.name}}<br></span></td>
-                        <td>{{form.addDate | date:'yyyy/MM/dd H:m:s'}}</td>
-                        <td>{{form.modifiedDate | date:'yyyy/MM/dd H:m:s'}}</td>
+                        <td>{{form.addDate | date:'yyyy/MM/dd H:mm'}}</td>
+                        <td>{{form.modifiedDate | date:'yyyy/MM/dd H:mm'}}</td>
                         <td>
                             <button class="btn btn-primary" [routerLink]="['/admin/forms', form.id]">Edit</button>
                             <button class="btn btn-danger" (click)="deleteForm(form)">Delete</button>

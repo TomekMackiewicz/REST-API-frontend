@@ -18,6 +18,12 @@ export class TextService {
             ('http://localhost:8000/texts/full/' + token)
             .map((res: Response) => res.json());
     }
+    
+    getTexts() {
+        return this.http.get
+            ('http://localhost:8000/texts')
+            .map((res: Response) => res.json());        
+    }
 
 }
 

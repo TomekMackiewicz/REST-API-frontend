@@ -91,7 +91,8 @@ export class FormFrontComponent implements OnInit {
     }
 
     submitForm(form: NgForm) {       
-        let values = form.value;     
+        let values = form.value;
+        console.log(values);     
         this.formService.submitAnswers(values).subscribe(
             data => {
                 this.alertService.success('Form successfull submitted.'); // po co tu alert skoro redirect?

@@ -1,0 +1,21 @@
+<div *ngIf="texts" class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Transactions</h3>
+            <table class="table">
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Token</th>
+                    <th>E-mail</th>
+                </tr>
+                <tr *ngFor="let text of texts">
+                    <td>{{text.title}}</td>
+                    <td>{{text.addDate | date:'yyyy/MM/dd H:mm'}}</td>
+                    <td>{{text.token}}</td>
+                    <td>{{text.email}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

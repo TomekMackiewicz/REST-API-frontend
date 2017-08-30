@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser'; // ?
 import { TextRoutingModule } from './text-routing.module';
 import { TextPreviewComponent } from './text-preview.component';
 import { TextFullComponent } from './text-full.component';
+import { TextAdminComponent } from './text-admin.component';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { SafeHtmlPipe } from '../pipes/safe.html.pipe';
 import { AlertModule } from '../alert/alert';
@@ -18,7 +19,8 @@ import { FlagGuard } from '../guards/flag.guard';
     ],
     declarations: [
         TextPreviewComponent,
-        TextFullComponent, 
+        TextFullComponent,
+        TextAdminComponent, 
         TruncatePipe,
         SafeHtmlPipe
     ],

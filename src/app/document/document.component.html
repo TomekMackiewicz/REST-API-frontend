@@ -19,8 +19,8 @@
                         <td>{{document.title}}</td>
                         <td *ngIf="document.form; else noForm">{{document.form.name}}</td>
                         <ng-template #noForm><td>---</td></ng-template>
-                        <td>{{document.add_date | date:'yyyy/MM/dd H:m:s'}}</td>
-                        <td>{{document.modified_date | date:'yyyy/MM/dd H:m:s'}}</td>
+                        <td>{{document.add_date | date:'yyyy/MM/dd H:mm'}}</td>
+                        <td>{{document.modified_date | date:'yyyy/MM/dd H:mm'}}</td>
                         <td>
                             <button class="btn btn-primary" [routerLink]="['/admin/documents', document.id]">Edit</button>
                             <button class="btn btn-danger" (click)="deleteDocument(document)">Delete</button>

@@ -1,13 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FlagGuard } from '../guards/flag.guard';
+import { AuthGuard } from '../guards/auth.guard';
 import { TextPreviewComponent } from './text-preview.component';
 import { TextFullComponent } from './text-full.component';
+import { TextAdminComponent } from './text-admin.component';
 import { MenuComponent } from '../menu/menu.component';
 import { FooterComponent } from '../footer/footer.component';
 
 const textRoutes: Routes = [
-
+    {path: 'admin', 
+        children: [
+            {path: 'transactions', component: TextAdminComponent},
+        ],
+        data: {
+            animation: {
+                value: 'transactions-admin',
+            }
+        },         
+        canActivate: [AuthGuard]
+    },
     {path: 'texts/full/:token', 
         children: [
             { path: '' , component: TextFullComponent},

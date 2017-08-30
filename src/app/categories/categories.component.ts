@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from './categories.service';
 import { Observable } from 'rxjs/Rx';
-import { Router, ActivatedRoute } from '@angular/router';
+//import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-categories',
