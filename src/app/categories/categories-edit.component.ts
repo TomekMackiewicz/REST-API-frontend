@@ -9,7 +9,7 @@ import { LoaderService } from '../services/loader.service';
 import { slideInOutAnimation } from '../animations/index';
 
 @Component({
-    selector: 'category-edit',
+    selector: 'categories-edit',
     templateUrl: './categories-edit.component.html',
     animations: [slideInOutAnimation],
     host: { '[@slideInOutAnimation]': '' }    
@@ -17,7 +17,7 @@ import { slideInOutAnimation } from '../animations/index';
 
 export class CategoriesEditComponent implements OnInit {
 
-    public category;
+    public category: Object;
 
     constructor(
         private categoriesService: CategoriesService,
@@ -28,16 +28,27 @@ export class CategoriesEditComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.loaderService.displayLoader(true);
         this.route.params
             .switchMap((params: Params) => this.categoriesService.getCategory(+params['id']))
-            .subscribe(category => this.category = category);
+            .subscribe(
+                data => { 
+                    this.loaderService.displayLoader(false);
+                    this.category = data; 
+                },
+                error => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.error("Error loading category! " + error);
+                    return Observable.throw(error);
+                }                
+            );
     }
 
     goBack(): void {
         this.location.back();
     }
 
-    updateCategory(category) {
+    updateCategory(category: any) {
         this.loaderService.displayLoader(true);
         this.categoriesService.updateCategory(category).subscribe(
             data => {

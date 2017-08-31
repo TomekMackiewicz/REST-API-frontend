@@ -58,6 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.authenticationService.getUsername().subscribe(currentUsername => this.username = currentUsername);
         this.loaderService.loaderStatus.subscribe((val: boolean) => {
             this.objLoaderStatus = val;
+            console.log('app ' + val);
         });        
     }
 

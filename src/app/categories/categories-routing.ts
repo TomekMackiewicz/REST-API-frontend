@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 
-import { CategoriesComponent } from './categories.component';
+import { CategoriesComponent } from './categories-list.component';
 import { CategoriesEditComponent } from './categories-edit.component';
 import { CategoriesCreateComponent } from './categories-create.component';
 import { CategoriesFrontComponent } from './categories-front.component';

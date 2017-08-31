@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from './alert/alert'; // do wywalenia, kiedy wstawię wszędzie, login jeszcze korzysta
 import { DocumentModule } from './document/document.module';
-import { CategoriesModule } from './categories/categories';
+import { CategoriesModule } from './categories/categories.module';
 import { FileModule } from './file/file.module';
 import { FormModule } from './form/form';
 import { TextModule } from './text/text.module';

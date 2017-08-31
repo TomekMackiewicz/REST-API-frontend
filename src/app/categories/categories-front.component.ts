@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Rx';
 import { CategoriesService } from './categories.service';
+import { LoaderService } from '../services/loader.service';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
-    selector: 'category-front',
-    templateUrl: './categories-front.component.html',
-    //styleUrls: ['./category.component.css'],
+    selector: 'categories-front',
+    templateUrl: './categories-front.component.html'
 })
 
 export class CategoriesFrontComponent implements OnInit {
@@ -18,23 +18,26 @@ export class CategoriesFrontComponent implements OnInit {
     constructor(
         private categoriesService: CategoriesService,
         private route: ActivatedRoute,
-        private location: Location // usunąć
+        private loaderService: LoaderService,
+        private alertService: AlertService
     ) {}
 
     ngOnInit(): void {
+        this.loaderService.displayLoader(true);
         this.route.params
             .switchMap((params: Params) => this.categoriesService.getCategory(+params['category']))
-            .subscribe(category => this.category = category);
-        console.log(this.category);
+            .subscribe(
+                data => { 
+                    this.loaderService.displayLoader(false);
+                    this.category = data; 
+                },
+                error => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.error("Error loading category! " + error);
+                    return Observable.throw(error);
+                }                
+            );
     }
-
-    //    getCategory(id) {
-    //        this.crudService.getCategory(id).subscribe(
-    //            data => {this.category = data},
-    //            err => console.error(err),
-    //            () => console.log('done loading category')
-    //        );
-    //    }
 
 }
 

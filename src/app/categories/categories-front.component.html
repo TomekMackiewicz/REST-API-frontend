@@ -3,6 +3,7 @@
         <div class="col-md-12">
             <div *ngIf="category">
                 <h1>{{category.name}}</h1>
+                <alert></alert>
                 <table class="table" [mfData]="category.forms" #mf="mfDataTable" [mfRowsOnPage]="10">
                     <thead>
                         <tr>

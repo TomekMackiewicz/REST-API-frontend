@@ -17,7 +17,7 @@ import { slideInOutAnimation } from '../animations/index';
 
 export class CategoriesCreateComponent {
 
-    public category;
+    public category: Object;
 
     constructor(
         private categoriesService: CategoriesService,
@@ -31,7 +31,7 @@ export class CategoriesCreateComponent {
         this.location.back();
     }
 
-    createCategory(name) {
+    createCategory(name: any) {
         let category = {name: name};
         this.loaderService.displayLoader(true);
         this.categoriesService.createCategory(category).subscribe(

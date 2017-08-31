@@ -112,7 +112,7 @@ pre,
     align-items: center;
     top: 0;
     z-index: 10;
-    background-color: rgba(211,211,211,0.2);
+    background-color: rgba(211,211,211,0.7);
 }
 
 #loader {
