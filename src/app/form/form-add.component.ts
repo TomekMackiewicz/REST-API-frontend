@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -39,7 +39,8 @@ export class FormAddComponent implements OnInit {
         private location: Location,
         private formService: FormService,
         private alertService: AlertService,
-        private loaderService: LoaderService       
+        private loaderService: LoaderService,
+        private ref: ChangeDetectorRef       
     ) {}
 
     ngOnInit(): void {
@@ -65,9 +66,13 @@ export class FormAddComponent implements OnInit {
 
     getCategories() {
         this.formService.getCategories().subscribe(
-            data => {this.categories = data},
-            err => console.error(err),
-            () => console.log('done loading categories')
+            data => {
+                this.categories = data;
+            },
+            error => {
+                this.alertService.error("Error loading categories! " + error);
+                return Observable.throw(error);
+            } 
         );
     }
 
@@ -148,11 +153,12 @@ export class FormAddComponent implements OnInit {
                 data => {
                     this.loaderService.displayLoader(false);
                     this.alertService.success('form created.');
-                    return true;
+                    this.ref.markForCheck();
                 },
                 error => {
                     this.loaderService.displayLoader(false);
                     this.alertService.error("Error creating form! " + error);
+                    this.ref.markForCheck();
                     return Observable.throw(error);
                 }
             );            

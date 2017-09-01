@@ -9,7 +9,7 @@ import { AlertModule } from './alert/alert'; // do wywalenia, kiedy wstawię wsz
 import { DocumentModule } from './document/document.module';
 import { CategoriesModule } from './categories/categories.module';
 import { FileModule } from './file/file.module';
-import { FormModule } from './form/form';
+import { FormModule } from './form/form.module';
 import { TextModule } from './text/text.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';

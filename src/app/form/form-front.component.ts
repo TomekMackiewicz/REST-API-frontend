@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -6,6 +6,7 @@ import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
 import { Option, Question, Form } from './models/index';
 import { AlertService } from '../alert/alert.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
     selector: 'app-form',
@@ -25,19 +26,32 @@ export class FormFrontComponent implements OnInit {
     next: boolean = false;
 
     constructor(
+        private router: Router,
         private route: ActivatedRoute,
         private formService: FormService,
         private alertService: AlertService,
-        private router: Router    
+        private loaderService: LoaderService,
+        private ref: ChangeDetectorRef    
     ) {}
         
-    ngOnInit() {      
+    ngOnInit() {   
+        this.loaderService.displayLoader(true);   
         this.route.params
             .switchMap((params: Params) => this.formService.getForm(+params['id']))
-            .subscribe(form => {
-                this.form = form,
-                this.pager.count = this.form.questions.length
-            });       
+            .subscribe(
+                data => {
+                    this.loaderService.displayLoader(false);
+                    this.form = data;
+                    this.pager.count = this.form.questions.length;
+                    this.ref.detectChanges();
+                },
+                error => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.error("Error loading form! " + error);
+                    this.ref.detectChanges();
+                    return Observable.throw(error);
+                }                 
+            );       
     }    
 
     goTo(index: number, val: boolean, form: NgForm, question: any) {
@@ -90,19 +104,22 @@ export class FormFrontComponent implements OnInit {
         }
     }
 
-    submitForm(form: NgForm) {       
+    submitForm(form: NgForm) {
+        this.loaderService.displayLoader(true);       
         let values = form.value;
         console.log(values);     
         this.formService.submitAnswers(values).subscribe(
             data => {
+                this.loaderService.displayLoader(false);
                 this.alertService.success('Form successfull submitted.'); // po co tu alert skoro redirect?
                 let allow = true;
                 localStorage.setItem("allow", JSON.stringify(allow));
                 this.router.navigateByUrl('texts/preview/' + data.json());
-                return true;
+                this.ref.markForCheck();
             },
             error => {
                 this.alertService.error("Error saving form! " + error);
+                this.ref.markForCheck();
                 return Observable.throw(error);
             }
         );         

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormService } from './form.service';
 import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
     selector: 'app-form-list',
@@ -13,38 +15,60 @@ export class FormListComponent implements OnInit {
     public forms: any;
     public categories: any;
 
-    constructor(private formService: FormService) {}
+    constructor(
+        private formService: FormService,
+        private loaderService: LoaderService,
+        private alertService: AlertService,
+        private ref: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
+        this.loaderService.displayLoader(true);
         this.getForms();
         this.getCategories();
+        this.loaderService.displayLoader(false);
     }
 
     getForms() {
         this.formService.getForms().subscribe(
-            data => {this.forms = data},
-            err => console.error(err),
-            () => console.log('done loading forms')
+            data => {
+                this.forms = data;
+                this.ref.detectChanges();
+            },
+            error => {
+                this.alertService.error("Error loading forms! " + error);
+                return Observable.throw(error);
+            }  
         );
     }
 
     getCategories() {
         this.formService.getCategories().subscribe(
-            data => {this.categories = data},
-            err => console.error(err),
-            () => console.log('done loading categories')
+            data => {
+                this.categories = data;
+                this.ref.detectChanges();
+            },
+            error => {
+                this.alertService.error("Error loading categories! " + error);
+                return Observable.throw(error);
+            }  
         );
     }
 
     deleteForm(form: any) {
         if (confirm("Are you sure you want to delete " + form.name + "?")) {
+            this.loaderService.displayLoader(true);
             this.formService.deleteForm(form).subscribe(
                 data => {
                     this.getForms();
-                    return true;
+                    this.loaderService.displayLoader(false); // czy tu potrzebne?                   
+                    this.ref.markForCheck(); // czy tu potrzebne?
+                    this.alertService.success("Form deleted.");
                 },
                 error => {
-                    console.error("Error deleting form!");
+                    this.loaderService.displayLoader(false);
+                    this.ref.markForCheck();
+                    this.alertService.success("Error deleting form!" + error);
                     return Observable.throw(error);
                 }
             );

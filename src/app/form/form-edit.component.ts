@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -38,21 +38,39 @@ export class FormEditComponent implements OnInit {
         private formService: FormService,
         private alertService: AlertService,
         private loaderService: LoaderService,
-        private route: ActivatedRoute        
+        private route: ActivatedRoute,
+        private ref: ChangeDetectorRef        
     ) {}
 
     ngOnInit(): void {
+        this.loaderService.displayLoader(true);
         this.route.params
             .switchMap((params: Params) => this.formService.getForm(+params['id']))
-            .subscribe(form => { this.form = form });
+            .subscribe(
+                data => { 
+                    this.loaderService.displayLoader(false);
+                    this.form = data;
+                    this.ref.detectChanges(); 
+                },
+                error => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.error("Error loading form! " + error);
+                    this.ref.detectChanges();
+                    return Observable.throw(error);
+                }                  
+            );
         this.getCategories();    
     }       
 
     getCategories() {
         this.formService.getCategories().subscribe(
-            data => { this.categories = data },
-            err => console.error(err),
-            () => { console.log('done loading categories') }
+            data => { 
+                this.categories = data; 
+            },
+            error => {
+                this.alertService.error("Error loading categories! " + error);
+                return Observable.throw(error);
+            }
         );
     }
 
@@ -142,11 +160,12 @@ export class FormEditComponent implements OnInit {
                 data => {
                     this.loaderService.displayLoader(false);
                     this.alertService.success('form updated.');
-                    return true;
+                    this.ref.markForCheck();
                 },
                 error => {
                     this.loaderService.displayLoader(false);
                     this.alertService.error("Error updating form! " + error);
+                    this.ref.markForCheck();
                     return Observable.throw(error);
                 }
             );            
