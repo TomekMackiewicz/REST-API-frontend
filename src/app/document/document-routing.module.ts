@@ -5,7 +5,7 @@ import {AuthGuard} from '../guards/auth.guard';
 import {DocumentListComponent} from './document-list.component';
 import {DocumentEditComponent} from './document-edit.component';
 import {DocumentCreateComponent} from './document-create.component';
-import {DocumentFrontComponent} from './document-front.component';
+//import {DocumentFrontComponent} from './document-front.component';
 import {MenuComponent} from '../menu/menu.component';
 import {FooterComponent} from '../footer/footer.component';
 
@@ -23,18 +23,18 @@ const documentRoutes: Routes = [
         },
         canActivate: [AuthGuard] 
     },
-    {path: 'documents/:document', 
-        children: [
-            {path: '' , component: DocumentFrontComponent},
-            {path: '' , component: MenuComponent, outlet: 'header'},
-            {path: '' , component: FooterComponent, outlet: 'footer'}        
-        ],
-        data: {
-            animation: {
-                value: 'doc-front',
-            }
-        }     
-    }
+//    {path: 'documents/:document', 
+//        children: [
+//            {path: '' , component: DocumentFrontComponent},
+//            {path: '' , component: MenuComponent, outlet: 'header'},
+//            {path: '' , component: FooterComponent, outlet: 'footer'}        
+//        ],
+//        data: {
+//            animation: {
+//                value: 'doc-front',
+//            }
+//        }     
+//    }
 ];
 
 @NgModule({

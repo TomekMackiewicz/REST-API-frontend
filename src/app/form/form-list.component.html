@@ -2,9 +2,10 @@
     <div class="row">
         <div class="col-md-12">
             <h3>Forms</h3>
+            <alert></alert>             
             <button class="btn btn-default" [routerLink]="['/admin/form/add']">Add new</button>
-            <hr>
-            <table class="table" [mfData]="forms" #mf="mfDataTable" [mfRowsOnPage]="10">
+            <hr>           
+            <table *ngIf="forms" class="table" [mfData]="forms" #mf="mfDataTable" [mfRowsOnPage]="10">
                 <thead>
                     <tr>
                         <th><mfDefaultSorter by="name">Title</mfDefaultSorter></th>

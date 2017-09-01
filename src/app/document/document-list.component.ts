@@ -47,8 +47,8 @@ export class DocumentListComponent implements OnInit {
             this.documentService.deleteDocument(document).subscribe(
                 data => {
                     this.getDocuments();                    
-                    this.loaderService.displayLoader(false); // czy tu potrzebne?                   
-                    this.ref.markForCheck(); // czy tu potrzebne?
+                    this.loaderService.displayLoader(false);                   
+                    this.ref.markForCheck();
                     this.alertService.success("Document deleted.");
                 },
                 error => {

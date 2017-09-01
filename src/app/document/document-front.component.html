@@ -1,10 +1,10 @@
-<div class="container">
+<!--<div class="container">
     <div class="row">
         <div class="col-md-12">
             <div *ngIf="document">
                 <h1>{{document.title}}</h1>
                 <div [innerHTML]="document.body"></div>
-                <!--                <form ngNoForm id="payu-payment-form" method="post" action="https://secure.payu.com/api/v2_1/orders">
+                                <form ngNoForm id="payu-payment-form" method="post" action="https://secure.payu.com/api/v2_1/orders">
                                     <input type="hidden" name="continueUrl" value="http://shop.url/continue">
                                     <input type="hidden" name="currencyCode" value="PLN">
                                     <input type="hidden" name="customerIp" value="123.123.123.123">
@@ -18,7 +18,7 @@
                                     <input type="hidden" name="OpenPayu-Signature" value="sender=145227;algorithm=SHA-256;signature=bc94a8026d6032b5e216be112a5fb7544e66e23e68d44b4283ff495bdb3983a8">
                                     <button type="submit" formtarget="_blank"></button>
                                 </form>
-                            </div>-->
+                            </div>
                 <form id="payu-payment-form" name="form" (ngSubmit)="processTransaction()" novalidate>
                     <div class="form-group">
                         <button type="submit" [disabled]="loading" class="btn btn-primary"></button>
@@ -29,4 +29,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->

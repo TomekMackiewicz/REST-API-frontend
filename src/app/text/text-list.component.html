@@ -1,8 +1,9 @@
-<div *ngIf="texts" class="container">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
             <h3>Transactions</h3>
-            <table class="table">
+            <alert></alert>
+            <table *ngIf="texts" class="table">
                 <tr>
                     <th>Title</th>
                     <th>Date</th>

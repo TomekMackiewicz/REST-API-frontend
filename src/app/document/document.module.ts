@@ -8,7 +8,7 @@ import {TinyEditorModule} from '../tiny-editor/tiny-editor';
 import {DocumentListComponent} from './document-list.component';
 import {DocumentEditComponent} from './document-edit.component';
 import {DocumentCreateComponent} from './document-create.component';
-import {DocumentFrontComponent} from './document-front.component';
+//import {DocumentFrontComponent} from './document-front.component';
 import {DocumentService} from './document.service';
 
 import {DocumentRoutingModule} from './document-routing.module';
@@ -29,7 +29,7 @@ import {DocumentRoutingModule} from './document-routing.module';
         DocumentListComponent,
         DocumentEditComponent,
         DocumentCreateComponent,
-        DocumentFrontComponent,
+        //DocumentFrontComponent,
         //SafeHtmlPipe,
         //TruncatePipe
     ],

@@ -1,11 +1,12 @@
-<div class="container side-form" *ngIf="form">
-    <div class="row">        
+<div class="container side-form">
+    <alert></alert>
+    <div class="row" *ngIf="form">        
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <button type="button" class="btn btn-primary" (click)="saveForm()">Save</button>
                     <button class="btn btn-default" (click)="goBack()">Back</button> 
-                    <alert></alert>
+<!--                    <alert></alert>-->
                 </div>
             </div> 
             <div>

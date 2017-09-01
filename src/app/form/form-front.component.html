@@ -1,9 +1,9 @@
-<div class="container" *ngIf="form.config">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="jumbotron">
-                <h3>{{form.name}}</h3>
-                <alert></alert>             
+            <alert></alert> 
+            <div *ngIf="form.config" class="jumbotron">
+                <h3>{{form.name}}</h3>            
                 <p>{{form.description}}</p>
                 <div class="progress" *ngIf="form.config.showPager">
                     <div class="progress-bar" 
