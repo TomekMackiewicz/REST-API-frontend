@@ -38,7 +38,7 @@ const textRoutes: Routes = [
             { path: '' , component: MenuComponent, outlet: 'header' },
             { path: '' , component: FooterComponent, outlet: 'footer' }        
         ],
-        canActivate: [ FlagGuard ]
+        //canActivate: [ FlagGuard ]
 //        data: {
 //            animation: {
 //                value: 'form-front',

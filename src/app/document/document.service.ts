@@ -37,19 +37,19 @@ export class DocumentService {
             //.catch(this.handleError)
     }
 
-    processTransaction(body) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        //headers.append('Authorization', 'Bearer d9a4536e-62ba-4f60-8017-6053211d3f47');
-        let options = new RequestOptions({headers: headers});
-
-        return this.http.post
-            ('https://secure.snd.payu.com/api/v2_1/orders', body, options)
-            .map((res: Response) => res.json());
+//    processTransaction(body) {
+//        let headers = new Headers();
+//        headers.append('Content-Type', 'application/json');
+//        //headers.append('Authorization', 'Bearer d9a4536e-62ba-4f60-8017-6053211d3f47');
+//        let options = new RequestOptions({headers: headers});
+//
 //        return this.http.post
-//            ('http://localhost:8000/payments', body, options)
-//            .map((res: Response) => res.json());            
-    }
+//            ('https://secure.snd.payu.com/api/v2_1/orders', body, options)
+//            .map((res: Response) => res.json());
+////        return this.http.post
+////            ('http://localhost:8000/payments', body, options)
+////            .map((res: Response) => res.json());            
+//    }
 
     updateDocument(document: any) {
         let headers = new Headers({'Content-Type': 'application/json'});

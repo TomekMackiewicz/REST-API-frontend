@@ -11,9 +11,25 @@
                     <p class="text-center">
                         <a class="btn btn-primary btn-lg" role="button" (click)="saveText()">Pay and save</a>
                     </p>
-<!--                    <div *ngIf="showToken">
-                        <h3 class="text-center">Your token: {{text.token}}</h3>
-                    </div>-->
+                    <form id="payu-payment-form" class="text-center" name="form" (ngSubmit)="processTransaction()" novalidate>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary"></button>                        
+                        </div>
+                    </form>
+<!--                    <form ngNoForm id="payu-payment-form" method="post" action="https://secure.payu.com/api/v2_1/orders">
+                        <input type="hidden" name="continueUrl" value="http://localhost:4200/texts/full/{{text.token}}">
+                        <input type="hidden" name="currencyCode" value="PLN">
+                        <input type="hidden" name="customerIp" value="123.123.123.123">
+                        <input type="hidden" name="description" value="Order description">
+                        <input type="hidden" name="merchantPosId" value="145227">
+                        <input type="hidden" name="notifyUrl" value="http://shop.url/notify">
+                        <input type="hidden" name="products[0].name" value="Product 1">
+                        <input type="hidden" name="products[0].quantity" value="1">
+                        <input type="hidden" name="products[0].unitPrice" value="1000">
+                        <input type="hidden" name="totalAmount" value="1000">
+                        <input type="hidden" name="OpenPayu-Signature" value="sender=145227;algorithm=SHA-256;signature=bc94a8026d6032b5e216be112a5fb7544e66e23e68d44b4283ff495bdb3983a8">
+                        <button type="submit" formtarget="_blank"></button>
+                    </form>                    -->
                 </div>                
             </div>
         </div>

@@ -51,6 +51,49 @@ export class TextPreviewComponent implements OnInit {
         //saveAs(blob, this.text.title+".txt");
         this.router.navigateByUrl('texts/full/'+this.text.token);        
     }     
-                  
+
+    processTransaction() {
+        let body = {
+            "notifyUrl": "https://your.eshop.com/notify",
+            "customerIp": "127.0.0.1",
+            "merchantPosId": "300746",
+            "description": "RTV market",
+            "currencyCode": "PLN",
+            "totalAmount": "21000",
+            "buyer": {
+                "email": "john.doe@example.com",
+                "phone": "654111654",
+                "firstName": "John",
+                "lastName": "Doe",
+                "language": "pl"
+            },
+            "settings": {
+                "invoiceDisabled": "true"
+            },
+            "products": [
+                {
+                    "name": "Wireless Mouse for Laptop",
+                    "unitPrice": "15000",
+                    "quantity": "1"
+                },
+                {
+                    "name": "HDMI cable",
+                    "unitPrice": "6000",
+                    "quantity": "1"
+                }
+            ]
+        };
+        this.textService.processTransaction(body).subscribe(
+            data => {
+                //this.alertService.success('Document created.');
+                return true;
+            },
+            error => {
+                this.alertService.error("Error during processing! " + error);
+ 
+            }
+        );
+    }    
+                      
 }
 
