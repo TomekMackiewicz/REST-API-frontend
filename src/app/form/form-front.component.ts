@@ -118,6 +118,7 @@ export class FormFrontComponent implements OnInit {
                 this.ref.markForCheck();
             },
             error => {
+                this.loaderService.displayLoader(false);
                 this.alertService.error("Error saving form! " + error);
                 this.ref.markForCheck();
                 return Observable.throw(error);
