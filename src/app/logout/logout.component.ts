@@ -23,9 +23,9 @@ export class LogoutComponent {
     ngOnInit() {
         this.loaderService.displayLoader(true);
         this.authenticationService.logout();
-        this.returnUrl = '/';             
-        this.router.navigate([this.returnUrl]);
-        this.loaderService.displayLoader(false);         
+        this.returnUrl = '/';
+        this.loaderService.displayLoader(false);                     
+        this.router.navigate([this.returnUrl]);         
     }
    
 }

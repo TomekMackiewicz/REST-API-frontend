@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { CategoriesService } from '../categories/categories.service';
 import { FormService } from '../form/form.service';
 import { AlertService } from '../alert/alert.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
     selector: 'app-menu',
@@ -18,12 +19,15 @@ export class MenuComponent {
         private categoriesService: CategoriesService,
         private formService: FormService,
         private alertService: AlertService,
+        private loaderService: LoaderService,
         private ref: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
+        this.loaderService.displayLoader(true);
         this.getCategories();
         this.getForms();
+        this.loaderService.displayLoader(false);
     }
 
     getCategories() {

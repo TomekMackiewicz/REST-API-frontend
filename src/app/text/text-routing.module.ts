@@ -4,14 +4,14 @@ import { FlagGuard } from '../guards/flag.guard';
 import { AuthGuard } from '../guards/auth.guard';
 import { TextPreviewComponent } from './text-preview.component';
 import { TextFullComponent } from './text-full.component';
-import { TextAdminComponent } from './text-admin.component';
+import { TextListComponent } from './text-list.component';
 import { MenuComponent } from '../menu/menu.component';
 import { FooterComponent } from '../footer/footer.component';
 
 const textRoutes: Routes = [
     {path: 'admin', 
         children: [
-            {path: 'transactions', component: TextAdminComponent},
+            {path: 'transactions', component: TextListComponent},
         ],
         data: {
             animation: {

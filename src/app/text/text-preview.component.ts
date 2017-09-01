@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TextService } from './text.service';
+import { AlertService } from '../alert/alert.service';
+import { LoaderService } from '../services/loader.service';
 import { saveAs } from 'file-saver';
 //import { FlagGuard } from '../guards/flag.guard';
 
@@ -20,13 +22,27 @@ export class TextPreviewComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private textService: TextService,
-        //private flagGuard: FlagGuard   
+        private alertService: AlertService,
+        private loaderService: LoaderService,
+        private ref: ChangeDetectorRef   
     ) {}
         
-    ngOnInit() {      
+    ngOnInit() {
+        this.loaderService.displayLoader(true);      
         this.route.params
             .switchMap((params: Params) => this.textService.getTextByID(+params['id']))
-            .subscribe(text => { this.text = text });       
+            .subscribe(
+                data => { 
+                    this.loaderService.displayLoader(false);
+                    this.text = data;
+                    this.ref.detectChanges(); 
+                },
+                error => {
+                    this.alertService.error("Error loading document! " + error);
+                    this.loaderService.displayLoader(false);
+                    this.ref.detectChanges(); // czy potrzebne?
+                }                 
+            );       
     }    
 
     saveText() {

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TextService } from './text.service';
 import { saveAs } from 'file-saver';
 import { AlertService } from '../alert/alert.service';
+import { LoaderService } from '../services/loader.service';
 import * as jsPDF from "jspdf";
 
 @Component({
@@ -19,19 +20,25 @@ export class TextFullComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private textService: TextService,
-        private alertService: AlertService    
+        private alertService: AlertService,
+        private loaderService: LoaderService,
+        private ref: ChangeDetectorRef
     ) {}
         
-    ngOnInit() {      
+    ngOnInit() {
+        this.loaderService.displayLoader(true);      
         this.route.params
             .switchMap((params: Params) => this.textService.getTextByToken(+params['token']))
             .subscribe(
                 text => { 
-                    this.text = text;                 
+                    this.loaderService.displayLoader(false);
+                    this.text = text;
+                    this.ref.detectChanges();                 
                 },
                 error => {
-                    this.alertService.error("Document not found! " + error);
-                    //return Observable.throw(error);
+                    this.alertService.error("Error loading document! " + error);
+                    this.loaderService.displayLoader(false);
+                    this.ref.detectChanges(); // czy potrzebne?
                 }                
             );                   
     }    
