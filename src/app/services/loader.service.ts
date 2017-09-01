@@ -6,7 +6,6 @@ export class LoaderService {
     public loaderStatus: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     displayLoader(value: boolean) {
-        //console.log(value);
         this.loaderStatus.next(value);
     }
 }

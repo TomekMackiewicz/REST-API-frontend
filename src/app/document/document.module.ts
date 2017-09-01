@@ -5,7 +5,7 @@ import {DataTableModule} from "angular2-datatable";
 import {AlertModule} from '../alert/alert';
 import {TinyEditorModule} from '../tiny-editor/tiny-editor';
 
-import {DocumentComponent} from './document.component';
+import {DocumentListComponent} from './document-list.component';
 import {DocumentEditComponent} from './document-edit.component';
 import {DocumentCreateComponent} from './document-create.component';
 import {DocumentFrontComponent} from './document-front.component';
@@ -26,7 +26,7 @@ import {DocumentRoutingModule} from './document-routing.module';
         TinyEditorModule
     ],
     declarations: [
-        DocumentComponent,
+        DocumentListComponent,
         DocumentEditComponent,
         DocumentCreateComponent,
         DocumentFrontComponent,

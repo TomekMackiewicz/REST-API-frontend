@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
@@ -28,7 +28,8 @@ export class DocumentCreateComponent implements OnInit {
         private alertService: AlertService,
         private loaderService: LoaderService,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
+        private ref: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -47,11 +48,12 @@ export class DocumentCreateComponent implements OnInit {
                 data => {
                     this.loaderService.displayLoader(false); 
                     this.alertService.success('Document created.');
-                    return true;
+                    this.ref.markForCheck();
                 },
                 error => {
                     this.loaderService.displayLoader(false); 
                     this.alertService.error("Error saving document! " + error);
+                    this.ref.markForCheck();
                     return Observable.throw(error);
                 }
             );
@@ -63,17 +65,25 @@ export class DocumentCreateComponent implements OnInit {
 
     getForms() {
         this.formService.getForms().subscribe(
-            data => {this.forms = data},
-            err => console.error(err),
-            () => console.log('done loading forms')
+            data => {
+                this.forms = data;
+                this.ref.detectChanges();
+            },
+            error => {
+                this.alertService.error("Error loading forms! " + error);
+            }
         );
     }
     
     showForm(id: number) {
         this.formService.getForm(id).subscribe(
-            data => {this.form = data},
-            err => console.error(err),
-            () => console.log('done loading form')
+            data => {
+                this.form = data;
+                this.ref.detectChanges();
+            },
+            error => {
+                this.alertService.error("Error loading form! " + error);
+            }
         );
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
@@ -28,34 +28,47 @@ export class DocumentEditComponent implements OnInit {
         private alertService: AlertService,
         private loaderService: LoaderService,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
+        private ref: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
+        this.loaderService.displayLoader(true);
         this.getForms();
         this.route.params
             .switchMap((params: Params) => this.documentService.getDocument(+params['id']))
-            .subscribe(document => {
-                this.document = document;
-                if(this.document.form) {
-                    this.initialForm(this.document.form.id);                    
-                }
-            });            
+            .subscribe(
+                data => {
+                    this.loaderService.displayLoader(false);                    
+                    this.document = data;
+                    if(this.document.form) {
+                        this.initialForm(this.document.form.id);                    
+                    };
+                    this.ref.detectChanges();
+                },
+                error => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.error("Error loading document! " + error);
+                    this.ref.detectChanges();
+                    return Observable.throw(error);
+                }                   
+            );            
     }
 
     updateDocument(id: number, title: string, body: any) {
         if (this.currentForm) {
+            this.loaderService.displayLoader(true);            
             let document = { id: id, title: title, body: body, formId: this.currentForm.id };
-            this.loaderService.displayLoader(true);
             this.documentService.updateDocument(document).subscribe(
                 data => {
                     this.loaderService.displayLoader(false); 
                     this.alertService.success('Document updated.');
-                    return true;
+                    this.ref.markForCheck();
                 },
                 error => {
                     this.loaderService.displayLoader(false); 
                     this.alertService.error("Error updating document! " + error);
+                    this.ref.markForCheck();
                     return Observable.throw(error);
                 }
             );
@@ -66,22 +79,27 @@ export class DocumentEditComponent implements OnInit {
 
     getForms() {
         this.formService.getForms().subscribe(
-            data => { this.forms = data },
-            err => console.error(err),
-            () => console.log('done loading forms')
+            data => { 
+                this.forms = data;
+                this.ref.detectChanges(); 
+            },
+            error => this.alertService.error("Error updating document! " + error)
         );
     }
     
     initialForm(id: number) {
         let result = this.forms.filter(x => x.id === id);
         this.currentForm = result[0];
+        this.ref.detectChanges(); 
     }
 
     changeForm(id: number) {
         this.formService.getForm(id).subscribe(
-            data => { this.currentForm = data },
-            err => console.error(err),
-            () => console.log('done loading current form')
+            data => { 
+                this.currentForm = data;
+                this.ref.markForCheck(); 
+            },
+            error => this.alertService.error("Error changing form! " + error)
         );
     }
 

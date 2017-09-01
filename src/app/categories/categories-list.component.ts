@@ -47,13 +47,13 @@ export class CategoriesComponent implements OnInit {
             this.categoriesService.deleteCategory(category).subscribe(
                 data => {
                     this.getCategories();
-                    this.loaderService.displayLoader(false);
-                    this.ref.markForCheck();
+                    this.loaderService.displayLoader(false); // potrzebne tu?
+                    this.ref.markForCheck(); // potrzebne tu?
                 },
                 error => {
                     this.loaderService.displayLoader(false);
+                    this.ref.markForCheck();                    
                     this.alertService.error("Error deleting category! " + error);
-                    this.ref.markForCheck();
                     return Observable.throw(error);
                 }
             );

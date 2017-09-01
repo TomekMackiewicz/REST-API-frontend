@@ -4,6 +4,7 @@
             <h3>Documents</h3>
             <button class="btn btn-default" [routerLink]="['/admin/document/create']">Add new</button>
             <hr>
+            <alert></alert>
             <table class="table" [mfData]="documents" #mf="mfDataTable" [mfRowsOnPage]="10">
                 <thead>
                     <tr>

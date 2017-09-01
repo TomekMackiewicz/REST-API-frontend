@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from '../guards/auth.guard';
 
-import {DocumentComponent} from './document.component';
+import {DocumentListComponent} from './document-list.component';
 import {DocumentEditComponent} from './document-edit.component';
 import {DocumentCreateComponent} from './document-create.component';
 import {DocumentFrontComponent} from './document-front.component';
@@ -14,7 +14,7 @@ const documentRoutes: Routes = [
         children: [
             {path: 'documents/:id', component: DocumentEditComponent},
             {path: 'document/create', component: DocumentCreateComponent},
-            {path: 'documents', component: DocumentComponent},
+            {path: 'documents', component: DocumentListComponent},
         ], 
         data: {
             animation: {
