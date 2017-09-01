@@ -24,7 +24,7 @@ export class CategoriesService {
         let options = new RequestOptions({headers: headers});
         let body = category;
         return this.http.post
-            ('http://localhost:8000/categories', body, headers);
+            ('http://localhost:8000/categories', body, options);
         //.map((res:Response) => res.json());
     }
 
@@ -34,7 +34,7 @@ export class CategoriesService {
         let body = category;
 
         return this.http.put
-            ('http://localhost:8000/categories/' + category.id, body, headers)
+            ('http://localhost:8000/categories/' + category.id, body, options)
         //.map((res: Response) => res.json());
     }
 

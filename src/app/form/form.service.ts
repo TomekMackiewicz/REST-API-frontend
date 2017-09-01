@@ -33,7 +33,7 @@ export class FormService {
         let body = form;
         //console.log(body);
         return this.http.post
-            ('http://localhost:8000/forms', body, headers);
+            ('http://localhost:8000/forms', body, options);
             //.map((res:Response) => res.json())
     }
 
@@ -49,7 +49,7 @@ export class FormService {
         let body = answer;
         //console.log(body);
         return this.http.post
-            ('http://localhost:8000/answers', body, headers);        
+            ('http://localhost:8000/answers', body, options);        
     }
 
     updateForm(form: any) {
@@ -58,7 +58,7 @@ export class FormService {
         let body = form;
 
         return this.http.put
-            ('http://localhost:8000/forms/' + form.id, body, headers)
+            ('http://localhost:8000/forms/' + form.id, body, options)
             .map((res: Response) => res.json());
     }
 //

@@ -26,7 +26,7 @@ export class DocumentService {
         let body = document;
         //console.log(body);
         return this.http.post
-            ('http://localhost:8000/documents', body, headers);
+            ('http://localhost:8000/documents', body, options);
         //.map((res:Response) => res.json());
     }
 
@@ -57,7 +57,7 @@ export class DocumentService {
         let body = document;
 
         return this.http.put
-            ('http://localhost:8000/documents/' + document.id, body, headers)
+            ('http://localhost:8000/documents/' + document.id, body, options)
         //.map((res: Response) => res.json());
     }
 
