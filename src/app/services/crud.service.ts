@@ -13,12 +13,6 @@ export class CrudService {
             .map((res: Response) => res.json());
     }
 
-    getCategories() {
-        return this.http.get
-            ('http://localhost:8000/categories')
-            .map((res: Response) => res.json());
-    }
-
     getFiles() {
         return this.http.get
             ('http://localhost:8000/files')

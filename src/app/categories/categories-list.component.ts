@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { CategoriesService } from './categories.service';
 import { LoaderService } from '../services/loader.service';
@@ -16,7 +16,8 @@ export class CategoriesComponent implements OnInit {
     constructor(
         private categoriesService: CategoriesService,
         private loaderService: LoaderService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private ref: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -29,10 +30,12 @@ export class CategoriesComponent implements OnInit {
             data => {
                 this.categories = data;
                 this.loaderService.displayLoader(false);
+                this.ref.detectChanges();
             },
             error => {
                 this.alertService.error("Error loading categories! " + error);
                 this.loaderService.displayLoader(false);
+                this.ref.detectChanges();
                 return Observable.throw(error);
             }
         );
@@ -45,10 +48,12 @@ export class CategoriesComponent implements OnInit {
                 data => {
                     this.getCategories();
                     this.loaderService.displayLoader(false);
+                    this.ref.markForCheck();
                 },
                 error => {
                     this.loaderService.displayLoader(false);
                     this.alertService.error("Error deleting category! " + error);
+                    this.ref.markForCheck();
                     return Observable.throw(error);
                 }
             );

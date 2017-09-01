@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthenticationService } from './services/authentication.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -30,7 +30,8 @@ const fadeIn = [
         trigger('routerAnimations', [
             transition('* => *', fadeIn)
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class AppComponent implements OnInit, OnDestroy {
@@ -58,7 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.authenticationService.getUsername().subscribe(currentUsername => this.username = currentUsername);
         this.loaderService.loaderStatus.subscribe((val: boolean) => {
             this.objLoaderStatus = val;
-            console.log('app ' + val);
+            //console.log('app ' + val);
         });        
     }
 

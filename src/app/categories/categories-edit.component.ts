@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
@@ -24,7 +24,8 @@ export class CategoriesEditComponent implements OnInit {
         private route: ActivatedRoute,
         private location: Location,
         private alertService: AlertService,
-        private loaderService: LoaderService
+        private loaderService: LoaderService,
+        private ref: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
@@ -35,10 +36,12 @@ export class CategoriesEditComponent implements OnInit {
                 data => { 
                     this.loaderService.displayLoader(false);
                     this.category = data; 
+                    this.ref.detectChanges();
                 },
                 error => {
                     this.loaderService.displayLoader(false);
                     this.alertService.error("Error loading category! " + error);
+                    this.ref.detectChanges();
                     return Observable.throw(error);
                 }                
             );
@@ -54,11 +57,12 @@ export class CategoriesEditComponent implements OnInit {
             data => {
                 this.loaderService.displayLoader(false);
                 this.alertService.success('Category updated.');
-                return true;
+                this.ref.markForCheck();
             },
             error => {
                 this.loaderService.displayLoader(false);
                 this.alertService.error("Error saving category! " + error);
+                this.ref.markForCheck();
                 return Observable.throw(error);
             }
         );

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Rx';
@@ -19,7 +19,8 @@ export class CategoriesFrontComponent implements OnInit {
         private categoriesService: CategoriesService,
         private route: ActivatedRoute,
         private loaderService: LoaderService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private ref: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
@@ -30,10 +31,12 @@ export class CategoriesFrontComponent implements OnInit {
                 data => { 
                     this.loaderService.displayLoader(false);
                     this.category = data; 
+                    this.ref.detectChanges();
                 },
                 error => {
                     this.loaderService.displayLoader(false);
                     this.alertService.error("Error loading category! " + error);
+                    this.ref.detectChanges();
                     return Observable.throw(error);
                 }                
             );

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
@@ -24,7 +24,8 @@ export class CategoriesCreateComponent {
         private alertService: AlertService,
         private loaderService: LoaderService,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
+        private ref: ChangeDetectorRef
     ) {}
 
     goBack(): void {
@@ -38,11 +39,12 @@ export class CategoriesCreateComponent {
             data => {
                 this.loaderService.displayLoader(false);
                 this.alertService.success('Category created.');
-                return true;
+                this.ref.markForCheck();
             },
             error => {
                 this.loaderService.displayLoader(false);
                 this.alertService.error("Error saving category! " + error);
+                this.ref.markForCheck();
                 return Observable.throw(error);
             }
         );

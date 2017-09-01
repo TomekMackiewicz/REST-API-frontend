@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
-import {CrudService} from '../services/crud.service';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { CategoriesService } from '../categories/categories.service';
 import { FormService } from '../form/form.service';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
     selector: 'app-menu',
@@ -14,8 +15,10 @@ export class MenuComponent {
     public forms: any;
 
     constructor(
-        private crudService: CrudService,
-        private formService: FormService
+        private categoriesService: CategoriesService,
+        private formService: FormService,
+        private alertService: AlertService,
+        private ref: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -24,18 +27,28 @@ export class MenuComponent {
     }
 
     getCategories() {
-        this.crudService.getCategories().subscribe(
-            data => {this.categories = data},
-            err => console.error(err),
-            () => console.log('done loading categories')
+        this.categoriesService.getCategories().subscribe(
+            data => {
+                this.categories = data;
+                this.ref.detectChanges();
+            },
+            error => {
+                this.alertService.error("Error loading categories! " + error);
+                this.ref.detectChanges();
+            }
         );
     }
 
     getForms() {
         this.formService.getForms().subscribe(
-            data => {this.forms = data},
-            err => console.error(err),
-            () => console.log('done loading forms')
+            data => {
+                this.forms = data;
+                this.ref.detectChanges();
+            },
+            error => {
+                this.alertService.error("Error loading forms! " + error);
+                this.ref.detectChanges();
+            }
         );
     }
 
