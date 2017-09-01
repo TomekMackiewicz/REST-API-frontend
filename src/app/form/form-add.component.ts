@@ -46,10 +46,6 @@ export class FormAddComponent implements OnInit {
     ngOnInit(): void {
         this.formOptions = {
             allowBack: false,
-            autoMove: false, 
-            requiredAll: false,
-            shuffleQuestions: false,
-            shuffleOptions: false,
             showPager: false,
         }    
         this.formConfig = new FormConfig(this.formOptions);
