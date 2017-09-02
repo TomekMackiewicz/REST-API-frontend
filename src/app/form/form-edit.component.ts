@@ -12,11 +12,13 @@ import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 import { slideInOutAnimation } from '../animations/index';
+//import { SequencePipe } from '../pipes/sequence.pipe';
 
 @Component({
     selector: 'form-edit',
     templateUrl: './form-edit.component.html',
     animations: [slideInOutAnimation],
+    //providers: [ SequencePipe ],
     host: {'[@slideInOutAnimation]': ''}
 })
 
@@ -154,6 +156,13 @@ export class FormEditComponent implements OnInit {
     }
 
     saveForm() {
+        //console.log(this.form);
+        let i = 0;
+        for (let question of this.form.questions) {
+            i++;
+            question.sequence = i;
+            console.log(question);
+        }
         if(this.form.name !== "") {
             this.loaderService.displayLoader(true);     
             this.formService.updateForm(this.form).subscribe(

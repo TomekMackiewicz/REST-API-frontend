@@ -2,6 +2,7 @@ import { Option } from './option';
 
 export class Question {
     id: number;
+    sequence: number;
     name: string;
     questionType: string;
     validation: string = "none"; 
@@ -11,6 +12,7 @@ export class Question {
     constructor(data: any) {
         data = data || {};
         this.id = data.id;
+        this.sequence = data.id;
         this.name = data.name;
         this.questionType = data.questionType;
         this.validation = data.validation;

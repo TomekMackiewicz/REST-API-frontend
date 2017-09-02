@@ -11,7 +11,8 @@ import { FormEditComponent } from './form-edit.component';
 import { FormRoutingModule } from './form-routing.module';
 import { AlertModule } from '../alert/alert';
 import { FormService } from './form.service';
-//import { TruncatePipe } from '../pipes/truncate.pipe';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { SequencePipe } from '../pipes/sequence.pipe';
 
 @NgModule({
     imports: [
@@ -21,13 +22,15 @@ import { FormService } from './form.service';
         FormsModule,
         FormRoutingModule,
         AlertModule,
-        DataTableModule
+        DataTableModule,
+        DragulaModule
     ],
     declarations: [
         FormFrontComponent,
         FormAddComponent,
         FormListComponent,
-        FormEditComponent
+        FormEditComponent,
+        SequencePipe
     ],
     providers: [
         FormService

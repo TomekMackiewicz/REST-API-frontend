@@ -115,111 +115,113 @@
                 </div>
             </div>                         
         </div>
-        <div class="col-md-6">                 
-            <div *ngFor="let question of form.questions; let i = index">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        {{question.name}} (validation: {{question.validation}}, required: {{question.required}})
-                        <button type="button" class="btn btn-danger btn-xs pull-right" (click)="deleteQuestion(question.id, question.name)">
-                            <i class="ion-trash-a"></i>
-                        </button>                        
-                        <button class="btn btn-default btn-xs pull-right" 
-                                type="button" 
-                                data-toggle="collapse" 
-                                [attr.data-target]="'#collapse_'+i"
-                                aria-expanded="false" 
-                                aria-controls="collapse">
-                            <i class="ion-plus"></i>
-                        </button>
-                        <div class="collapse" id="collapse_{{i}}">
-                            <ng-container [ngSwitch]="true">
-                                <div class="well" *ngSwitchCase="question.questionType === 'checkbox'"> 
-                                    <label>Required?</label>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
-                                        </label>
-                                    </div>                                    
-                                    <input type="text" class="form-control" #checkboxName>
-                                    <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, checkboxName.value)">Add checkbox</button>
-                                </div>
-                                <div class="well" *ngSwitchCase="question.questionType === 'radio'">
-                                    <label>Required?</label>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
-                                        </label>
-                                    </div>                                    
-                                    <input type="text" class="form-control" #radioName>
-                                    <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, radioName.value)">Add radio</button>                                   
-                                </div>
-                                <div class="well" *ngSwitchCase="question.questionType === 'text'">
-                                    <label>Validation</label>  
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="validation_{{i}}" value="none" [(ngModel)]="question.validation">
-                                            None
-                                        </label>
-                                    </div>                                    
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="validation_{{i}}" value="email" [(ngModel)]="question.validation">
-                                            E-mail
-                                        </label>
-                                    </div>  
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="validation_{{i}}" value="code" [(ngModel)]="question.validation">
-                                            Postal code
-                                        </label>
-                                    </div>  
-                                    <label>Required?</label>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
-                                        </label>
-                                    </div>                                    
-                                </div>                                
-                            </ng-container>     
-                        </div>                                                                                
-                    </div>
-                    <ng-container [ngSwitch]="true">
-                        <!-- TEXT -->
-                        <div class="panel-body" *ngSwitchCase="question.questionType === 'text'">
-                            <input type="text" 
-                                class="form-control" 
-                                name="question_{{i}}" 
-                                [(ngModel)]="question.name">
+        <div class="col-md-6"> 
+            <div [dragula]='"bag-questions"' [dragulaModel]='form.questions'>
+                <div *ngFor="let question of form.questions | sort; let i = index">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            {{question.name}} (validation: {{question.validation}}, required: {{question.required}})
+                            <button type="button" class="btn btn-danger btn-xs pull-right" (click)="deleteQuestion(question.id, question.name)">
+                                <i class="ion-trash-a"></i>
+                            </button>                        
+                            <button class="btn btn-default btn-xs pull-right" 
+                                    type="button" 
+                                    data-toggle="collapse" 
+                                    [attr.data-target]="'#collapse_'+i"
+                                    aria-expanded="false" 
+                                    aria-controls="collapse">
+                                <i class="ion-plus"></i>
+                            </button>
+                            <div class="collapse" id="collapse_{{i}}">
+                                <ng-container [ngSwitch]="true">
+                                    <div class="well" *ngSwitchCase="question.questionType === 'checkbox'"> 
+                                        <label>Required?</label>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
+                                            </label>
+                                        </div>                                    
+                                        <input type="text" class="form-control" #checkboxName>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, checkboxName.value)">Add checkbox</button>
+                                    </div>
+                                    <div class="well" *ngSwitchCase="question.questionType === 'radio'">
+                                        <label>Required?</label>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
+                                            </label>
+                                        </div>                                    
+                                        <input type="text" class="form-control" #radioName>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, radioName.value)">Add radio</button>                                   
+                                    </div>
+                                    <div class="well" *ngSwitchCase="question.questionType === 'text'">
+                                        <label>Validation</label>  
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="validation_{{i}}" value="none" [(ngModel)]="question.validation">
+                                                None
+                                            </label>
+                                        </div>                                    
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="validation_{{i}}" value="email" [(ngModel)]="question.validation">
+                                                E-mail
+                                            </label>
+                                        </div>  
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="validation_{{i}}" value="code" [(ngModel)]="question.validation">
+                                                Postal code
+                                            </label>
+                                        </div>  
+                                        <label>Required?</label>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
+                                            </label>
+                                        </div>                                    
+                                    </div>                                
+                                </ng-container>     
+                            </div>                                                                                
                         </div>
-                        <!-- CHECKBOX -->
-                        <div class="panel-body" *ngSwitchCase="question.questionType === 'checkbox'">
-                            <div *ngFor="let checkbox of question.options"> 
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" disabled>
-                                        {{checkbox.name}} 
-                                        <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, checkbox.id, checkbox.name)">
-                                            <i class="ion-trash-a"></i>
-                                        </button>
-                                    </label>
-                                </div>                        
-                            </div>                           
-                        </div>                       
-                        <!-- RADIO -->
-                        <div class="panel-body" *ngSwitchCase="question.questionType === 'radio'">
-                            <div *ngFor="let radio of question.options">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" disabled>
-                                        {{radio.name}}
-                                        <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, radio.id, radio.name)">
-                                            <i class="ion-trash-a"></i>
-                                        </button>                            
-                                    </label>
-                                </div>                       
-                            </div>                             
-                        </div>                       
-                    </ng-container>                    
+                        <ng-container [ngSwitch]="true">
+                            <!-- TEXT -->
+                            <div class="panel-body" *ngSwitchCase="question.questionType === 'text'">
+                                <input type="text" 
+                                    class="form-control" 
+                                    name="question_{{i}}" 
+                                    [(ngModel)]="question.name">
+                            </div>
+                            <!-- CHECKBOX -->
+                            <div class="panel-body" *ngSwitchCase="question.questionType === 'checkbox'">
+                                <div *ngFor="let checkbox of question.options"> 
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" disabled>
+                                            {{checkbox.name}} 
+                                            <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, checkbox.id, checkbox.name)">
+                                                <i class="ion-trash-a"></i>
+                                            </button>
+                                        </label>
+                                    </div>                        
+                                </div>                           
+                            </div>                       
+                            <!-- RADIO -->
+                            <div class="panel-body" *ngSwitchCase="question.questionType === 'radio'">
+                                <div *ngFor="let radio of question.options">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" disabled>
+                                            {{radio.name}}
+                                            <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, radio.id, radio.name)">
+                                                <i class="ion-trash-a"></i>
+                                            </button>                            
+                                        </label>
+                                    </div>                       
+                                </div>                             
+                            </div>                       
+                        </ng-container>                    
+                    </div>
                 </div>
             </div>
         </div>

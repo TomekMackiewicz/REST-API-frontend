@@ -18,7 +18,7 @@
                 <form #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
                     <input type="hidden" name="formId" [(ngModel)]="form.id">
                     <div class="tab-content">
-                        <div *ngFor="let question of form.questions; let i = index; let first = first; let last = last" 
+                        <div *ngFor="let question of form.questions | sort; let i = index; let first = first; let last = last" 
                             [class.active]="first" 
                             [class.in]="first" 
                             role="tabpanel" 
