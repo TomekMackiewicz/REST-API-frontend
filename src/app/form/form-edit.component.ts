@@ -65,7 +65,8 @@ export class FormEditComponent implements OnInit {
     getCategories() {
         this.formService.getCategories().subscribe(
             data => { 
-                this.categories = data; 
+                this.categories = data;
+                this.ref.detectChanges(); 
             },
             error => {
                 this.alertService.error("Error loading categories! " + error);

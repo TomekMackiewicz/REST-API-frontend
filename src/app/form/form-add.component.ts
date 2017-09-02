@@ -64,6 +64,7 @@ export class FormAddComponent implements OnInit {
         this.formService.getCategories().subscribe(
             data => {
                 this.categories = data;
+                this.ref.detectChanges();
             },
             error => {
                 this.alertService.error("Error loading categories! " + error);
@@ -144,7 +145,6 @@ export class FormAddComponent implements OnInit {
     }
 
     saveForm() { 
-        console.log(this.form);
         let i = 0;
         for (let question of this.form.questions) {
             i++;
