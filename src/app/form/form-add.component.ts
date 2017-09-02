@@ -81,7 +81,8 @@ export class FormAddComponent implements OnInit {
             required: values.required,
             options: []                  
         };
-        this.form.questions.push(data);                                
+        this.form.questions.push(data);
+        console.log(this.form.questions);                                
     }
     
     deleteQuestion(id: number, name: string) {
@@ -143,6 +144,13 @@ export class FormAddComponent implements OnInit {
     }
 
     saveForm() { 
+        console.log(this.form);
+        let i = 0;
+        for (let question of this.form.questions) {
+            i++;
+            question.sequence = i;
+            console.log(question);
+        }        
         if(this.form.name !== "") {
             this.loaderService.displayLoader(true);    
             this.formService.createForm(this.form).subscribe(

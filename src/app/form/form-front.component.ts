@@ -57,7 +57,7 @@ export class FormFrontComponent implements OnInit {
     goTo(index: number, val: boolean, form: NgForm, question: any) {
         if (index >= 0 && index < this.pager.count) {
             if(val) {
-                this.validate(form.value[question.id], question);
+                this.validate(form.value[question.sequence], question);
             }
             if(this.next === true) {
                 this.pager.index = index;

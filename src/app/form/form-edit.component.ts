@@ -12,13 +12,11 @@ import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 import { slideInOutAnimation } from '../animations/index';
-//import { SequencePipe } from '../pipes/sequence.pipe';
 
 @Component({
     selector: 'form-edit',
     templateUrl: './form-edit.component.html',
     animations: [slideInOutAnimation],
-    //providers: [ SequencePipe ],
     host: {'[@slideInOutAnimation]': ''}
 })
 
