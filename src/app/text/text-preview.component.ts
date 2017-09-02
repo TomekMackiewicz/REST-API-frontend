@@ -4,12 +4,10 @@ import { TextService } from './text.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 import { saveAs } from 'file-saver';
-//import { FlagGuard } from '../guards/flag.guard';
 
 @Component({
-    selector: 'app-text',
+    selector: 'text-preview',
     templateUrl: './text-preview.component.html',
-    //styleUrls: ['./form.component.css'],
     providers: [ TextService ]
 })
 

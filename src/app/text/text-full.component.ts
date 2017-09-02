@@ -7,7 +7,7 @@ import { LoaderService } from '../services/loader.service';
 import * as jsPDF from "jspdf";
 
 @Component({
-    selector: 'app-text',
+    selector: 'text-full',
     templateUrl: './text-full.component.html',
     //styleUrls: ['./form.component.css'],
     providers: [ TextService ]

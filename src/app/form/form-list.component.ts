@@ -6,7 +6,7 @@ import { LoaderService } from '../services/loader.service';
 import { AlertService } from '../alert/alert.service';
 
 @Component({
-    selector: 'app-form-list',
+    selector: 'form-list',
     templateUrl: './form-list.component.html',
 })
 

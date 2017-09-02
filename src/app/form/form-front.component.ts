@@ -9,9 +9,8 @@ import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 
 @Component({
-    selector: 'app-form',
+    selector: 'form-front',
     templateUrl: './form-front.component.html',
-    //styleUrls: ['./form.component.css'],
     providers: [ FormService ]
 })
 

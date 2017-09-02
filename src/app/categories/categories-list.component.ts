@@ -9,7 +9,7 @@ import { AlertService } from '../alert/alert.service';
     templateUrl: './categories-list.component.html'  
 })
 
-export class CategoriesComponent implements OnInit {
+export class CategoriesListComponent implements OnInit {
 
     public categories: Array<Object>;
 

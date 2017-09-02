@@ -10,42 +10,32 @@ import { MenuComponent } from '../menu/menu.component';
 import { FooterComponent } from '../footer/footer.component';
 
 const formRoutes: Routes = [
-    {path: 'admin', 
+    { path: 'admin', 
         children: [
-            {path: 'forms/:id', component: FormEditComponent},
-            {path: 'form/add', component: FormAddComponent},
-            {path: 'forms', component: FormListComponent}
-        ],
-        data: {
-            animation: {
-                value: 'form-add',
+            { path: 'forms/:id', component: FormEditComponent },
+            { path: 'form/add', component: FormAddComponent },
+            { 
+                path: 'forms', 
+                component: FormListComponent,
+                data: { 
+                    animation: { value: 'form-list' }
+                }                  
             }
-        },         
+        ],        
         canActivate: [AuthGuard] 
     },
-//    {path: 'forms', 
-//        children: [
-//            {path: '' , component: FormFrontComponent},
-//            {path: '' , component: MenuComponent, outlet: 'header'},
-//            {path: '' , component: FooterComponent, outlet: 'footer'}        
-//        ],
-//        data: {
-//            animation: {
-//                value: 'categories-front',
-//            }
-//        }            
-//    } 
     {path: 'forms/:id', 
         children: [
-            {path: '' , component: FormFrontComponent},
-            {path: '' , component: MenuComponent, outlet: 'header'},
-            {path: '' , component: FooterComponent, outlet: 'footer'}        
-        ],
-//        data: {
-//            animation: {
-//                value: 'form-front',
-//            }
-//        }     
+            { 
+                path: '' , 
+                component: FormFrontComponent,
+                data: { 
+                    animation: { value: 'form-front' }
+                }                  
+            },
+            { path: '' , component: MenuComponent, outlet: 'header' },
+            { path: '' , component: FooterComponent, outlet: 'footer' }        
+        ]    
     }    
 ];
 

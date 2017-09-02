@@ -5,7 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { LoaderService } from '../services/loader.service';
 
 @Component({
-    selector: 'my-logout',
+    selector: 'logout',
     template: 'Bye'
 })
 

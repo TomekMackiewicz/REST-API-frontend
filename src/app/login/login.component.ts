@@ -5,7 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { LoaderService } from '../services/loader.service';
 
 @Component({
-    selector: 'my-login',
+    selector: 'login',
     templateUrl: './login.component.html',       
 })
 

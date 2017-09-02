@@ -9,41 +9,43 @@ import { MenuComponent } from '../menu/menu.component';
 import { FooterComponent } from '../footer/footer.component';
 
 const textRoutes: Routes = [
-    {path: 'admin', 
+    { path: 'admin', 
         children: [
-            {path: 'transactions', component: TextListComponent},
-        ],
-        data: {
-            animation: {
-                value: 'transactions-admin',
-            }
-        },         
-        canActivate: [AuthGuard]
+            {
+                path: 'transactions', 
+                component: TextListComponent,
+                data: { 
+                    animation: { value: 'text-list' }
+                }                  
+            },
+        ],        
+        canActivate: [ AuthGuard ]
     },
-    {path: 'texts/full/:token', 
+    { path: 'texts/full/:token', 
         children: [
-            { path: '' , component: TextFullComponent},
+            { 
+                path: '' , 
+                component: TextFullComponent,
+                data: { 
+                    animation: { value: 'text-full' }
+                }                 
+            },
             { path: '' , component: MenuComponent, outlet: 'header' },
             { path: '' , component: FooterComponent, outlet: 'footer' }        
-        ],
-//        data: {
-//            animation: {
-//                value: 'form-front',
-//            }
-//        }     
+        ]    
     }, 
-    {path: 'texts/preview/:id', 
+    { path: 'texts/preview/:id', 
         children: [
-            { path: '' , component: TextPreviewComponent},
+            { 
+                path: '' , 
+                component: TextPreviewComponent,
+                data: { 
+                    animation: { value: 'text-preview' }
+                }                 
+            },
             { path: '' , component: MenuComponent, outlet: 'header' },
             { path: '' , component: FooterComponent, outlet: 'footer' }        
-        ],
-        //canActivate: [ FlagGuard ]
-//        data: {
-//            animation: {
-//                value: 'form-front',
-//            }
-//        }     
+        ]    
     }        
 ];
 

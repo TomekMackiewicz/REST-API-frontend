@@ -7,7 +7,6 @@ import { LoaderService } from '../services/loader.service';
 @Component({
     selector: 'text-list',
     templateUrl: './text-list.component.html',
-    //styleUrls: ['./form.component.css'],
     providers: [ TextService ]
 })
 

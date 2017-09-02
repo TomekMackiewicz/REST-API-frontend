@@ -17,7 +17,7 @@ const routes: Routes = [
             animation: {
                 value: 'login',
             }
-        }                
+        }                       
     },
     {path: 'logout', 
         component: LogoutComponent,
@@ -25,30 +25,32 @@ const routes: Routes = [
             animation: {
                 value: 'logout',
             }
-        }         
+        }                
     },
     {path: 'admin', 
         children: [
-            {path: 'dashboard', component: DashboardComponent},
-        ],
-        data: {
-            animation: {
-                value: 'admin',
-            }
-        },          
+            { 
+                path: 'dashboard', 
+                component: DashboardComponent, 
+                data: { 
+                    animation: { value: 'dashboard' }
+                }
+            },               
+        ],         
         canActivate: [AuthGuard]        
     },
     {path: '', 
         children:[
-            {path: '', component: FrontComponent},
+            {
+                path: '', 
+                component: FrontComponent,
+                data: {
+                    animation: { value: 'front' }
+                }                
+            },
             {path: '', component: MenuComponent, outlet: 'header'},
             {path: '', component: FooterComponent, outlet: 'footer'},                
-        ],
-        data: {
-            animation: {
-                value: 'home',
-            }
-        }    
+        ]   
     },
     {path: 'denied', 
         component: AccessDeniedComponent
