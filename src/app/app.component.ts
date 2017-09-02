@@ -13,10 +13,10 @@ const fadeIn = [
     query(':enter', style({ position: 'absolute', left: 0, right: 0, opacity: 0 }), { optional: true }),
     group([
         query(':leave',
-            animate('1s', style({ opacity: 0 })),
+            animate('.4s', style({ opacity: 0 })),
             { optional: true }),
         query(':enter',
-            animate('1s 1s', style({ opacity: 1 })),
+            animate('.4s .4s', style({ opacity: 1 })),
             { optional: true })
     ])
 ];

@@ -11,13 +11,13 @@ import { Option } from './models/option';
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
-import { slideInOutAnimation } from '../animations/index';
+//import { slideInOutAnimation } from '../animations/index';
 
 @Component({
     selector: 'form-edit',
     templateUrl: './form-edit.component.html',
-    animations: [slideInOutAnimation],
-    host: {'[@slideInOutAnimation]': ''}
+    //animations: [slideInOutAnimation],
+    //host: {'[@slideInOutAnimation]': ''}
 })
 
 export class FormEditComponent implements OnInit {

@@ -7,13 +7,13 @@ import { DocumentService } from './document.service';
 import { FormService } from '../form/form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
-import { slideInOutAnimation } from '../animations/index';
+//import { slideInOutAnimation } from '../animations/index';
 
 @Component({
     selector: 'document-edit',
     templateUrl: './document-edit.component.html',
-    animations: [slideInOutAnimation],
-    host: { '[@slideInOutAnimation]': '' }    
+    //animations: [slideInOutAnimation],
+    //host: { '[@slideInOutAnimation]': '' }    
 })
 
 export class DocumentEditComponent implements OnInit {

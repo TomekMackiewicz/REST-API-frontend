@@ -6,13 +6,13 @@ import { Observable } from 'rxjs/Rx';
 import { CategoriesService } from './categories.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
-import { slideInOutAnimation } from '../animations/index';
+//import { slideInOutAnimation } from '../animations/index';
 
 @Component({
     selector: 'categories-edit',
     templateUrl: './categories-edit.component.html',
-    animations: [slideInOutAnimation],
-    host: { '[@slideInOutAnimation]': '' }    
+    //animations: [slideInOutAnimation],
+    //host: { '[@slideInOutAnimation]': '' }    
 })
 
 export class CategoriesEditComponent implements OnInit {
