@@ -57,7 +57,7 @@ export class FormFrontComponent implements OnInit {
     goTo(index: number, val: boolean, form: NgForm, question: any) {
         if (index >= 0 && index < this.pager.count) {
             if(val) {
-                this.validate(form.value[question.sequence], question);
+                this.validate(form.value[question.id], question);
             }
             if(this.next === true) {
                 this.pager.index = index;
@@ -107,7 +107,7 @@ export class FormFrontComponent implements OnInit {
     submitForm(form: NgForm) {
         this.loaderService.displayLoader(true);       
         let values = form.value;
-        console.log(values);     
+        //console.log(values);     
         this.formService.submitAnswers(values).subscribe(
             data => {
                 this.loaderService.displayLoader(false);
