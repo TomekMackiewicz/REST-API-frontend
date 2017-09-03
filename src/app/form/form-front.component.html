@@ -53,52 +53,63 @@
                                 </div>
                             </ng-template>
                             <hr>
-                            <div class="text-sm-center">
-                                <a class="btn btn-default"
-                                   *ngIf="form.config.allowBack"
-                                   [class.disabled]="first"
-                                   [attr.href]="'#'+0" 
-                                   [attr.aria-controls]="0" 
-                                   role="tab" 
-                                   data-toggle="tab" 
-                                   (click)="goTo(0, false);">
-                                    First
-                                </a>                             
-                                <a class="btn btn-default" 
-                                   *ngIf="form.config.allowBack"
-                                   [class.disabled]="first"
-                                   [attr.href]="'#'+(pager.index)" 
-                                   [attr.aria-controls]="pager.index" 
-                                   role="tab" 
-                                   data-toggle="tab" 
-                                   (click)="goTo(pager.index - 1, false);">
-                                    Previous
-                                </a>                            
-                                <a class="btn btn-primary"
-                                   [class.disabled]="pager.index === pager.count - 1"
-                                   [attr.href]="'#'+(pager.index)" 
-                                   [attr.aria-controls]="pager.index" 
-                                   role="tab" 
-                                   data-toggle="tab" 
-                                   (click)="goTo(pager.index + 1, true, f, question);">
-                                    Next
-                                </a>
-                                <a class="btn btn-default"
-                                   [class.disabled]="pager.index === pager.count - 1"
-                                   [attr.href]="'#'+(pager.count - 1)" 
-                                   [attr.aria-controls]="pager.count - 1" 
-                                   role="tab" 
-                                   data-toggle="tab" 
-                                   (click)="goTo(pager.count - 1, true, f, question);">
-                                    Last
-                                </a>
-                                <input type="text" class="form-control pull-right" name="email" placeholder="Your email" ngModel>
-                                <button type="submit" 
-                                        class="btn btn-success pull-right" 
-                                        value="Submit" 
-                                        *ngIf="last">
-                                    Submit
-                                </button>                            
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="text-sm-center">
+                                        <a class="btn btn-default"
+                                           *ngIf="form.config.allowBack"
+                                           [class.disabled]="first"
+                                           [attr.href]="'#'+0" 
+                                           [attr.aria-controls]="0" 
+                                           role="tab" 
+                                           data-toggle="tab" 
+                                           (click)="goTo(0, false);">
+                                            First
+                                        </a>                             
+                                        <a class="btn btn-default" 
+                                           *ngIf="form.config.allowBack"
+                                           [class.disabled]="first"
+                                           [attr.href]="'#'+(pager.index)" 
+                                           [attr.aria-controls]="pager.index" 
+                                           role="tab" 
+                                           data-toggle="tab" 
+                                           (click)="goTo(pager.index - 1, false);">
+                                            Previous
+                                        </a>                            
+                                        <a class="btn btn-primary"
+                                           [class.disabled]="pager.index === pager.count - 1"
+                                           [attr.href]="'#'+(pager.index)" 
+                                           [attr.aria-controls]="pager.index" 
+                                           role="tab" 
+                                           data-toggle="tab" 
+                                           (click)="goTo(pager.index + 1, true, f, question);">
+                                            Next
+                                        </a>
+                                        <a class="btn btn-default"
+                                           [class.disabled]="pager.index === pager.count - 1"
+                                           [attr.href]="'#'+(pager.count - 1)" 
+                                           [attr.aria-controls]="pager.count - 1" 
+                                           role="tab" 
+                                           data-toggle="tab" 
+                                           (click)="goTo(pager.count - 1, true, f, question);">
+                                            Last
+                                        </a>
+
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <div *ngIf="last" class="form-inline pull-right">
+                                        <input type="text" class="form-control" name="email" placeholder="Your email" ngModel>
+                                        <span class="badge" data-toggle="tooltip" data-placement="top" title="Text to display">?</span>
+                                       
+                                        <button type="submit" 
+                                                class="btn btn-success" 
+                                                value="Submit">
+                                            Submit
+                                        </button> 
+                                    </div>
+                                </div>                                
                             </div>                          
                         </div>
                     </div>
