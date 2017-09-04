@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h2>Create order (temp)</h2>
             <alert></alert>
             <form>
@@ -19,5 +19,17 @@
                 </button>
             </form>
         </div>
+        <div class="col-md-6">
+            <div *ngIf="show">
+                Total price: € {{show.order.amount}}
+                <form id="{{show.form.vars.id}}" name="{{show.form.vars.name}}" method="{{show.form.vars.method}}" novalidate>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name">
+                    </div>
+                    <button type="submit" class="btn btn-primary" (click)="test()">Pay</button>
+                </form>                 
+            </div>           
+        </div>        
     </div>
 </div>

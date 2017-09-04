@@ -27,6 +27,13 @@ export class OrderService {
             ('http://localhost:8000/orders', body, options);
     }
 
+    showOrder(id: number) {
+        return this.http.get
+            ('http://localhost:8000/orders/' + id + '/show')
+            //('http://localhost:8000/orders/1/show')
+            .map((res: Response) => res.json());
+    }
+
 //    updateCategory(category) {
 //        let headers = new Headers({'Content-Type': 'application/json'});
 //        let options = new RequestOptions({headers: headers});
