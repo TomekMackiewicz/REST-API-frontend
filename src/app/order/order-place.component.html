@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Create order (temp)</h2>
+            <alert></alert>
+            <form>
+                <div class="form-group">
+                    <label for="order-amount">Amount</label>
+                    <input type="text"
+                           class="form-control"
+                           id="order-amount"
+                           name="order-amount"
+                           [(ngModel)]="amount">
+                </div>
+                <button type="submit"
+                        class="btn btn-primary"
+                        (click)="placeOrder(amount)">
+                    Pay
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

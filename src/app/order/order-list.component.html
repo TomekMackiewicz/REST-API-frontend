@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Orders</h3>
+            <alert></alert>
+            <table class="table">
+                <tr>
+                    <th>Id</th>
+                    <th>Amount</th>
+                </tr>
+                <tr *ngFor="let order of orders">
+                    <td>{{order.id}}</td>
+                    <td>{{order.amount}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
