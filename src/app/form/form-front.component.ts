@@ -60,7 +60,7 @@ export class FormFrontComponent implements OnInit {
             }
             if(this.next === true) {
                 this.pager.index = index;
-            }
+            }            
         }
     }
 

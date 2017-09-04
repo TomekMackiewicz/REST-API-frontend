@@ -88,21 +88,19 @@
                                         </a>
                                         <a class="btn btn-default"
                                            [class.disabled]="pager.index === pager.count - 1"
-                                           [attr.href]="'#'+(pager.count - 1)" 
-                                           [attr.aria-controls]="pager.count - 1" 
+                                           [attr.href]="'#'+(pager.index)" 
+                                           [attr.aria-controls]="pager.index" 
                                            role="tab" 
                                            data-toggle="tab" 
                                            (click)="goTo(pager.count - 1, true, f, question);">
                                             Last
                                         </a>
-
                                     </div>                                    
                                 </div>
                                 <div class="col-md-6">
                                     <div *ngIf="last" class="form-inline pull-right">
                                         <input type="text" class="form-control" name="email" placeholder="Your email" ngModel>
-                                        <span class="badge" data-toggle="tooltip" data-placement="top" title="Text to display">?</span>
-                                       
+                                        <span class="badge" data-toggle="tooltip" data-placement="top" title="Text to display">?</span>                                       
                                         <button type="submit" 
                                                 class="btn btn-success" 
                                                 value="Submit">

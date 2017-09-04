@@ -14,12 +14,6 @@ export class FormService {
             .map((res: Response) => res.json());
     }
 
-//    getText(id: number) {
-//        return this.http.get
-//            ('http://localhost:8000/texts/' + id)
-//            .map((res: Response) => res.json());
-//    }
-
     getForms() {
         return this.http.get
             ('http://localhost:8000/forms')
@@ -29,9 +23,8 @@ export class FormService {
     createForm(form: any) {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
-        //let body = JSON.stringify(document);
         let body = form;
-        //console.log(body);
+
         return this.http.post
             ('http://localhost:8000/forms', body, options);
             //.map((res:Response) => res.json())
@@ -47,7 +40,7 @@ export class FormService {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
         let body = answer;
-        //console.log(body);
+        
         return this.http.post
             ('http://localhost:8000/answers', body, options);        
     }
@@ -61,7 +54,7 @@ export class FormService {
             ('http://localhost:8000/forms/' + form.id, body, options)
             .map((res: Response) => res.json());
     }
-//
+
     deleteForm(form: any) {
         return this.http.delete
             ('http://localhost:8000/forms/' + form.id);
