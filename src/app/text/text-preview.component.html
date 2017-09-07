@@ -11,25 +11,58 @@
                     <p class="text-center">
                         <a class="btn btn-primary btn-lg" role="button" (click)="saveText()">Pay and save</a>
                     </p>
-                    <form id="payu-payment-form" class="text-center" name="form" (ngSubmit)="processTransaction()" novalidate>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary"></button>                        
+
+                    <form [formGroup]="paymentForm" novalidate (ngSubmit)="transaction(paymentForm.value, paymentForm.valid)">
+                        <input type="hidden" formControlName="totalAmount">
+                        <div class="form-group" formGroupName="buyer">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" formControlName="email">
+                            <small [hidden]="paymentForm.controls.buyer.controls.email.valid || (paymentForm.controls.buyer.controls.email.pristine && !submitted)">
+                                Email is required (must be valid email).
+                            </small>
                         </div>
+                        <div class="form-group" formGroupName="buyer">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control" id="phone" formControlName="phone">
+                            <small [hidden]="paymentForm.controls.buyer.controls.phone.valid || (paymentForm.controls.buyer.controls.phone.pristine && !submitted)">
+                                Phone is required (format: 9 digits).
+                            </small>
+                        </div>
+                        <div class="form-group" formGroupName="buyer">
+                            <label for="firstName">First name</label>
+                            <input type="text" class="form-control" id="firstName" formControlName="firstName">
+                            <small [hidden]="paymentForm.controls.buyer.controls.firstName.valid || (paymentForm.controls.buyer.controls.firstName.pristine && !submitted)">
+                                First name is required.
+                            </small>
+                        </div> 
+                        <div class="form-group" formGroupName="buyer">
+                            <label for="lastName">Last name</label>
+                            <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                            <small [hidden]="paymentForm.controls.buyer.controls.lastName.valid || (paymentForm.controls.buyer.controls.lastName.pristine && !submitted)">
+                                Last name is required.
+                            </small>
+                        </div>
+                        <div formGroupName="buyer">
+                            <input type="hidden" formControlName="language">
+                        </div>
+                        <div class="checkbox" formGroupName="settings">
+                            <label>
+                                <input type="checkbox" formControlName="invoiceDisabled">
+                                Invoice?
+                            </label>
+                        </div>    
+                        <div formGroupName="products">
+                            <input type="hidden" formControlName="name">
+                        </div>    
+                        <div formGroupName="products">
+                            <input type="hidden" formControlName="unitPrice">
+                        </div>
+                        <div formGroupName="products">
+                            <input type="hidden" formControlName="quantity">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
                     </form>
-<!--                    <form ngNoForm id="payu-payment-form" method="post" action="https://secure.payu.com/api/v2_1/orders">
-                        <input type="hidden" name="continueUrl" value="http://localhost:4200/texts/full/{{text.token}}">
-                        <input type="hidden" name="currencyCode" value="PLN">
-                        <input type="hidden" name="customerIp" value="123.123.123.123">
-                        <input type="hidden" name="description" value="Order description">
-                        <input type="hidden" name="merchantPosId" value="145227">
-                        <input type="hidden" name="notifyUrl" value="http://shop.url/notify">
-                        <input type="hidden" name="products[0].name" value="Product 1">
-                        <input type="hidden" name="products[0].quantity" value="1">
-                        <input type="hidden" name="products[0].unitPrice" value="1000">
-                        <input type="hidden" name="totalAmount" value="1000">
-                        <input type="hidden" name="OpenPayu-Signature" value="sender=145227;algorithm=SHA-256;signature=bc94a8026d6032b5e216be112a5fb7544e66e23e68d44b4283ff495bdb3983a8">
-                        <button type="submit" formtarget="_blank"></button>
-                    </form>                    -->
+                    
                 </div>                
             </div>
         </div>

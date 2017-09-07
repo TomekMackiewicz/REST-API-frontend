@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'; // ?
 import { BrowserModule } from '@angular/platform-browser'; // ?
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextRoutingModule } from './text-routing.module';
 import { TextPreviewComponent } from './text-preview.component';
 import { TextFullComponent } from './text-full.component';
@@ -18,7 +18,8 @@ import { FlagGuard } from '../guards/flag.guard';
         BrowserModule,
         TextRoutingModule,
         AlertModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [
         TextPreviewComponent,

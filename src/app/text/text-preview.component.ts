@@ -1,9 +1,17 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+//import { NgForm } from '@angular/forms';
 import { TextService } from './text.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 import { saveAs } from 'file-saver';
+
+//import { Payment } from './models/payment';
+//import { Buyer } from './models/buyer';
+//import { Product } from './models/product';
+
+import { PaymentForm } from './models/paymentForm';
 
 @Component({
     selector: 'text-preview',
@@ -16,13 +24,18 @@ export class TextPreviewComponent implements OnInit {
     text: any;
     //showToken: boolean = false;
 
+    public paymentForm: FormGroup;
+    public submitted: boolean;
+    public events: any[] = [];
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private textService: TextService,
         private alertService: AlertService,
         private loaderService: LoaderService,
-        private ref: ChangeDetectorRef   
+        private ref: ChangeDetectorRef,
+        private fb: FormBuilder
     ) {}
         
     ngOnInit() {
@@ -40,7 +53,26 @@ export class TextPreviewComponent implements OnInit {
                     this.loaderService.displayLoader(false);
                     this.ref.detectChanges(); // czy potrzebne?
                 }                 
-            );       
+            );             
+        this.paymentForm = this.fb.group({
+            totalAmount: [10000],
+            buyer: this.fb.group({
+                email: ['', [<any>Validators.required, <any>Validators.email]],
+                phone: ['', [<any>Validators.required, <any>Validators.minLength(9)]],
+                firstName: ['', [<any>Validators.required]],
+                lastName: ['', [<any>Validators.required]],
+                language: ['pl']                
+            }),
+            settings: this.fb.group({
+                invoiceDisabled: ['']
+            }),
+            products: this.fb.group({
+                name: ['legalForm'],
+                unitPrice: [10000],
+                quantity: [1]              
+            })            
+        });            
+                  
     }    
 
     saveText() {
@@ -50,48 +82,26 @@ export class TextPreviewComponent implements OnInit {
         this.router.navigateByUrl('texts/full/'+this.text.token);        
     }     
 
-    processTransaction() {
-        let body = {
-            "notifyUrl": "https://your.eshop.com/notify",
-            "customerIp": "127.0.0.1",
-            "merchantPosId": "300746",
-            "description": "RTV market",
-            "currencyCode": "PLN",
-            "totalAmount": "21000",
-            "buyer": {
-                "email": "john.doe@example.com",
-                "phone": "654111654",
-                "firstName": "John",
-                "lastName": "Doe",
-                "language": "pl"
-            },
-            "settings": {
-                "invoiceDisabled": "true"
-            },
-            "products": [
-                {
-                    "name": "Wireless Mouse for Laptop",
-                    "unitPrice": "15000",
-                    "quantity": "1"
+    transaction(model: PaymentForm, isValid: boolean) {
+        //this.submitted = true; // set form submit to true
+        if(isValid === true) { 
+            this.loaderService.displayLoader(true);
+            this.textService.processTransaction(model).subscribe(
+                data => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.success('Payment processed.'); // ?
+                    this.ref.markForCheck();
+                    console.log(data);
                 },
-                {
-                    "name": "HDMI cable",
-                    "unitPrice": "6000",
-                    "quantity": "1"
+                error => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.error("Error during processing! " + error);
+                    this.ref.markForCheck();
+                    //return Observable.throw(error);
                 }
-            ]
-        };
-        this.textService.processTransaction(body).subscribe(
-            data => {
-                //this.alertService.success('Document created.');
-                return true;
-            },
-            error => {
-                this.alertService.error("Error during processing! " + error);
- 
-            }
-        );
-    }    
+            );         
+        }         
+        //console.log(model, isValid);
+    }
                       
 }
-
