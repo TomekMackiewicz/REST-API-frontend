@@ -95,9 +95,9 @@ export class TextPreviewComponent implements OnInit {
             this.textService.processTransaction(model).subscribe(
                 data => {
                     this.loaderService.displayLoader(false);
-                    this.alertService.success('Payment processed.'); // ?
+                    //this.alertService.success('Payment processed.'); // ?
                     this.ref.markForCheck();
-                    console.log(data);
+                    window.open(data, '_blank');                    
                 },
                 error => {
                     this.loaderService.displayLoader(false);
@@ -107,7 +107,6 @@ export class TextPreviewComponent implements OnInit {
                 }
             );         
         }         
-        //console.log(model, isValid);
     }
                          
 }
