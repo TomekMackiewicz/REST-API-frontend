@@ -13,7 +13,7 @@
                     </p>
 
                     <form [formGroup]="paymentForm" novalidate (ngSubmit)="transaction(paymentForm.value, paymentForm.valid)">
-                        <input type="hidden" formControlName="totalAmount">
+<!--                        <input type="hidden" formControlName="totalAmount">-->
                         <div class="form-group" formGroupName="buyer">
                             <label for="email">Email</label>
                             <input type="text" class="form-control" id="email" formControlName="email">
@@ -42,27 +42,28 @@
                                 Last name is required.
                             </small>
                         </div>
-                        <div formGroupName="buyer">
+<!--                        <div formGroupName="buyer">
                             <input type="hidden" formControlName="language">
-                        </div>
-                        <div class="checkbox" formGroupName="settings">
+                        </div>-->
+<!--                        <div class="checkbox" formGroupName="settings">
                             <label>
                                 <input type="checkbox" formControlName="invoiceDisabled">
                                 Invoice?
                             </label>
-                        </div>    
-                        <div formGroupName="products">
-                            <input type="hidden" formControlName="name">
-                        </div>    
-                        <div formGroupName="products">
-                            <input type="hidden" formControlName="unitPrice">
-                        </div>
-                        <div formGroupName="products">
-                            <input type="hidden" formControlName="quantity">
+                        </div>    -->
+                        <div formArrayName="products">
+                            <div formGroupName="0">
+                                <input type="hidden" formControlName="name">
+                            </div>    
+                            <div formGroupName="0">
+                                <input type="hidden" formControlName="unitPrice">
+                            </div>
+                            <div formGroupName="0">
+                                <input type="hidden" formControlName="quantity">
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                    
+                    </form>                   
                 </div>                
             </div>
         </div>

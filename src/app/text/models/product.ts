@@ -1,7 +1,7 @@
 export class Product {
     name: string;
-    unitPrice: number;
-    quantity: number;
+    unitPrice: string;
+    quantity: string;
 
     constructor(data: any) {
         data = data || {};

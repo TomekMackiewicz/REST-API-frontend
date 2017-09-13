@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-//import { NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { TextService } from './text.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
@@ -22,7 +22,6 @@ import { PaymentForm } from './models/paymentForm';
 export class TextPreviewComponent implements OnInit {
 
     text: any;
-    //showToken: boolean = false;
 
     public paymentForm: FormGroup;
     public submitted: boolean;
@@ -52,27 +51,34 @@ export class TextPreviewComponent implements OnInit {
                     this.alertService.error("Error loading document! " + error);
                     this.loaderService.displayLoader(false);
                     this.ref.detectChanges(); // czy potrzebne?
-                }                 
-            );             
+                }
+            );
         this.paymentForm = this.fb.group({
-            totalAmount: [10000],
+            //totalAmount: ["10000"],
             buyer: this.fb.group({
                 email: ['', [<any>Validators.required, <any>Validators.email]],
                 phone: ['', [<any>Validators.required, <any>Validators.minLength(9)]],
                 firstName: ['', [<any>Validators.required]],
                 lastName: ['', [<any>Validators.required]],
-                language: ['pl']                
+                //language: ['pl']                
             }),
-            settings: this.fb.group({
-                invoiceDisabled: ['']
-            }),
-            products: this.fb.group({
-                name: ['legalForm'],
-                unitPrice: [10000],
-                quantity: [1]              
-            })            
+//            settings: this.fb.group({
+//                invoiceDisabled: ['']
+//            }),
+//            products: this.fb.group({
+//                name: ['legalForm'],
+//                unitPrice: ["10000"],
+//                quantity: ["1"]
+//            })
+            products: this.fb.array([
+                this.fb.group({
+                    name: ['legalForm'],
+                    unitPrice: ["10000"],
+                    quantity: ["1"]
+                })
+            ])                         
         });            
-                  
+                
     }    
 
     saveText() {
@@ -103,5 +109,5 @@ export class TextPreviewComponent implements OnInit {
         }         
         //console.log(model, isValid);
     }
-                      
+                         
 }

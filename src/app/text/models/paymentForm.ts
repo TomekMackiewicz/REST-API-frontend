@@ -3,7 +3,7 @@ import { Product } from './product';
 import { Settings } from './settings';
 
 export interface PaymentForm {
-    totalAmount: number;
+    totalAmount: string;
     buyer: Buyer;
     settings: Settings;
     products: Array<Product>;
