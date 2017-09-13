@@ -45,6 +45,7 @@ export class TextPreviewComponent implements OnInit {
                 data => { 
                     this.loaderService.displayLoader(false);
                     this.text = data;
+                    this.prepareForm(this.text.id);
                     this.ref.detectChanges(); 
                 },
                 error => {
@@ -53,8 +54,42 @@ export class TextPreviewComponent implements OnInit {
                     this.ref.detectChanges(); // czy potrzebne?
                 }
             );
+            
+//        this.paymentForm = this.fb.group({
+//            //totalAmount: ["10000"], // potem zmienna w configu
+//            id: this.fb.group({
+//                id: ['']
+//            }),
+//            buyer: this.fb.group({
+//                email: ['', [<any>Validators.required, <any>Validators.email]],
+//                phone: ['', [<any>Validators.required, <any>Validators.minLength(9)]],
+//                firstName: ['', [<any>Validators.required]],
+//                lastName: ['', [<any>Validators.required]],
+//                //language: ['pl']                
+//            }),
+////            settings: this.fb.group({
+////                invoiceDisabled: ['']
+////            }),
+////            products: this.fb.group({
+////                name: ['legalForm'],
+////                unitPrice: ["10000"],
+////                quantity: ["1"]
+////            })
+//            products: this.fb.array([
+//                this.fb.group({
+//                    name: ['legalForm'],
+//                    unitPrice: ["10000"],
+//                    quantity: ["1"]
+//                })
+//            ])                         
+//        });            
+                
+    }    
+
+    prepareForm(id) {
         this.paymentForm = this.fb.group({
-            //totalAmount: ["10000"],
+            //totalAmount: ["10000"], // potem zmienna w configu
+            id: id,
             buyer: this.fb.group({
                 email: ['', [<any>Validators.required, <any>Validators.email]],
                 phone: ['', [<any>Validators.required, <any>Validators.minLength(9)]],
@@ -77,16 +112,8 @@ export class TextPreviewComponent implements OnInit {
                     quantity: ["1"]
                 })
             ])                         
-        });            
-                
-    }    
-
-    saveText() {
-        //this.showToken = true;
-        //let blob = new Blob([this.text.body], {type: "text/plain;charset=utf-8"}); //type: 'application/pdf' 
-        //saveAs(blob, this.text.title+".txt");
-        this.router.navigateByUrl('texts/full/'+this.text.token);        
-    }     
+        });         
+    }
 
     transaction(model: PaymentForm, isValid: boolean) {
         //this.submitted = true; // set form submit to true
