@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <h2 class="text-center">Settings</h2>
+                <alert></alert>
+                <form [formGroup]="settingsForm" novalidate (ngSubmit)="updateSettings(settingsForm.value, settingsForm.valid)">
+                    <div class="form-group" formGroupName="settings">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="price" formControlName="price">
+                    </div>  
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

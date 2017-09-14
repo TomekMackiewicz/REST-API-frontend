@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpModule, Http } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from './alert/alert'; // do wywalenia, kiedy wstawię wszędzie, login jeszcze korzysta
 import { DocumentModule } from './document/document.module';
@@ -13,7 +13,7 @@ import { FormModule } from './form/form.module';
 import { TextModule } from './text/text.module';
 import { OrderModule } from './order/order.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { SettingsComponent } from './settings/settings.component';
 import { FrontComponent } from './front/front.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
@@ -43,6 +43,7 @@ export function HttpLoaderFactory(http: Http) {
         CategoriesModule,
         FileModule,
         FormModule,
+        ReactiveFormsModule,
         TextModule,
         OrderModule,
         AppRoutingModule,
@@ -56,7 +57,7 @@ export function HttpLoaderFactory(http: Http) {
     ],
     declarations: [
         AppComponent,
-        DashboardComponent,
+        SettingsComponent,
         FrontComponent,
         FooterComponent,
         LoginComponent,

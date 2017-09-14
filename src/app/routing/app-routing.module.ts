@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FrontComponent } from '../front/front.component';
-import { DashboardComponent } from '../dashboard/dashboard.component';
+import { SettingsComponent } from '../settings/settings.component';
 import { LoginComponent } from '../login/login.component';
 import { LogoutComponent } from '../logout/logout.component';
 import { PageNotFoundComponent } from '../404/page-not-found.component';
@@ -30,10 +30,10 @@ const routes: Routes = [
     {path: 'admin', 
         children: [
             { 
-                path: 'dashboard', 
-                component: DashboardComponent, 
+                path: 'settings', 
+                component: SettingsComponent, 
                 data: { 
-                    animation: { value: 'dashboard' }
+                    animation: { value: 'settings' }
                 }
             },               
         ],         
