@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 import { OrderService } from './order.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
+import { Order } from './model/order';
 
 @Component({
     selector: 'order-list',
@@ -12,7 +13,7 @@ import { LoaderService } from '../services/loader.service';
 
 export class OrderListComponent implements OnInit {
 
-    orders: any;
+    orders: Array<Order>;
 
     constructor(
         private orderService: OrderService,
