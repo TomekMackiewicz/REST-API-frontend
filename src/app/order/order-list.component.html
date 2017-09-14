@@ -40,8 +40,8 @@
                     <th>Token</th>
                 </tr>
                 <tr *ngFor="let order of orders | search:filter:query">
-                    <td>{{ order.totalAmount }}</td>
-                    <td>{{ order.unitPrice }}</td>
+                    <td>{{ order.totalAmount | currency:'PLN':false }}</td>
+                    <td>{{ order.unitPrice | currency:'PLN':false }}</td>
                     <td>{{ order.quantity }}</td>
                     <td>{{ order.name }}</td>
                     <td>{{ order.email }}</td>

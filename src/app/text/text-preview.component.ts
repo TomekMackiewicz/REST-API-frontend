@@ -53,7 +53,7 @@ export class TextPreviewComponent implements OnInit {
 
     prepareForm(text: any) {
         this.paymentForm = this.fb.group({
-            totalAmount: ["10000"], // potem zmienna w configu
+            totalAmount: ["12050"], // potem zmienna w configu
             id: text.id,
             buyer: this.fb.group({
                 email: ['', [<any>Validators.required, <any>Validators.email]],
@@ -68,7 +68,7 @@ export class TextPreviewComponent implements OnInit {
             products: this.fb.array([
                 this.fb.group({
                     name: text.title,
-                    unitPrice: ["10000"],
+                    unitPrice: ["12050"],
                     quantity: ["1"]
                 })
             ])                         
