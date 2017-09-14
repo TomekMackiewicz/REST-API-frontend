@@ -1,11 +1,31 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h3>Orders</h3>
+            <h2>Orders</h2>
             <alert></alert>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search by e-mail..." [(ngModel)]="query"> 
-            </div>          
+            <div class="jumbotron">
+                <h4>Search by...</h4>
+                <div class="radio">
+                    <label class="radio-inline">
+                        <input type="radio" value="name" id="name" name="searchBy" [(ngModel)]="filter">Name
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="email" id="email" name="searchBy" [(ngModel)]="filter">Email
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="phone" id="phone" name="searchBy" [(ngModel)]="filter">Phone
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="lastName" id="lastName" name="searchBy" [(ngModel)]="filter">Last name
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="date" id="date" name="searchBy" [(ngModel)]="filter">Date
+                    </label>
+                </div>
+                <div class="form-group">                
+                    <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="query"> 
+                </div> 
+            </div>
             <table *ngIf="orders" class="table">
                 <tr>
                     <th>Total</th>
@@ -19,7 +39,7 @@
                     <th>Date</th>
                     <th>Token</th>
                 </tr>
-                <tr *ngFor="let order of orders | search:'email':query">
+                <tr *ngFor="let order of orders | search:filter:query">
                     <td>{{ order.totalAmount }}</td>
                     <td>{{ order.unitPrice }}</td>
                     <td>{{ order.quantity }}</td>
