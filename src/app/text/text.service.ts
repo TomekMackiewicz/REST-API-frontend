@@ -19,11 +19,11 @@ export class TextService {
             .map((res: Response) => res.json());
     }
     
-    getTexts() {
-        return this.http.get
-            ('http://localhost:8000/texts')
-            .map((res: Response) => res.json());        
-    }
+//    getTexts() {
+//        return this.http.get
+//            ('http://localhost:8000/texts')
+//            .map((res: Response) => res.json());        
+//    }
 
     processTransaction(body: Object) {
         let headers = new Headers();

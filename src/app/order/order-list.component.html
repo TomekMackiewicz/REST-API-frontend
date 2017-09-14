@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Orders</h3>
+            <alert></alert>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search by e-mail..." [(ngModel)]="query"> 
+            </div>          
+            <table *ngIf="orders" class="table">
+                <tr>
+                    <th>Total</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Date</th>
+                    <th>Token</th>
+                </tr>
+                <tr *ngFor="let order of orders | search:'email':query">
+                    <td>{{ order.totalAmount }}</td>
+                    <td>{{ order.unitPrice }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.name }}</td>
+                    <td>{{ order.email }}</td>
+                    <td>{{ order.phone }}</td>
+                    <td>{{ order.firstName }}</td>
+                    <td>{{ order.lastName }}</td>
+                    <td>{{ order.date | date:'yyyy/MM/dd H:mm' }}</td>
+                    <td>{{ order.token }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

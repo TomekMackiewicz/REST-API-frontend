@@ -11,6 +11,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { FileModule } from './file/file.module';
 import { FormModule } from './form/form.module';
 import { TextModule } from './text/text.module';
+import { OrderModule } from './order/order.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FrontComponent } from './front/front.component';
@@ -43,6 +44,7 @@ export function HttpLoaderFactory(http: Http) {
         FileModule,
         FormModule,
         TextModule,
+        OrderModule,
         AppRoutingModule,
         TranslateModule.forRoot({
             loader: {

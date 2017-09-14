@@ -1,46 +1,45 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { TextService } from './text.service';
+import { OrderService } from './order.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 
 @Component({
-    selector: 'text-list',
-    templateUrl: './text-list.component.html',
-    providers: [ TextService ]
+    selector: 'order-list',
+    templateUrl: './order-list.component.html',
+    providers: [ OrderService ]
 })
 
-export class TextListComponent implements OnInit {
+export class OrderListComponent implements OnInit {
 
-    texts: any;
+    orders: any;
 
     constructor(
-        private textService: TextService,
+        private orderService: OrderService,
         private alertService: AlertService,
         private loaderService: LoaderService,
         private ref: ChangeDetectorRef        
     ) {}
         
     ngOnInit() {      
-        this.getTexts();                  
+        this.getOrders();                  
     }    
 
-    getTexts() {
+    getOrders() {
         this.loaderService.displayLoader(true);
-        this.textService.getTexts().subscribe(
+        this.orderService.getOrders().subscribe(
             data => {
                 this.loaderService.displayLoader(false);
-                this.texts = data;
+                this.orders = data;
                 this.ref.detectChanges();                
             },
             error => {
-                this.alertService.error("Error loading transactions! " + error);
+                this.alertService.error("Error loading orders! " + error);
                 this.loaderService.displayLoader(false);
                 this.ref.detectChanges();
                 return Observable.throw(error);
             }
         );
     }
-  
-                      
+                        
 }
