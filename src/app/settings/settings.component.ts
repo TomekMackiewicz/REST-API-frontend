@@ -8,7 +8,8 @@ import { SettingsService } from './settings.service';
 
 @Component({
     selector: 'settings',
-    templateUrl: './settings.component.html'
+    templateUrl: './settings.component.html',
+    providers: [ SettingsService ]
 })
 
 export class SettingsComponent implements OnInit {
@@ -25,7 +26,7 @@ export class SettingsComponent implements OnInit {
     ) {}
     
     ngOnInit() {
-        //this.getSettings();
+        this.getSettings();
         this.settingsForm = this.fb.group({
             settings: this.fb.group({
                 price: ['']
@@ -34,41 +35,41 @@ export class SettingsComponent implements OnInit {
                 
     }
 
-//    getSettings() {
-//        this.loaderService.displayLoader(true);
-//        this.settingsService.getSettings(1).subscribe(
-//            data => {
-//                this.settings = data;
-//                this.loaderService.displayLoader(false);
-//                this.ref.detectChanges();
-//            },
-//            error => {
-//                this.alertService.error("Error loading settings! " + error);
-//                this.loaderService.displayLoader(false);
-//                this.ref.detectChanges();
-//                return Observable.throw(error);
-//            }
-//        );
-//    }
+    getSettings() {
+        this.loaderService.displayLoader(true);
+        this.settingsService.getSettings(1).subscribe(
+            data => {
+                this.settings = data;
+                this.loaderService.displayLoader(false);
+                this.ref.detectChanges();
+            },
+            error => {
+                this.alertService.error("Error loading settings! " + error);
+                this.loaderService.displayLoader(false);
+                this.ref.detectChanges();
+                return Observable.throw(error);
+            }
+        );
+    }
 
     updateSettings(model: SettingsForm, isValid: boolean) {
-        console.log(model);
-//        if(isValid === true) { 
-//            this.loaderService.displayLoader(true);
-//            this.settingsService.updateSettings(model).subscribe(
-//                data => {
-//                    this.loaderService.displayLoader(false);
-//                    this.alertService.success('Settings updated.');
-//                    this.ref.markForCheck();                   
-//                },
-//                error => {
-//                    this.loaderService.displayLoader(false);
-//                    this.alertService.error("Error during updating settings! " + error);
-//                    this.ref.markForCheck();
-//                    return Observable.throw(error);
-//                }
-//            );         
-//        }         
+        //console.log(model);
+        if(isValid === true) { 
+            this.loaderService.displayLoader(true);
+            this.settingsService.updateSettings(model).subscribe(
+                data => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.success('Settings updated.');
+                    this.ref.markForCheck();                   
+                },
+                error => {
+                    this.loaderService.displayLoader(false);
+                    this.alertService.error("Error during updating settings! " + error);
+                    this.ref.markForCheck();
+                    return Observable.throw(error);
+                }
+            );         
+        }         
     }
         
 }
