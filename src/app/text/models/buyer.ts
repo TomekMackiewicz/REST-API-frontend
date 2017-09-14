@@ -3,7 +3,7 @@ export class Buyer {
     phone: string;
     firstName: string;
     lastName: string;
-    //language: string = "pl";
+    language: string = "pl";
 
     constructor(data: any) {
         data = data || {};
@@ -11,6 +11,6 @@ export class Buyer {
         this.phone = data.phone;
         this.firstName = data.firstName;
         this.lastName = data.lastName;
-        //this.language = data.language;
+        this.language = data.language;
     }
 }

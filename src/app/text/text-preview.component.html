@@ -11,9 +11,8 @@
                     <p class="text-center">
                         <a class="btn btn-primary btn-lg" role="button" (click)="saveText()">Pay and save</a>
                     </p>
-
                     <form [formGroup]="paymentForm" novalidate (ngSubmit)="transaction(paymentForm.value, paymentForm.valid)">
-<!--                        <input type="hidden" formControlName="totalAmount">-->
+                        <input type="hidden" formControlName="totalAmount">
                         <div class="form-group" formGroupName="buyer">
                             <label for="email">Email</label>
                             <input type="text" class="form-control" id="email" formControlName="email">
@@ -42,15 +41,15 @@
                                 Last name is required.
                             </small>
                         </div>
-<!--                        <div formGroupName="buyer">
+                        <div formGroupName="buyer">
                             <input type="hidden" formControlName="language">
-                        </div>-->
-<!--                        <div class="checkbox" formGroupName="settings">
+                        </div>
+                        <div class="checkbox" formGroupName="settings">
                             <label>
                                 <input type="checkbox" formControlName="invoiceDisabled">
                                 Invoice?
                             </label>
-                        </div>    -->
+                        </div>    
                         <div formArrayName="products">
                             <div formGroupName="0">
                                 <input type="hidden" formControlName="name">

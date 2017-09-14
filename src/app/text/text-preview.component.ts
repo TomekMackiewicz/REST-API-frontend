@@ -6,11 +6,6 @@ import { TextService } from './text.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 import { saveAs } from 'file-saver';
-
-//import { Payment } from './models/payment';
-//import { Buyer } from './models/buyer';
-//import { Product } from './models/product';
-
 import { PaymentForm } from './models/paymentForm';
 
 @Component({
@@ -45,7 +40,7 @@ export class TextPreviewComponent implements OnInit {
                 data => { 
                     this.loaderService.displayLoader(false);
                     this.text = data;
-                    this.prepareForm(this.text.id);
+                    this.prepareForm(this.text);
                     this.ref.detectChanges(); 
                 },
                 error => {
@@ -53,61 +48,26 @@ export class TextPreviewComponent implements OnInit {
                     this.loaderService.displayLoader(false);
                     this.ref.detectChanges(); // czy potrzebne?
                 }
-            );
-            
-//        this.paymentForm = this.fb.group({
-//            //totalAmount: ["10000"], // potem zmienna w configu
-//            id: this.fb.group({
-//                id: ['']
-//            }),
-//            buyer: this.fb.group({
-//                email: ['', [<any>Validators.required, <any>Validators.email]],
-//                phone: ['', [<any>Validators.required, <any>Validators.minLength(9)]],
-//                firstName: ['', [<any>Validators.required]],
-//                lastName: ['', [<any>Validators.required]],
-//                //language: ['pl']                
-//            }),
-////            settings: this.fb.group({
-////                invoiceDisabled: ['']
-////            }),
-////            products: this.fb.group({
-////                name: ['legalForm'],
-////                unitPrice: ["10000"],
-////                quantity: ["1"]
-////            })
-//            products: this.fb.array([
-//                this.fb.group({
-//                    name: ['legalForm'],
-//                    unitPrice: ["10000"],
-//                    quantity: ["1"]
-//                })
-//            ])                         
-//        });            
-                
+            );                
     }    
 
-    prepareForm(id) {
+    prepareForm(text: any) {
         this.paymentForm = this.fb.group({
-            //totalAmount: ["10000"], // potem zmienna w configu
-            id: id,
+            totalAmount: ["10000"], // potem zmienna w configu
+            id: text.id,
             buyer: this.fb.group({
                 email: ['', [<any>Validators.required, <any>Validators.email]],
                 phone: ['', [<any>Validators.required, <any>Validators.minLength(9)]],
                 firstName: ['', [<any>Validators.required]],
                 lastName: ['', [<any>Validators.required]],
-                //language: ['pl']                
+                language: ['pl']                
             }),
-//            settings: this.fb.group({
-//                invoiceDisabled: ['']
-//            }),
-//            products: this.fb.group({
-//                name: ['legalForm'],
-//                unitPrice: ["10000"],
-//                quantity: ["1"]
-//            })
+            settings: this.fb.group({
+                invoiceDisabled: ['']
+            }),
             products: this.fb.array([
                 this.fb.group({
-                    name: ['legalForm'],
+                    name: text.title,
                     unitPrice: ["10000"],
                     quantity: ["1"]
                 })
