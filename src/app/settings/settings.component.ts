@@ -28,11 +28,8 @@ export class SettingsComponent implements OnInit {
     ngOnInit() {
         this.getSettings();
         this.settingsForm = this.fb.group({
-            settings: this.fb.group({
-                price: ['']
-            })                         
-        });           
-                
+            price: ['']                         
+        });                           
     }
 
     getSettings() {
@@ -53,7 +50,6 @@ export class SettingsComponent implements OnInit {
     }
 
     updateSettings(model: SettingsForm, isValid: boolean) {
-        //console.log(model);
         if(isValid === true) { 
             this.loaderService.displayLoader(true);
             this.settingsService.updateSettings(model).subscribe(

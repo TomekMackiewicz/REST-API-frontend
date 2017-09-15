@@ -7,8 +7,8 @@
                 <form [formGroup]="settingsForm" 
                     novalidate 
                     (ngSubmit)="updateSettings(settingsForm.value, settingsForm.valid)"
-                     *ngIf="settings">
-                    <div class="form-group" formGroupName="settings">
+                    *ngIf="settings">
+                    <div class="form-group">
                         <label for="price">Price</label>
                         <input type="text" class="form-control" id="price" formControlName="price" [(ngModel)]="settings.price">
                     </div>  

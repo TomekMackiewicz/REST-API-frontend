@@ -1,21 +1,23 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+//import { Observable } from 'rxjs/Rx';
 import { NgForm, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { TextService } from './text.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
-import { saveAs } from 'file-saver';
+import { SettingsService } from '../settings/settings.service';
 import { PaymentForm } from './models/paymentForm';
 
 @Component({
     selector: 'text-preview',
     templateUrl: './text-preview.component.html',
-    providers: [ TextService ]
+    providers: [ TextService, SettingsService ]
 })
 
 export class TextPreviewComponent implements OnInit {
 
     text: any;
+    public settings: any;
 
     public paymentForm: FormGroup;
     public submitted: boolean;
@@ -27,32 +29,45 @@ export class TextPreviewComponent implements OnInit {
         private textService: TextService,
         private alertService: AlertService,
         private loaderService: LoaderService,
+        private settingsService: SettingsService,
         private ref: ChangeDetectorRef,
         private fb: FormBuilder
     ) {}
         
     ngOnInit() {
-        this.loaderService.displayLoader(true);      
+        this.loaderService.displayLoader(true);   
+        this.getSettings();   
         this.route.params
             .switchMap((params: Params) => this.textService.getTextByID(+params['id']))
             .subscribe(
                 data => { 
-                    this.loaderService.displayLoader(false);
                     this.text = data;
-                    this.prepareForm(this.text);
-                    this.ref.detectChanges(); 
+                    this.prepareForm(this.text, this.settings);
+                    this.ref.detectChanges();
+                    this.loaderService.displayLoader(false); 
                 },
                 error => {
                     this.alertService.error("Error loading document! " + error);
                     this.loaderService.displayLoader(false);
                     this.ref.detectChanges(); // czy potrzebne?
                 }
-            );                
+            );                               
     }    
 
-    prepareForm(text: any) {
+    getSettings() {
+        this.settingsService.getSettings(1).subscribe(
+            data => {
+                this.settings = data;
+            },
+            error => {
+                this.alertService.error("Error loading settings! " + error);
+            }
+        );
+    }
+
+    prepareForm(text: any, settings: any) {
         this.paymentForm = this.fb.group({
-            totalAmount: ["12050"], // potem zmienna w configu
+            totalAmount: settings.price,
             id: text.id,
             buyer: this.fb.group({
                 email: ['', [<any>Validators.required, <any>Validators.email]],
@@ -67,7 +82,7 @@ export class TextPreviewComponent implements OnInit {
             products: this.fb.array([
                 this.fb.group({
                     name: text.title,
-                    unitPrice: ["12050"],
+                    unitPrice: settings.price,
                     quantity: ["1"]
                 })
             ])                         
@@ -75,13 +90,11 @@ export class TextPreviewComponent implements OnInit {
     }
 
     transaction(model: PaymentForm, isValid: boolean) {
-        //this.submitted = true; // set form submit to true
         if(isValid === true) { 
             this.loaderService.displayLoader(true);
             this.textService.processTransaction(model).subscribe(
                 data => {
                     this.loaderService.displayLoader(false);
-                    //this.alertService.success('Payment processed.'); // ?
                     this.ref.markForCheck();
                     window.open(data, '_blank');                    
                 },
