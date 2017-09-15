@@ -28,7 +28,8 @@ export class SettingsComponent implements OnInit {
     ngOnInit() {
         this.getSettings();
         this.settingsForm = this.fb.group({
-            price: ['']                         
+            price: [''],
+            transition: ['']                         
         });                           
     }
 

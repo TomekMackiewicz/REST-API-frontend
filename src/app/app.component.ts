@@ -41,7 +41,7 @@ const fadeIn = [
     encapsulation: ViewEncapsulation.None,
     animations: [
         trigger('routerAnimations', [
-            transition('* => *', slide)
+            transition('* => *', fadeIn)
         ])
     ],    
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -49,6 +49,7 @@ const fadeIn = [
 
 export class AppComponent implements OnInit, OnDestroy {
 
+    //stateVal = 'slide';
     title = 'Main page';
     username: any;
     subscription: Subscription;
