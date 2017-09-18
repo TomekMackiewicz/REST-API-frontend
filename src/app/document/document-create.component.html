@@ -12,14 +12,14 @@
                                    class="form-control"
                                    id="document-title"
                                    name="document-title"
-                                   [(ngModel)]="document_title">
+                                   [(ngModel)]="document.title">
                         </div>
                         <div class="form-group">
                             <label for="document-body">Body</label>
                             <simple-tiny
                                 name="document-body"
                                 elementId="document-body"
-                                [(ngModel)]="document_body">
+                                [(ngModel)]="document.body">
                             </simple-tiny>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                         <alert></alert>
                         <button type="submit"
                                 class="btn btn-primary"
-                                (click)="createDocument(document_title, document_body)">
+                                (click)="createDocument(document.title, document.body)">
                                 Save</button> 
                         <button class="btn btn-default" (click)="goBack()">Back</button>
                     </div>

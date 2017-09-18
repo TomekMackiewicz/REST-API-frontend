@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Rx';
 import { CategoriesService } from './categories.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
+import { Category } from './model/category';
 //import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -17,7 +18,7 @@ import { LoaderService } from '../services/loader.service';
 
 export class CategoriesCreateComponent {
 
-    public category: Object;
+    public category: Category;
 
     constructor(
         private categoriesService: CategoriesService,

@@ -11,11 +11,11 @@
                            class="form-control"
                            id="category-name"
                            name="category-name"
-                           [(ngModel)]="category_name">
+                           [(ngModel)]="category.name">
                 </div>
                 <button type="submit"
                         class="btn btn-primary"
-                        (click)="createCategory(category_name)">
+                        (click)="createCategory(category.name)">
                     Save
                 </button>
                 <button class="btn btn-default" (click)="goBack()">Back</button>
