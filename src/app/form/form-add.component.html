@@ -73,31 +73,33 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="type">Type</label>
-                                        <select class="form-control" name="questionType" id="type" ngModel="{{types[0].value}}">
+                                        <select class="form-control" name="questionType" id="type" [ngModel]="selectedType" (ngModelChange)="onTypeSelect($event)">
                                             <option *ngFor="let type of types" [value]="type.value">  
                                                 {{type.display}}
                                             </option>
                                         </select>
                                     </div>
-                                    <label>Validation</label>  
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="validation" id="none" value="none" [(ngModel)]="selectedOption">
-                                            None
-                                        </label>
-                                    </div>                                    
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="validation" id="email" value="email" [(ngModel)]="selectedOption">
-                                            E-mail
-                                        </label>
-                                    </div>  
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="validation" id="code" value="code" [(ngModel)]="selectedOption">
-                                            Postal code
-                                        </label>
-                                    </div>  
+                                    <div *ngIf="selectedType == 'text'">
+                                        <label>Validation</label>  
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="validation" id="none" value="none" [(ngModel)]="selectedOption">
+                                                None
+                                            </label>
+                                        </div>                                    
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="validation" id="email" value="email" [(ngModel)]="selectedOption">
+                                                E-mail
+                                            </label>
+                                        </div>  
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="validation" id="code" value="code" [(ngModel)]="selectedOption">
+                                                Postal code
+                                            </label>
+                                        </div> 
+                                    </div>
                                     <label>Required?</label>
                                     <div class="checkbox">
                                         <label>
@@ -119,7 +121,7 @@
                 <div *ngFor="let question of form.questions | sort; let i = index">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            {{question.name}} (validation: {{question.validation}}, required: {{question.required}})
+                            {{question.name}} (type: {{question.questionType}}, validation: {{question.validation}}, required: {{question.required}})
                             <button type="button" class="btn btn-danger btn-xs pull-right" (click)="deleteQuestion(question.id, question.name)">
                                 <i class="ion-trash-a"></i>
                             </button>                        
@@ -128,8 +130,10 @@
                                     data-toggle="collapse" 
                                     [attr.data-target]="'#collapse_'+i"
                                     aria-expanded="false" 
-                                    aria-controls="collapse">
-                                <i class="ion-plus"></i>
+                                    aria-controls="collapse"
+                                    (click)="toogleOpen(i)">
+                                <i *ngIf="isOpen && iterator === i; else closed" class="ion-minus"></i>
+                                <ng-template #closed><i class="ion-plus"></i></ng-template>
                             </button>
                             <div class="collapse" id="collapse_{{i}}">
                                 <ng-container [ngSwitch]="true">

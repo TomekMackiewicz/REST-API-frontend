@@ -32,7 +32,10 @@ export class FormAddComponent implements OnInit {
         { value: 'checkbox', display: 'Checkbox' }
     ];
     public checked: boolean = true;
+    public selectedType: string = "text";
     public selectedOption: string = "none";
+    public isOpen: boolean = false;
+    public iterator: number;    
         
     constructor(
         private http: Http,
@@ -172,7 +175,17 @@ export class FormAddComponent implements OnInit {
     }    
 
     goBack(): void {
+        // prompt if any unsaved changes!
         this.location.back();
     } 
-                 
+
+    onTypeSelect(selectedType) {
+        this.selectedType = selectedType;
+    }    
+
+    toogleOpen(iterator: number) {
+        this.isOpen = !this.isOpen;
+        this.iterator = iterator;
+    }    
+                         
 }

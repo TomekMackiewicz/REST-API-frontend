@@ -123,7 +123,7 @@
                 <div *ngFor="let question of form.questions | sort; let i = index">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            {{question.name}} (validation: {{question.validation}}, required: {{question.required}})
+                            {{question.name}} (type: {{question.questionType}}, validation: {{question.validation}}, required: {{question.required}})
                             <button type="button" class="btn btn-danger btn-xs pull-right" (click)="deleteQuestion(question.id, question.name)">
                                 <i class="ion-trash-a"></i>
                             </button>                        
@@ -132,8 +132,10 @@
                                     data-toggle="collapse" 
                                     [attr.data-target]="'#collapse_'+i"
                                     aria-expanded="false" 
-                                    aria-controls="collapse">
-                                <i class="ion-plus"></i>
+                                    aria-controls="collapse"
+                                    (click)="toogleOpen(i)">
+                                <i *ngIf="isOpen && iterator === i; else closed" class="ion-minus"></i>
+                                <ng-template #closed><i class="ion-plus"></i></ng-template>
                             </button>
                             <div class="collapse" id="collapse_{{i}}">
                                 <ng-container [ngSwitch]="true">

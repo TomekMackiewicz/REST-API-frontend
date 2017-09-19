@@ -4,10 +4,10 @@ import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@a
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Location } from '@angular/common';
-import { Form } from './models/form';
-import { FormConfig } from './models/form-config';
-import { Question } from './models/question';
-import { Option } from './models/option';
+import { Form } from './models/form'; // niewykorzystane !!!
+import { FormConfig } from './models/form-config'; // niewykorzystane !!!
+import { Question } from './models/question'; // niewykorzystane !!!
+import { Option } from './models/option'; // niewykorzystane !!!
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
@@ -23,15 +23,17 @@ import { LoaderService } from '../services/loader.service';
 export class FormEditComponent implements OnInit {
 
     public form: any; 
-    public categories: any;
-    public selectedType: string = "text";     
+    public categories: any;    
     public types = [
         { value: 'text', display: 'Text' },
         { value: 'radio', display: 'Radio' },
         { value: 'checkbox', display: 'Checkbox' }
     ];
     public checked: boolean = true;
+    public selectedType: string = "text";     
     public selectedOption: string = "none";
+    public isOpen: boolean = false;
+    public iterator: number;
         
     constructor(
         private http: Http,
@@ -184,11 +186,17 @@ export class FormEditComponent implements OnInit {
     }    
 
     goBack(): void {
+        // prompt if any unsaved changes!
         this.location.back();
     } 
 
-    onTypeSelect(selectedType) {
+    onTypeSelect(selectedType: string) {
         this.selectedType = selectedType;
     }    
-                     
+
+    toogleOpen(iterator: number) {
+        this.isOpen = !this.isOpen;
+        this.iterator = iterator;
+    }
+                         
 }
