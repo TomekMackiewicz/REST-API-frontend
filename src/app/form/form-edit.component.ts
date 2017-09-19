@@ -23,7 +23,8 @@ import { LoaderService } from '../services/loader.service';
 export class FormEditComponent implements OnInit {
 
     public form: any; 
-    public categories: any;     
+    public categories: any;
+    public selectedType: string = "text";     
     public types = [
         { value: 'text', display: 'Text' },
         { value: 'radio', display: 'Radio' },
@@ -185,5 +186,9 @@ export class FormEditComponent implements OnInit {
     goBack(): void {
         this.location.back();
     } 
-                 
+
+    onTypeSelect(selectedType) {
+        this.selectedType = selectedType;
+    }    
+                     
 }
