@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
-import { Option, Question, Form } from './models/index';
+import { Option, Question, Form } from './models/index'; // option, question unused
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 

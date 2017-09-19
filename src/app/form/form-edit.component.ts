@@ -1,13 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
+import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Location } from '@angular/common';
-import { Form } from './models/form'; // niewykorzystane !!!
-import { FormConfig } from './models/form-config'; // niewykorzystane !!!
-import { Question } from './models/question'; // niewykorzystane !!!
-import { Option } from './models/option'; // niewykorzystane !!!
+import { Form, Question, Option } from './models/index';
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
@@ -22,7 +19,9 @@ import { LoaderService } from '../services/loader.service';
 
 export class FormEditComponent implements OnInit {
 
-    public form: any; 
+    public form: Form;
+    public questions: Array<Question>;
+    public options: Array<Option>; 
     public categories: any;    
     public types = [
         { value: 'text', display: 'Text' },
@@ -102,16 +101,9 @@ export class FormEditComponent implements OnInit {
         return this.form.categories;
     }
 
-    addQuestion(form: NgForm) {
-        let values = form.value;                   
-        let data = {        
-            name: values.name,
-            questionType: values.questionType,
-            validation: values.validation,
-            required: values.required,            
-            options: [],                  
-        };
-        this.form.questions.push(data);                                
+    addQuestion(form: NgForm) {                   
+        let question = new Question(form.value);
+        this.form.questions.push(question);                                
     }
     
     deleteQuestion(id: number, name: string) {
@@ -124,7 +116,7 @@ export class FormEditComponent implements OnInit {
                         return true;
                     },
                     error => {
-                        console.error("Error deleting question!");
+                        this.alertService.error("Error deleting question! " + error);
                         return Observable.throw(error);
                     }
                 );                           
@@ -132,11 +124,9 @@ export class FormEditComponent implements OnInit {
         }                        
     }      
         
-    addOption(question: any, name: string) {
-        let data = {        
-            name: name                
-        };                         
-        question.options.push(data);       
+    addOption(question: Question, name: string) {
+        let option = new Option({name: name, questionId: question.id});                        
+        question.options.push(option);       
     }
 
     deleteOption(question: any, id: number, name: string) {
@@ -149,7 +139,7 @@ export class FormEditComponent implements OnInit {
                         return true;
                     },
                     error => {
-                        console.error("Error deleting option!");
+                        this.alertService.error("Error deleting option! " + error);
                         return Observable.throw(error);
                     }
                 );                           
@@ -158,12 +148,10 @@ export class FormEditComponent implements OnInit {
     }
 
     saveForm() {
-        //console.log(this.form);
         let i = 0;
         for (let question of this.form.questions) {
             i++;
             question.sequence = i;
-            console.log(question);
         }
         if(this.form.name !== "") {
             this.loaderService.displayLoader(true);     

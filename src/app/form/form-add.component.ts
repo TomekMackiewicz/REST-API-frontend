@@ -1,12 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Location } from '@angular/common';
-import { Form } from './models/form';
-import { FormConfig } from './models/form-config';
-import { Question } from './models/question';
-import { Option } from './models/option';
+import { Form, Question, Option, FormConfig } from './models/index';
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
@@ -20,23 +17,25 @@ import { LoaderService } from '../services/loader.service';
 })
 
 export class FormAddComponent implements OnInit {
-    
-    private formOptions;
-    private formConfig;
-    private formProperties;
-    public form; 
-    public categories: any;            
-    public types = [
+
+    private form: Form;        
+    private formOptions: any;
+    private formProperties: any;
+    private formConfig: FormConfig;
+    private questions: Array<Question>;
+    private options: Array<Option>;
+    private categories: any;            
+    private checked: boolean = true;
+    private selectedType: string = "text";
+    private selectedOption: string = "none";
+    private isOpen: boolean = false;
+    private iterator: number;    
+    private types = [
         { value: 'text', display: 'Text' },
         { value: 'radio', display: 'Radio' },
         { value: 'checkbox', display: 'Checkbox' }
     ];
-    public checked: boolean = true;
-    public selectedType: string = "text";
-    public selectedOption: string = "none";
-    public isOpen: boolean = false;
-    public iterator: number;    
-        
+            
     constructor(
         private http: Http,
         private location: Location,
@@ -76,17 +75,9 @@ export class FormAddComponent implements OnInit {
         );
     }
 
-    addQuestion(form: NgForm) {
-        let values = form.value;                   
-        let data = {        
-            name: values.name,
-            questionType: values.questionType,
-            validation: values.validation,
-            required: values.required,
-            options: []                  
-        };
-        this.form.questions.push(data);
-        console.log(this.form.questions);                                
+    addQuestion(form: NgForm) {                   
+        let question = new Question(form.value);
+        this.form.questions.push(question);                                
     }
     
     deleteQuestion(id: number, name: string) {
@@ -99,7 +90,7 @@ export class FormAddComponent implements OnInit {
                         return true;
                     },
                     error => {
-                        console.error("Error deleting question!");
+                        this.alertService.error("Error deleting question! " + error);
                         return Observable.throw(error);
                     }
                 );                           
@@ -107,11 +98,10 @@ export class FormAddComponent implements OnInit {
         }                      
     }      
         
-    addOption(question: any, name: string) {
-        let data = {        
-            name: name                
-        };                         
-        question.options.push(data);       
+    addOption(question: Question, name: string) {
+        let option = new Option({name: name, questionId: question.id});                        
+        question.options.push(option);
+        console.log(question.options);       
     }
 
     deleteOption(question: any, id: number, name: string) {
@@ -124,7 +114,7 @@ export class FormAddComponent implements OnInit {
                         return true;
                     },
                     error => {
-                        console.error("Error deleting option!");
+                        this.alertService.error("Error deleting option! " + error);
                         return Observable.throw(error);
                     }
                 );                           
@@ -143,7 +133,7 @@ export class FormAddComponent implements OnInit {
             let index: number = this.form.categories.indexOf(this.form.categories.find(x => x.id === categoryId));
             this.form.categories.splice(index, 1);
         }
-        console.log(this.form.categories);
+        
         return this.form.categories;
     }
 
@@ -152,7 +142,6 @@ export class FormAddComponent implements OnInit {
         for (let question of this.form.questions) {
             i++;
             question.sequence = i;
-            console.log(question);
         }        
         if(this.form.name !== "") {
             this.loaderService.displayLoader(true);    

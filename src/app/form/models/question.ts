@@ -18,8 +18,10 @@ export class Question {
         this.validation = data.validation;
         this.required = data.required;
         this.options = [];
-        data.options.forEach(o => {
-            this.options.push(new Option(o));
-        });
+        if(data.options) {
+            data.options.forEach(o => {
+                this.options.push(new Option(o));
+            });            
+        }
     }
 }
