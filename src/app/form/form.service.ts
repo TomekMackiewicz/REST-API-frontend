@@ -42,7 +42,7 @@ export class FormService {
         let body = answer;
         
         return this.http.post
-            ('http://localhost:8000/answers', body, options);        
+            ('http://localhost:8000/texts', body, options);        
     }
 
     updateForm(form: any) {

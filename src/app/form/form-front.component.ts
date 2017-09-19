@@ -110,7 +110,7 @@ export class FormFrontComponent implements OnInit {
         this.formService.submitAnswers(values).subscribe(
             data => {
                 this.loaderService.displayLoader(false);
-                this.alertService.success('Form successfull submitted.'); // po co tu alert skoro redirect?
+                //this.alertService.success('Form successfull submitted.'); // po co tu alert skoro redirect?
                 let allow = true;
                 localStorage.setItem("allow", JSON.stringify(allow));
                 this.router.navigateByUrl('texts/preview/' + data.json());
