@@ -96,7 +96,6 @@ export class TextPreviewComponent implements OnInit {
                 data => {
                     this.loaderService.displayLoader(false);
                     this.ref.markForCheck();
-                    console.log(data);
                     window.open(data, '_blank');                    
                 },
                 error => {
