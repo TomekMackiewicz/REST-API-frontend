@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -8,6 +8,7 @@ import { Form, Question, Option } from './models/index';
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
+import { ComponentCanDeactivate } from '../guards/pending-changes.guard';
 //import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -17,22 +18,23 @@ import { LoaderService } from '../services/loader.service';
     //host: {'[@slideInOutAnimation]': ''}
 })
 
-export class FormEditComponent implements OnInit {
+export class FormEditComponent implements OnInit, ComponentCanDeactivate {
 
-    public form: Form;
-    public questions: Array<Question>;
-    public options: Array<Option>; 
-    public categories: any;    
-    public types = [
+    private form: Form;
+    private questions: Array<Question>;
+    private options: Array<Option>; 
+    private categories: any;    
+    private types = [
         { value: 'text', display: 'Text' },
         { value: 'radio', display: 'Radio' },
         { value: 'checkbox', display: 'Checkbox' }
     ];
-    public checked: boolean = true;
-    public selectedType: string = "text";     
-    public selectedOption: string = "none";
-    public isOpen: boolean = false;
-    public iterator: number;
+    private checked: boolean = true;
+    private selectedType: string = "text";     
+    private selectedOption: string = "none";
+    private isOpen: boolean = false;
+    private iterator: number;
+    private change: boolean = false;
         
     constructor(
         private http: Http,
@@ -43,6 +45,16 @@ export class FormEditComponent implements OnInit {
         private route: ActivatedRoute,
         private ref: ChangeDetectorRef        
     ) {}
+
+    // @HostListener allows us to also guard against browser refresh, close, etc.
+    @HostListener('window:beforeunload')
+    canDeactivate(): Observable<boolean> | boolean {
+        if(this.change !== false) {
+            return false; 
+        } else {
+            return true;
+        } 
+    }
 
     ngOnInit(): void {
         this.loaderService.displayLoader(true);
@@ -103,7 +115,8 @@ export class FormEditComponent implements OnInit {
 
     addQuestion(form: NgForm) {                   
         let question = new Question(form.value);
-        this.form.questions.push(question);                                
+        this.form.questions.push(question);
+        this.trackChanges(true);                                
     }
     
     deleteQuestion(id: number, name: string) {
@@ -121,12 +134,14 @@ export class FormEditComponent implements OnInit {
                     }
                 );                           
             }
+            this.trackChanges(true);
         }                        
     }      
         
     addOption(question: Question, name: string) {
         let option = new Option({name: name, questionId: question.id});                        
-        question.options.push(option);       
+        question.options.push(option); 
+        this.trackChanges(true);      
     }
 
     deleteOption(question: any, id: number, name: string) {
@@ -144,6 +159,7 @@ export class FormEditComponent implements OnInit {
                     }
                 );                           
             }
+            this.trackChanges(true);
         }                          
     }
 
@@ -154,7 +170,8 @@ export class FormEditComponent implements OnInit {
             question.sequence = i;
         }
         if(this.form.name !== "") {
-            this.loaderService.displayLoader(true);     
+            this.trackChanges(false); 
+            this.loaderService.displayLoader(true);             
             this.formService.updateForm(this.form).subscribe(
                 data => {
                     this.loaderService.displayLoader(false);
@@ -173,13 +190,17 @@ export class FormEditComponent implements OnInit {
         }
     }    
 
-    goBack(): void {
-        // prompt if any unsaved changes!
-        this.location.back();
-    } 
+    trackChanges(change: boolean) {
+        this.change = change;
+    }
+
+    goBack(): void {   
+        this.location.back();    
+    }
 
     onTypeSelect(selectedType: string) {
         this.selectedType = selectedType;
+        this.trackChanges(true);
     }    
 
     toogleOpen(iterator: number) {

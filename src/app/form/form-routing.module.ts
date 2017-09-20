@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
-
+import { PendingChangesGuard } from '../guards/pending-changes.guard';
 import { FormFrontComponent } from './form-front.component';
 import { FormAddComponent } from './form-add.component';
 import { FormEditComponent } from './form-edit.component';
@@ -12,8 +12,16 @@ import { FooterComponent } from '../footer/footer.component';
 const formRoutes: Routes = [
     { path: 'admin', 
         children: [
-            { path: 'forms/:id', component: FormEditComponent },
-            { path: 'form/add', component: FormAddComponent },
+            { 
+                path: 'forms/edit/:id', 
+                component: FormEditComponent, 
+                canDeactivate: [PendingChangesGuard] 
+            },
+            { 
+                path: 'forms/add', 
+                component: FormAddComponent, 
+                canDeactivate: [PendingChangesGuard] 
+            },
             { 
                 path: 'forms', 
                 component: FormListComponent,

@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <h3>Forms</h3>
             <alert></alert>             
-            <button class="btn btn-default" [routerLink]="['/admin/form/add']">Add new</button>
+            <button class="btn btn-default" [routerLink]="['/admin/forms/add']">Add new</button>
             <hr>           
             <table *ngIf="forms" class="table" [mfData]="forms" #mf="mfDataTable" [mfRowsOnPage]="10">
                 <thead>
@@ -22,7 +22,7 @@
                         <td>{{form.addDate | date:'yyyy/MM/dd H:mm'}}</td>
                         <td>{{form.modifiedDate | date:'yyyy/MM/dd H:mm'}}</td>
                         <td>
-                            <button class="btn btn-primary" [routerLink]="['/admin/forms', form.id]">Edit</button>
+                            <button class="btn btn-primary" [routerLink]="['/admin/forms/edit', form.id]">Edit</button>
                             <button class="btn btn-danger" (click)="deleteForm(form)">Delete</button>
                         </td>
                     </tr>

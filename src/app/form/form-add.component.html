@@ -12,10 +12,26 @@
             </div>             
             <div>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#title" aria-controls="title" role="tab" data-toggle="tab">Title & Description</a></li>
-                    <li role="presentation"><a href="#categories" aria-controls="categories" role="tab" data-toggle="tab">Categories</a></li>
-                    <li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab">Config</a></li>
-                    <li role="presentation"><a href="#questions" aria-controls="questions" role="tab" data-toggle="tab">Questions</a></li>
+                    <li role="presentation" class="active">
+                        <a href="#title" aria-controls="title" role="tab" data-toggle="tab">
+                            Title & Description
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#categories" aria-controls="categories" role="tab" data-toggle="tab">
+                            Categories
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#config" aria-controls="config" role="tab" data-toggle="tab">
+                            Config
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#questions" aria-controls="questions" role="tab" data-toggle="tab">
+                            Questions
+                        </a>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="title">
@@ -23,11 +39,22 @@
                             <div class="panel-body">                    
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input type="text" class="form-control" id="title" name="name" [(ngModel)]="form.name">
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="title" 
+                                           name="name" 
+                                           (ngModelChange)="trackChanges(true)"
+                                           [(ngModel)]="form.name">
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" id="description" name="description" [(ngModel)]="form.description" rows="3" ngModel></textarea>
+                                    <textarea class="form-control" 
+                                              id="description" 
+                                              name="description"
+                                              rows="3"
+                                              (ngModelChange)="trackChanges(true)"
+                                              [(ngModel)]="form.description">                                                  
+                                    </textarea>
                                 </div>
                             </div>
                         </div>                         
@@ -38,8 +65,10 @@
                                 <div class="checkbox" *ngFor="let category of categories">
                                     <label>
                                         <input type="checkbox"
-                                               (change)="assignCategories(category.id, category.name, $event.target.checked)">
-                                               {{category.name}}
+                                               (change)="assignCategories(category.id, category.name, $event.target.checked)"
+                                               (ngModelChange)="trackChanges(true)"
+                                               [(ngModel)]="category.name">
+                                        {{category.name}}
                                     </label>
                                 </div>                    
                             </div>
@@ -50,13 +79,19 @@
                             <div class="panel-body">                    
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="allowBack" [(ngModel)]="form.config.allowBack">
+                                        <input type="checkbox" 
+                                               name="allowBack" 
+                                               (ngModelChange)="trackChanges(true)"
+                                               [(ngModel)]="form.config.allowBack">
                                             Allow back
                                     </label>
                                 </div> 
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="showPager" [(ngModel)]="form.config.showPager">
+                                        <input type="checkbox" 
+                                               name="showPager" 
+                                               (ngModelChange)="trackChanges(true)"
+                                               [(ngModel)]="form.config.showPager">
                                             Show pager
                                     </label>
                                 </div>                      
@@ -66,14 +101,25 @@
                     <div role="tabpanel" class="tab-pane" id="questions">
                         <div class="panel panel-default">              
                             <div class="panel-body">
-                                <form #addQuestionForm="ngForm" (ngSubmit)="addQuestion(addQuestionForm)">
+                                <form #addQuestionForm="ngForm" 
+                                      (ngSubmit)="addQuestion(addQuestionForm)">
                                     <div class="form-group">
                                         <label for="message">Label</label>
-                                        <input type="text" class="form-control" id="message" name="name" placeholder="Question" ngModel>
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="message" 
+                                               name="name" 
+                                               placeholder="Question"
+                                               (ngModelChange)="trackChanges(true)"
+                                               ngModel>
                                     </div>
                                     <div class="form-group">
                                         <label for="type">Type</label>
-                                        <select class="form-control" name="questionType" id="type" [ngModel]="selectedType" (ngModelChange)="onTypeSelect($event)">
+                                        <select class="form-control" 
+                                                name="questionType" id="type" 
+                                                [ngModel]="selectedType" 
+                                                (ngModelChange)="onTypeSelect($event)">
+                                            <option value="" disabled selected>Select type</option>
                                             <option *ngFor="let type of types" [value]="type.value">  
                                                 {{type.display}}
                                             </option>
@@ -83,19 +129,34 @@
                                         <label>Validation</label>  
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="validation" id="none" value="none" [(ngModel)]="selectedOption">
+                                                <input type="radio" 
+                                                       name="validation" 
+                                                       id="none" 
+                                                       value="none" 
+                                                       (ngModelChange)="trackChanges(true)"
+                                                       [(ngModel)]="selectedOption">
                                                 None
                                             </label>
                                         </div>                                    
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="validation" id="email" value="email" [(ngModel)]="selectedOption">
+                                                <input type="radio" 
+                                                       name="validation" 
+                                                       id="email" 
+                                                       value="email" 
+                                                       (ngModelChange)="trackChanges(true)"
+                                                       [(ngModel)]="selectedOption">
                                                 E-mail
                                             </label>
                                         </div>  
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="validation" id="code" value="code" [(ngModel)]="selectedOption">
+                                                <input type="radio" 
+                                                       name="validation" 
+                                                       id="code" 
+                                                       value="code" 
+                                                       (ngModelChange)="trackChanges(true)"
+                                                       [(ngModel)]="selectedOption">
                                                 Postal code
                                             </label>
                                         </div> 
@@ -103,7 +164,12 @@
                                     <label>Required?</label>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="required" value="true" [(ngModel)]="checked"> Required
+                                            <input type="checkbox" 
+                                                   name="required" 
+                                                   value="true" 
+                                                   (ngModelChange)="trackChanges(true)"
+                                                   [(ngModel)]="checked"> 
+                                            Required
                                         </label>
                                     </div> 
                                     <div class="form-group">
@@ -121,8 +187,15 @@
                 <div *ngFor="let question of form.questions | sort; let i = index">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            {{question.name}} (type: {{question.questionType}}, validation: {{question.validation}}, required: {{question.required}})
-                            <button type="button" class="btn btn-danger btn-xs pull-right" (click)="deleteQuestion(question.id, question.name)">
+                            <span><strong>{{question.name}}</strong></span> 
+                            <span>(type: <strong>{{question.questionType}}</strong>,</span> 
+                            <span *ngIf="question.questionType === 'text'">
+                                validation: <strong>{{question.validation}}</strong>,
+                            </span> 
+                            <span>required: <strong>{{question.required}}</strong>)</span>
+                            <button type="button" 
+                                    class="btn btn-danger btn-xs pull-right" 
+                                    (click)="deleteQuestion(question.id, question.name)">
                                 <i class="ion-trash-a"></i>
                             </button>                        
                             <button class="btn btn-default btn-xs pull-right" 
@@ -138,49 +211,87 @@
                             <div class="collapse" id="collapse_{{i}}">
                                 <ng-container [ngSwitch]="true">
                                     <div class="well" *ngSwitchCase="question.questionType === 'checkbox'">
-                                        <label>Required?</label>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
+                                                <input type="checkbox" 
+                                                       name="required_{{i}}" 
+                                                       value="true" 
+                                                       (ngModelChange)="trackChanges(true)"
+                                                       [(ngModel)]="question.required"> 
+                                                Required?
                                             </label>
                                         </div>                                    
-                                        <input type="text" class="form-control" #checkboxName>
-                                        <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, checkboxName.value)">Add checkbox</button>
+                                        <input type="text" 
+                                               class="form-control"
+                                               (change)="trackChanges(true)"
+                                               #checkboxName>
+                                        <button type="button" 
+                                                class="btn btn-default btn-sm" 
+                                                (click)="addOption(question, checkboxName.value)">
+                                            Add checkbox
+                                        </button>
                                     </div>
                                     <div class="well" *ngSwitchCase="question.questionType === 'radio'">  
-                                        <label>Required?</label>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
+                                                <input type="checkbox" 
+                                                       name="required_{{i}}" 
+                                                       value="true" 
+                                                       (ngModelChange)="trackChanges(true)"
+                                                       [(ngModel)]="question.required"> 
+                                                Required?
                                             </label>
                                         </div>                                     
-                                        <input type="text" class="form-control" #radioName>
-                                        <button type="button" class="btn btn-default btn-sm" (click)="addOption(question, radioName.value)">Add radio</button>                                   
+                                        <input type="text" 
+                                               class="form-control"
+                                               (change)="trackChanges(true)"
+                                               #radioName>
+                                        <button type="button" 
+                                                class="btn btn-default btn-sm" 
+                                                (click)="addOption(question, radioName.value)">
+                                            Add radio
+                                        </button>                                   
                                     </div>
                                     <div class="well" *ngSwitchCase="question.questionType === 'text'">
                                         <label>Validation</label>  
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="validation_{{i}}" value="none" [(ngModel)]="question.validation">
+                                                <input type="radio" 
+                                                       name="validation_{{i}}" 
+                                                       value="none" 
+                                                       (ngModelChange)="trackChanges(true)"
+                                                       [(ngModel)]="question.validation">
                                                 None
                                             </label>
                                         </div>                                    
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="validation_{{i}}" value="email" [(ngModel)]="question.validation">
+                                                <input type="radio" 
+                                                       name="validation_{{i}}" 
+                                                       value="email" 
+                                                       (ngModelChange)="trackChanges(true)"
+                                                       [(ngModel)]="question.validation">
                                                 E-mail
                                             </label>
                                         </div>  
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="validation_{{i}}" value="code" [(ngModel)]="question.validation">
+                                                <input type="radio" 
+                                                       name="validation_{{i}}" 
+                                                       value="code" 
+                                                       (ngModelChange)="trackChanges(true)"
+                                                       [(ngModel)]="question.validation">
                                                 Postal code
                                             </label>
                                         </div>  
-                                        <label>Required?</label>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="required_{{i}}" value="true" [(ngModel)]="question.required"> Required
+                                                <input type="checkbox" 
+                                                       name="required_{{i}}" 
+                                                       value="true" 
+                                                       (ngModelChange)="trackChanges(true)"
+                                                       [(ngModel)]="question.required"> 
+                                                Required?
                                             </label>
                                         </div>                                    
                                     </div>                                 
@@ -190,19 +301,29 @@
                         <ng-container [ngSwitch]="true">
                             <!-- TEXT -->
                             <div class="panel-body" *ngSwitchCase="question.questionType === 'text'">
+                                <label>Question title</label>
                                 <input type="text" 
                                     class="form-control" 
-                                    name="question_{{i}}" 
+                                    name="question_{{i}}"
+                                    (ngModelChange)="trackChanges(true)"
                                     [(ngModel)]="question.name">
                             </div>
                             <!-- CHECKBOX -->
                             <div class="panel-body" *ngSwitchCase="question.questionType === 'checkbox'">
+                                <label>Question title</label>
+                                <input type="text" 
+                                    class="form-control" 
+                                    name="question_{{i}}"
+                                    (ngModelChange)="trackChanges(true)"
+                                    [(ngModel)]="question.name">                                 
                                 <div *ngFor="let checkbox of question.options"> 
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" disabled>
                                             {{checkbox.name}} 
-                                            <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, checkbox.id, checkbox.name)">
+                                            <button type="button" 
+                                                    class="btn btn-danger btn-xs" 
+                                                    (click)="deleteOption(question, checkbox.id, checkbox.name)">
                                                 <i class="ion-trash-a"></i>
                                             </button>
                                         </label>
@@ -211,12 +332,20 @@
                             </div>                       
                             <!-- RADIO -->
                             <div class="panel-body" *ngSwitchCase="question.questionType === 'radio'">
+                                <label>Question title</label>
+                                <input type="text" 
+                                    class="form-control" 
+                                    name="question_{{i}}"
+                                    (ngModelChange)="trackChanges(true)"
+                                    [(ngModel)]="question.name">                                 
                                 <div *ngFor="let radio of question.options">
                                     <div class="radio">
                                         <label>
                                             <input type="radio" disabled>
                                             {{radio.name}}
-                                            <button type="button" class="btn btn-danger btn-xs" (click)="deleteOption(question, radio.id, radio.name)">
+                                            <button type="button" 
+                                                    class="btn btn-danger btn-xs" 
+                                                    (click)="deleteOption(question, radio.id, radio.name)">
                                                 <i class="ion-trash-a"></i>
                                             </button>                            
                                         </label>

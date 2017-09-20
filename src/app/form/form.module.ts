@@ -13,6 +13,7 @@ import { AlertModule } from '../alert/alert';
 import { FormService } from './form.service';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { SequencePipe } from '../pipes/sequence.pipe';
+import { PendingChangesGuard } from '../guards/pending-changes.guard';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import { SequencePipe } from '../pipes/sequence.pipe';
         SequencePipe
     ],
     providers: [
-        FormService
+        FormService,
+        PendingChangesGuard
     ],
     //bootstrap: [ FormFrontComponent ]
 })

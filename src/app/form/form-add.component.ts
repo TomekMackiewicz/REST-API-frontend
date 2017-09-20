@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -7,6 +7,7 @@ import { Form, Question, Option, FormConfig } from './models/index';
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
+import { ComponentCanDeactivate } from '../guards/pending-changes.guard';
 //import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -16,7 +17,7 @@ import { LoaderService } from '../services/loader.service';
     //host: {'[@slideInOutAnimation]': ''}
 })
 
-export class FormAddComponent implements OnInit {
+export class FormAddComponent implements OnInit, ComponentCanDeactivate {
 
     private form: Form;        
     private formOptions: any;
@@ -29,7 +30,8 @@ export class FormAddComponent implements OnInit {
     private selectedType: string = "text";
     private selectedOption: string = "none";
     private isOpen: boolean = false;
-    private iterator: number;    
+    private iterator: number; 
+    private change: boolean = false;   
     private types = [
         { value: 'text', display: 'Text' },
         { value: 'radio', display: 'Radio' },
@@ -44,6 +46,16 @@ export class FormAddComponent implements OnInit {
         private loaderService: LoaderService,
         private ref: ChangeDetectorRef       
     ) {}
+
+    // @HostListener allows us to also guard against browser refresh, close, etc.
+    @HostListener('window:beforeunload')
+    canDeactivate(): Observable<boolean> | boolean {
+        if(this.change !== false) {
+            return false; 
+        } else {
+            return true;
+        } 
+    }
 
     ngOnInit(): void {
         this.formOptions = {
@@ -77,7 +89,8 @@ export class FormAddComponent implements OnInit {
 
     addQuestion(form: NgForm) {                   
         let question = new Question(form.value);
-        this.form.questions.push(question);                                
+        this.form.questions.push(question);
+        this.trackChanges(true);                                 
     }
     
     deleteQuestion(id: number, name: string) {
@@ -94,14 +107,15 @@ export class FormAddComponent implements OnInit {
                         return Observable.throw(error);
                     }
                 );                           
-            }  
+            }
+            this.trackChanges(true);   
         }                      
     }      
         
     addOption(question: Question, name: string) {
         let option = new Option({name: name, questionId: question.id});                        
         question.options.push(option);
-        console.log(question.options);       
+        this.trackChanges(true);       
     }
 
     deleteOption(question: any, id: number, name: string) {
@@ -119,6 +133,7 @@ export class FormAddComponent implements OnInit {
                     }
                 );                           
             }
+            this.trackChanges(true); 
         }                          
     }
 
@@ -144,7 +159,8 @@ export class FormAddComponent implements OnInit {
             question.sequence = i;
         }        
         if(this.form.name !== "") {
-            this.loaderService.displayLoader(true);    
+            this.trackChanges(false);
+            this.loaderService.displayLoader(true);               
             this.formService.createForm(this.form).subscribe(
                 data => {
                     this.loaderService.displayLoader(false);
@@ -163,10 +179,13 @@ export class FormAddComponent implements OnInit {
         }
     }    
 
-    goBack(): void {
-        // prompt if any unsaved changes!
-        this.location.back();
-    } 
+    trackChanges(change: boolean) {
+        this.change = change;
+    }
+
+    goBack(): void {   
+        this.location.back();    
+    }
 
     onTypeSelect(selectedType) {
         this.selectedType = selectedType;
