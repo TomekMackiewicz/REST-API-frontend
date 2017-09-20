@@ -9,6 +9,7 @@ import { DocumentEditComponent } from './document-edit.component';
 import { DocumentCreateComponent } from './document-create.component';
 import { DocumentService } from './document.service';
 import { DocumentRoutingModule } from './document-routing.module';
+import { PendingChangesGuard } from '../guards/pending-changes.guard';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { DocumentRoutingModule } from './document-routing.module';
         DocumentCreateComponent
     ],
     providers: [
-        DocumentService
+        DocumentService,
+        PendingChangesGuard
     ]
 })
 export class DocumentModule {}

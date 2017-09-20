@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
@@ -7,6 +7,9 @@ import { DocumentService } from './document.service';
 import { FormService } from '../form/form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
+import { Document } from './model/document';
+import { Form } from '../form/models/form';
+import { ComponentCanDeactivate } from '../guards/pending-changes.guard';
 //import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -16,11 +19,12 @@ import { LoaderService } from '../services/loader.service';
     //host: { '[@slideInOutAnimation]': '' }    
 })
 
-export class DocumentEditComponent implements OnInit {
+export class DocumentEditComponent implements OnInit, ComponentCanDeactivate {
 
-    public document: any;
-    public forms: any;
-    public currentForm: any;    
+    public document: Document;
+    public forms: Array<Form>;
+    public currentForm: Form;
+    private change: boolean = false;    
 
     constructor(
         private documentService: DocumentService,
@@ -32,6 +36,16 @@ export class DocumentEditComponent implements OnInit {
         private ref: ChangeDetectorRef
     ) {}
 
+    // @HostListener allows us to also guard against browser refresh, close, etc.
+    @HostListener('window:beforeunload')
+    canDeactivate(): Observable<boolean> | boolean {
+        if(this.change !== false) {
+            return false; 
+        } else {
+            return true;
+        } 
+    }
+
     ngOnInit(): void {
         this.loaderService.displayLoader(true);
         this.getForms();
@@ -41,7 +55,7 @@ export class DocumentEditComponent implements OnInit {
                 data => {
                     this.loaderService.displayLoader(false);                    
                     this.document = data;
-                    if(this.document.form) {
+                    if(this.document.form.id) {
                         this.initialForm(this.document.form.id);                    
                     };
                     this.ref.detectChanges();
@@ -55,13 +69,13 @@ export class DocumentEditComponent implements OnInit {
             );            
     }
 
-    updateDocument(id: number, title: string, body: any) {
+    updateDocument() {
         if (this.currentForm) {
             this.loaderService.displayLoader(true);            
-            let document = { id: id, title: title, body: body, formId: this.currentForm.id };
-            this.documentService.updateDocument(document).subscribe(
+            this.documentService.updateDocument(this.document).subscribe(
                 data => {
-                    this.loaderService.displayLoader(false); 
+                    this.loaderService.displayLoader(false);
+                    this.trackChanges(false); 
                     this.alertService.success('Document updated.');
                     this.ref.markForCheck();
                 },
@@ -97,6 +111,7 @@ export class DocumentEditComponent implements OnInit {
         this.formService.getForm(id).subscribe(
             data => { 
                 this.currentForm = data;
+                this.trackChanges(true);
                 this.ref.markForCheck(); 
             },
             error => this.alertService.error("Error changing form! " + error)
@@ -105,6 +120,10 @@ export class DocumentEditComponent implements OnInit {
 
     goBack(): void {
         this.location.back();
+    }
+
+    trackChanges(change: boolean) {
+        this.change = change;
     }
 
 }

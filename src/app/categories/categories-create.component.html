@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <h2>Create category</h2>
             <alert></alert>
-            <form>
+            <form *ngIf="category">
                 <div class="form-group">
                     <label for="category-name">Name</label>
                     <input type="text"

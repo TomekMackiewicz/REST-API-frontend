@@ -2,63 +2,67 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div *ngIf="document">
-                <h2>Update document</h2>                
-                <form>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="document-title">Title</label>
-                                <input type="text" 
-                                       class="form-control" 
-                                       id="document-title" 
-                                       name="document-title" [(ngModel)]="document.title">
-                            </div>
-                            <div class="form-group">
-                                <label for="document-body">Body</label>
-                                <simple-tiny
-                                    name="document-body"
-                                    elementId="document-body"
-                                    [(ngModel)]="document.body">
-                                </simple-tiny>
-                            </div>
+            <h2>Update document</h2>                
+            <form *ngIf="document">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="document-title">Title</label>
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="document-title"
+                                   (ngModelChange)="trackChanges(true)"
+                                   name="document-title" [(ngModel)]="document.title">
                         </div>
-                        <div class="col-md-4">
-                            <label *ngIf="currentForm">Current form: {{currentForm.name}}</label>
-                            <hr>
-                            <label>Browse forms</label>
-                            <select class="form-control" (change)="changeForm($event.target.value)">
-                                <option value="" selected disabled hidden>Choose form...</option> 
-                                <option *ngFor="let form of forms" value="{{form.id}}" [attr.disabled]="form.document">  
-                                    {{form.name}}
-                                </option>
-                            </select>
-                            <table class="table table-striped" *ngIf="currentForm">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                </tr>
-                                <tr *ngFor="let question of currentForm.questions">
-                                    <td>
-                                        {{question.id}}
-                                    </td>
-                                    <td>
-                                        {{question.name}}
-                                    </td>
-                                </tr>
-                            </table>
-                            <hr>                            
-                            <alert></alert>
-                            <button type="submit" 
-                                    class="btn btn-primary" 
-                                    (click)="updateDocument(document.id, document.title, document.body)">
-                                    Save
-                            </button>
-                            <button class="btn btn-default" (click)="goBack()">Back</button>
-                        </div>                        
+                        <div class="form-group">
+                            <label for="document-body">Body</label>
+                            <simple-tiny
+                                name="document-body"
+                                elementId="document-body"
+                                (ngModelChange)="trackChanges(true)"
+                                [(ngModel)]="document.body">
+                            </simple-tiny>
+                        </div>
                     </div>
-                </form>
-            </div>
+                    <div class="col-md-4">
+                        <label *ngIf="currentForm">Current form: {{currentForm.name}}</label>
+                        <hr>
+                        <label>Browse forms</label>
+                        <select *ngIf="forms" 
+                                class="form-control"
+                                name="selectedForm"
+                                (ngModelChange)="changeForm($event)"
+                                [(ngModel)]="document.form.id">
+                            <option [ngValue]="null" disabled hidden>Select form...</option>
+                            <option *ngFor="let form of forms" [value]="form.id" [attr.disabled]="form.document">  
+                                {{form.name}}
+                            </option>
+                        </select>                        
+                        <table class="table table-striped" *ngIf="currentForm">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                            </tr>
+                            <tr *ngFor="let question of currentForm.questions">
+                                <td>
+                                    {{question.id}}
+                                </td>
+                                <td>
+                                    {{question.name}}
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>                            
+                        <alert></alert>
+                        <button type="submit" 
+                                class="btn btn-primary" 
+                                (click)="updateDocument()">
+                                Save
+                        </button>
+                        <button class="btn btn-default" (click)="goBack()">Back</button>
+                    </div>                        
+                </div>
+            </form>
         </div>
     </div>
 </div>

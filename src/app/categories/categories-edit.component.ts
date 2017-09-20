@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Rx';
 import { CategoriesService } from './categories.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
+import { Category } from './model/category';
 //import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -17,7 +18,7 @@ import { LoaderService } from '../services/loader.service';
 
 export class CategoriesEditComponent implements OnInit {
 
-    public category: Object;
+    public category: Category;
 
     constructor(
         private categoriesService: CategoriesService,
@@ -51,9 +52,9 @@ export class CategoriesEditComponent implements OnInit {
         this.location.back();
     }
 
-    updateCategory(category: any) {
+    updateCategory() {
         this.loaderService.displayLoader(true);
-        this.categoriesService.updateCategory(category).subscribe(
+        this.categoriesService.updateCategory(this.category).subscribe(
             data => {
                 this.loaderService.displayLoader(false);
                 this.alertService.success('Category updated.');

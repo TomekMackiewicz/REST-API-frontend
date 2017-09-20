@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Create document</h2>
-            <form>
+            <form *ngIf="document">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
@@ -12,6 +12,7 @@
                                    class="form-control"
                                    id="document-title"
                                    name="document-title"
+                                   (ngModelChange)="trackChanges(true)"
                                    [(ngModel)]="document.title">
                         </div>
                         <div class="form-group">
@@ -19,15 +20,20 @@
                             <simple-tiny
                                 name="document-body"
                                 elementId="document-body"
+                                (ngModelChange)="trackChanges(true)"
                                 [(ngModel)]="document.body">
                             </simple-tiny>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <label>Browse forms</label>
-                        <select class="form-control" (change)="showForm($event.target.value)">
-                            <option value="" selected disabled hidden>Choose form...</option> 
-                            <option *ngFor="let form of forms" value="{{form.id}}" [attr.disabled]="form.document">  
+                        <select *ngIf="forms" 
+                                class="form-control"
+                                name="selectedForm"
+                                (ngModelChange)="showForm($event)"
+                                [(ngModel)]="document.form.id">
+                            <option [ngValue]="null" disabled hidden>Select form...</option>
+                            <option *ngFor="let form of forms" [value]="form.id" [attr.disabled]="form.document">  
                                 {{form.name}}
                             </option>
                         </select>
@@ -49,7 +55,7 @@
                         <alert></alert>
                         <button type="submit"
                                 class="btn btn-primary"
-                                (click)="createDocument(document.title, document.body)">
+                                (click)="createDocument()">
                                 Save</button> 
                         <button class="btn btn-default" (click)="goBack()">Back</button>
                     </div>

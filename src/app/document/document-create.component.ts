@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
@@ -7,6 +7,9 @@ import { DocumentService } from './document.service';
 import { FormService } from '../form/form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
+import { Document } from './model/document';
+import { Form } from '../form/models/form';
+import { ComponentCanDeactivate } from '../guards/pending-changes.guard';
 //import { slideInOutAnimation } from '../animations/index';
 
 @Component({
@@ -16,11 +19,13 @@ import { LoaderService } from '../services/loader.service';
     //host: {'[@slideInOutAnimation]': ''}
 })
 
-export class DocumentCreateComponent implements OnInit {
+export class DocumentCreateComponent implements OnInit, ComponentCanDeactivate {
     
-    public document: any;
-    public form: any;
-    public forms: any;
+    private document: Document;
+    private properties: any;
+    private form: Form;
+    private forms: Array<Form>;
+    private change: boolean = false;
 
     constructor(
         private documentService: DocumentService,
@@ -32,7 +37,26 @@ export class DocumentCreateComponent implements OnInit {
         private ref: ChangeDetectorRef
     ) {}
 
+    // @HostListener allows us to also guard against browser refresh, close, etc.
+    @HostListener('window:beforeunload')
+    canDeactivate(): Observable<boolean> | boolean {
+        if(this.change !== false) {
+            return false; 
+        } else {
+            return true;
+        } 
+    }
+
     ngOnInit() {
+        this.properties = {
+            id: null,
+            title: '',
+            body: '',
+            form: {
+                id: null
+            }
+        }
+        this.document = new Document(this.properties);
         this.getForms();
     }
 
@@ -40,13 +64,17 @@ export class DocumentCreateComponent implements OnInit {
         this.location.back();
     }
 
-    createDocument(title: string, body: string) {
+    trackChanges(change: boolean) {
+        this.change = change;
+    }
+
+    createDocument() {
         if (this.form) {
-            let document = { title: title, body: body, formId: this.form.id };
             this.loaderService.displayLoader(true); 
-            this.documentService.createDocument(document).subscribe(
+            this.documentService.createDocument(this.document).subscribe(
                 data => {
                     this.loaderService.displayLoader(false); 
+                    this.trackChanges(false);
                     this.alertService.success('Document created.');
                     this.ref.markForCheck();
                 },
@@ -60,7 +88,6 @@ export class DocumentCreateComponent implements OnInit {
         } else {
             this.alertService.error("Please choose the form.");
         }
-
     }
 
     getForms() {
@@ -79,6 +106,7 @@ export class DocumentCreateComponent implements OnInit {
         this.formService.getForm(id).subscribe(
             data => {
                 this.form = data;
+                this.trackChanges(true);
                 this.ref.detectChanges();
             },
             error => {

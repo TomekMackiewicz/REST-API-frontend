@@ -1,5 +1,5 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Rx';
@@ -16,9 +16,10 @@ import { Category } from './model/category';
     //host: { '[@slideInOutAnimation]': '' }    
 })
 
-export class CategoriesCreateComponent {
+export class CategoriesCreateComponent implements OnInit {
 
-    public category: Category;
+    private category: Category;
+    private name: string = null;
 
     constructor(
         private categoriesService: CategoriesService,
@@ -29,14 +30,19 @@ export class CategoriesCreateComponent {
         private ref: ChangeDetectorRef
     ) {}
 
+    ngOnInit(): void {
+        //this.name = {name: ''}
+        this.category = new Category(this.name);        
+    }
+
     goBack(): void {
         this.location.back();
     }
 
     createCategory(name: any) {
-        let category = {name: name};
+        //let category = {name: name};
         this.loaderService.displayLoader(true);
-        this.categoriesService.createCategory(category).subscribe(
+        this.categoriesService.createCategory(this.category).subscribe(
             data => {
                 this.loaderService.displayLoader(false);
                 this.alertService.success('Category created.');

@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <h3>Documents</h3>
             <alert></alert>            
-            <button class="btn btn-default" [routerLink]="['/admin/document/create']">Add new</button>
+            <button class="btn btn-default" [routerLink]="['/admin/documents/create']">Add new</button>
             <hr>
             <table class="table" [mfData]="documents" #mf="mfDataTable" [mfRowsOnPage]="10">
                 <thead>
@@ -23,7 +23,7 @@
                         <td>{{document.addDate | date:'yyyy/MM/dd H:mm'}}</td>
                         <td>{{document.modifiedDate | date:'yyyy/MM/dd H:mm'}}</td>
                         <td>
-                            <button class="btn btn-primary" [routerLink]="['/admin/documents', document.id]">Edit</button>
+                            <button class="btn btn-primary" [routerLink]="['/admin/documents/edit', document.id]">Edit</button>
                             <button class="btn btn-danger" (click)="deleteDocument(document)">Delete</button>
                         </td>
                     </tr>
