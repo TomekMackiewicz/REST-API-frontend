@@ -65,9 +65,7 @@
                                 <div class="checkbox" *ngFor="let category of categories">
                                     <label>
                                         <input type="checkbox"
-                                               (change)="assignCategories(category.id, category.name, $event.target.checked)"
-                                               (ngModelChange)="trackChanges(true)"
-                                               [(ngModel)]="category.name">
+                                               (change)="assignCategories(category.id, category.name, $event.target.checked)">
                                         {{category.name}}
                                     </label>
                                 </div>                    
@@ -119,7 +117,6 @@
                                                 name="questionType" id="type" 
                                                 [ngModel]="selectedType" 
                                                 (ngModelChange)="onTypeSelect($event)">
-                                            <option value="" disabled selected>Select type</option>
                                             <option *ngFor="let type of types" [value]="type.value">  
                                                 {{type.display}}
                                             </option>

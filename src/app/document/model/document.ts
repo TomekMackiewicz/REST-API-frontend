@@ -7,7 +7,14 @@ export class Document {
     form: Form;
 
     constructor(data: any) {
-        data = data || {};
+        data = data || {
+            id: null,
+            title: '',
+            body: '',
+            form: {
+                id: null
+            }            
+        };
         this.id = data.id;
         this.title = data.title;
         this.body = data.body;

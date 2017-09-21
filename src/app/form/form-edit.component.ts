@@ -88,7 +88,10 @@ export class FormEditComponent implements OnInit, ComponentCanDeactivate {
             }
         );
     }
-
+    
+    /**
+     * Categories assigned to this form are checked on init
+     */
     findCategories(categoryId: number, formCategories: any[]) {
         let i: number = 0;
         while (i < formCategories.length) {
@@ -98,8 +101,12 @@ export class FormEditComponent implements OnInit, ComponentCanDeactivate {
             ++i;
         }
     }
-
+    
+    /**
+     * Add new categories to the form
+     */
     assignCategories(categoryId: number, categoryName: string, isChecked: boolean) {
+        this.trackChanges(true);
         if (isChecked) {
             if (this.form.categories.some(x => x.id === categoryId)) {
                 return;

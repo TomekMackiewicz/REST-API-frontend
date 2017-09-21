@@ -20,9 +20,11 @@ import { ComponentCanDeactivate } from '../guards/pending-changes.guard';
 export class FormAddComponent implements OnInit, ComponentCanDeactivate {
 
     private form: Form;        
-    private formOptions: any;
-    private formProperties: any;
-    private formConfig: FormConfig;
+    private formOptions: Object = {
+        allowBack: false,
+        showPager: false,
+    }    
+    private formConfig: FormConfig;    
     private questions: Array<Question>;
     private options: Array<Option>;
     private categories: any;            
@@ -32,6 +34,13 @@ export class FormAddComponent implements OnInit, ComponentCanDeactivate {
     private isOpen: boolean = false;
     private iterator: number; 
     private change: boolean = false;   
+    private formProperties: Object = {
+        name: '',
+        description: '',
+        config: this.formConfig,
+        questions: [],
+        categories: []
+    };       
     private types = [
         { value: 'text', display: 'Text' },
         { value: 'radio', display: 'Radio' },
@@ -58,18 +67,7 @@ export class FormAddComponent implements OnInit, ComponentCanDeactivate {
     }
 
     ngOnInit(): void {
-        this.formOptions = {
-            allowBack: false,
-            showPager: false,
-        }    
         this.formConfig = new FormConfig(this.formOptions);
-        this.formProperties = {
-            name: '',
-            description: '',
-            config: this.formConfig,
-            questions: [],
-            categories: []
-        }
         this.form = new Form(this.formProperties);
         this.getCategories();
     }       
@@ -138,6 +136,7 @@ export class FormAddComponent implements OnInit, ComponentCanDeactivate {
     }
 
     assignCategories(categoryId: number, categoryName: string, isChecked: boolean) {
+        this.trackChanges(true);
         if (isChecked) {
             if (this.form.categories.some(x => x.id === categoryId)) {
                 return;

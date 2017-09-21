@@ -22,11 +22,18 @@ import { ComponentCanDeactivate } from '../guards/pending-changes.guard';
 export class DocumentCreateComponent implements OnInit, ComponentCanDeactivate {
     
     private document: Document;
-    private properties: any;
     private form: Form;
     private forms: Array<Form>;
     private change: boolean = false;
-
+    private properties: Object = {
+        id: null,
+        title: '',
+        body: '',
+        form: {
+            id: null
+        }
+    }
+    
     constructor(
         private documentService: DocumentService,
         private formService: FormService,
@@ -48,14 +55,6 @@ export class DocumentCreateComponent implements OnInit, ComponentCanDeactivate {
     }
 
     ngOnInit() {
-        this.properties = {
-            id: null,
-            title: '',
-            body: '',
-            form: {
-                id: null
-            }
-        }
         this.document = new Document(this.properties);
         this.getForms();
     }

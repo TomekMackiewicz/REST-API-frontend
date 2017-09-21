@@ -31,7 +31,6 @@ export class CategoriesCreateComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        //this.name = {name: ''}
         this.category = new Category(this.name);        
     }
 
@@ -40,7 +39,6 @@ export class CategoriesCreateComponent implements OnInit {
     }
 
     createCategory(name: any) {
-        //let category = {name: name};
         this.loaderService.displayLoader(true);
         this.categoriesService.createCategory(this.category).subscribe(
             data => {
