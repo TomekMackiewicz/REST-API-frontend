@@ -53,7 +53,7 @@ export class CategoriesFrontComponent implements OnInit {
      */
     filterForms(forms: Array<Form>) {
         for(let form of forms) {
-            if(form.document !== null) {
+            if(form.document !== undefined) {
                 this.filteredForms.push(form);                
             }
         }
