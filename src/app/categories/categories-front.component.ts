@@ -13,7 +13,7 @@ import { AlertService } from '../alert/alert.service';
 
 export class CategoriesFrontComponent implements OnInit {
 
-    public category: any;
+    public category: any; // object
 
     constructor(
         private categoriesService: CategoriesService,
@@ -30,7 +30,8 @@ export class CategoriesFrontComponent implements OnInit {
             .subscribe(
                 data => { 
                     this.loaderService.displayLoader(false);
-                    this.category = data; 
+                    this.category = data;
+                    console.log(this.category); 
                     this.ref.detectChanges();
                 },
                 error => {

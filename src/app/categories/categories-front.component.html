@@ -4,23 +4,36 @@
             <div *ngIf="category">
                 <h1>{{category.name}}</h1>
                 <alert></alert>
-                <table class="table" [mfData]="category.forms" #mf="mfDataTable" [mfRowsOnPage]="10">
+                <table class="table table-striped" 
+                       [mfData]="category.forms" 
+                       #mf="mfDataTable" 
+                       [mfRowsOnPage]="10">
                     <thead>
                         <tr>
-                            <th><mfDefaultSorter by="title">Title</mfDefaultSorter></th>
-                    </tr>
+                            <th>
+                                <mfDefaultSorter by="title">
+                                    Title
+                                </mfDefaultSorter>
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let form of mf.data">
-                            <td><h3><a [routerLink]="['/forms', form.id]">{{form.name}}</a></h3></td>
+                            <td *ngIf="form.document">
+                                <h3>
+                                    <a [routerLink]="['/forms', form.id]">
+                                        {{form.name}}
+                                    </a>
+                                </h3>
+                            </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="4">
-                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-                    </td>
-                    </tr>
+                                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                            </td>
+                        </tr>
                     </tfoot>
                 </table>
             </div>
