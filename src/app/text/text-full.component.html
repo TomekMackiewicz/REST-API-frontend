@@ -9,7 +9,7 @@
                     <button class="btn btn-primary" (click)="downloadDOC()">download DOC</button>
                 </div> 
                 <div class="jumbotron">
-                    <h2 class="text-center">{{text.title}}</h2>
+                    <h2 class="text-center" [innerHTML]="text.title | safeHtml"></h2>
                     <div [innerHTML]="text.body | safeHtml"></div> 
                 </div>
             </div>

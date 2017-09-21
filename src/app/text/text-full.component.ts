@@ -44,7 +44,12 @@ export class TextFullComponent implements OnInit {
     }    
 
     downloadPDF() {
-        this.htmlToText();
+//        let title = '<h1 style="text-align: center;">' + this.text.title + '</h1>';
+//        let body = this.text.body;
+//        let content = title.concat(body);
+//        let blob = new Blob([content], {type: "application/pdf;charset=utf-8"});
+//        saveAs(blob, this.text.title + ".pdf");          
+        //this.htmlToText();
         var doc = new jsPDF();
         doc.text(20, 20, this.text.title);
         doc.text(20, 30, this.text.body);
@@ -54,16 +59,10 @@ export class TextFullComponent implements OnInit {
     }
 
     downloadDOC() {
-        this.htmlToText();
-        let blob = new Blob([this.text.body], {type: "text/plain;charset=utf-8"}); //type: 'application/pdf' 
+        let title = '<h1 style="text-align: center;">' + this.text.title + '</h1>';
+        let body = this.text.body;
+        let content = title.concat(body);
+        let blob = new Blob([content], {type: "text/plain;charset=utf-8"});
         saveAs(blob, this.text.title + ".doc");        
-    }     
-
-    htmlToText() {
-        var htmlToText = require('html-to-text');
-        this.text.body = htmlToText.fromString(this.text.body, {
-            wordwrap: 80,
-            preserveNewlines: true,
-        });  
-    }                      
+    }                     
 }

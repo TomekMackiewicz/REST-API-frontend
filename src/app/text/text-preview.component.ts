@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-//import { Observable } from 'rxjs/Rx';
-import { NgForm, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TextService } from './text.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
@@ -16,12 +15,11 @@ import { PaymentForm } from './model/paymentForm';
 
 export class TextPreviewComponent implements OnInit {
 
-    text: any;
-    public settings: any;
-
-    public paymentForm: FormGroup;
-    public submitted: boolean;
-    public events: any[] = [];
+    private text: any;
+    private settings: any;
+    private paymentForm: FormGroup;
+    private submitted: boolean;
+    private events: any[] = [];
 
     constructor(
         private route: ActivatedRoute,
@@ -102,7 +100,6 @@ export class TextPreviewComponent implements OnInit {
                     this.loaderService.displayLoader(false);
                     this.alertService.error("Error during processing! " + error);
                     this.ref.markForCheck();
-                    //return Observable.throw(error);
                 }
             );         
         }         
