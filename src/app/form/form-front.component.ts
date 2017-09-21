@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormService } from './form.service';
 import { FormHelperService } from '../services/form-helper.service';
-import { Option, Question, Form } from './models/index'; // option, question unused
+import { Option, Question, Form } from './model/index'; // option, question unused
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 
@@ -105,14 +105,11 @@ export class FormFrontComponent implements OnInit {
 
     submitForm(form: NgForm) {
         this.loaderService.displayLoader(true);       
-        let values = form.value;
-        //console.log(values);     
+        let values = form.value;  
         this.formService.submitAnswers(values).subscribe(
             data => {
                 this.loaderService.displayLoader(false);
-                //this.alertService.success('Form successfull submitted.'); // po co tu alert skoro redirect?
-                let allow = true;
-                localStorage.setItem("allow", JSON.stringify(allow));
+                localStorage.setItem("allow", JSON.stringify(true));
                 this.router.navigateByUrl('texts/preview/' + data.json());
                 this.ref.markForCheck();
             },

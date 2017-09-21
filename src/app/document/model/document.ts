@@ -1,4 +1,4 @@
-import { Form } from '../../form/models/form';
+import { Form } from '../../form/model/form';
 
 export class Document {
     id: number;
@@ -7,14 +7,7 @@ export class Document {
     form: Form;
 
     constructor(data: any) {
-        data = data || {
-            id: null,
-            title: '',
-            body: '',
-            form: {
-                id: null
-            }            
-        };
+        data = data || {};
         this.id = data.id;
         this.title = data.title;
         this.body = data.body;

@@ -8,7 +8,7 @@ import { FormService } from '../form/form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 import { Document } from './model/document';
-import { Form } from '../form/models/form';
+import { Form } from '../form/model/form';
 import { ComponentCanDeactivate } from '../guards/pending-changes.guard';
 //import { slideInOutAnimation } from '../animations/index';
 

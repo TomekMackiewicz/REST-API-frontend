@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Location } from '@angular/common';
-import { Form, Question, Option, FormConfig } from './models/index';
+import { Form, Question, Option, FormConfig } from './model/index';
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';

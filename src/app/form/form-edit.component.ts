@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Location } from '@angular/common';
-import { Form, Question, Option } from './models/index';
+import { Form, Question, Option } from './model/index';
 import { FormService } from './form.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
@@ -92,10 +92,10 @@ export class FormEditComponent implements OnInit, ComponentCanDeactivate {
     /**
      * Categories assigned to this form are checked on init
      */
-    findCategories(categoryId: number, formCategories: any[]) {
+    findCategories(categoryId: number) {
         let i: number = 0;
-        while (i < formCategories.length) {
-            if (categoryId === formCategories[i].id) {
+        while (i < this.form.categories.length) {
+            if (categoryId === this.form.categories[i].id) {
                 return true;
             }
             ++i;
@@ -117,6 +117,7 @@ export class FormEditComponent implements OnInit, ComponentCanDeactivate {
             let index: number = this.form.categories.indexOf(this.form.categories.find(x => x.id === categoryId));
             this.form.categories.splice(index, 1);
         }
+        
         return this.form.categories;
     }
 

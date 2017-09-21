@@ -65,7 +65,7 @@
                                 <div class="checkbox" *ngFor="let category of categories">
                                     <label>
                                         <input type="checkbox"
-                                               [checked]="findCategories(category.id, form.categories)"
+                                               [checked]="findCategories(category.id)"
                                                (change)="assignCategories(category.id, category.name, $event.target.checked)">
                                         {{category.name}}
                                     </label>

@@ -6,7 +6,7 @@ import { TextService } from './text.service';
 import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 import { SettingsService } from '../settings/settings.service';
-import { PaymentForm } from './models/paymentForm';
+import { PaymentForm } from './model/paymentForm';
 
 @Component({
     selector: 'text-preview',
