@@ -4,8 +4,9 @@
             <div *ngIf="category">
                 <h1>{{category.name}}</h1>
                 <alert></alert>
-                <table class="table table-striped" 
-                       [mfData]="category.forms" 
+                <table class="table table-striped"
+                       *ngIf="filteredForms.length > 0; else no_forms"
+                       [mfData]="filteredForms" 
                        #mf="mfDataTable" 
                        [mfRowsOnPage]="10">
                     <thead>
@@ -19,7 +20,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let form of mf.data">
-                            <td *ngIf="form.document">
+                            <td>
                                 <h3>
                                     <a [routerLink]="['/forms', form.id]">
                                         {{form.name}}
@@ -36,6 +37,7 @@
                         </tr>
                     </tfoot>
                 </table>
+                <ng-template #no_forms>No forms (yet) for this category...</ng-template>
             </div>
         </div>
     </div>

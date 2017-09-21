@@ -1,6 +1,7 @@
 import { FormConfig } from './form-config';
 import { Question } from './question';
 import { Category } from './category';
+import { Document } from '../../document/model/document';
 
 export class Form {
     id: number;
@@ -9,6 +10,7 @@ export class Form {
     config: FormConfig;
     questions: Question[];
     categories: Category[];
+    document: Document;
 
     constructor(data: any) {
         if (data) {
@@ -18,6 +20,7 @@ export class Form {
             this.config = new FormConfig(data.config);
             this.questions = [];
             this.categories = [];
+            this.document = data.document;
             data.questions.forEach(q => {
                 this.questions.push(new Question(q));
             });
