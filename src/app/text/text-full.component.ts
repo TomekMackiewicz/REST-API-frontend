@@ -55,12 +55,12 @@ export class TextFullComponent implements OnInit {
     downloadPDF() {
         html2canvas(document.getElementById('canvas'))
             .then((canvas) => {   
-                var imgWidth = 210;
-                var pageHeight = 295;
-                var imgHeight = canvas.height * imgWidth / canvas.width;
-                var heightLeft = imgHeight;                            
+                let imgWidth = 210;
+                let pageHeight = 295;
+                let imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;                            
                 let doc = new jsPDF('p', 'mm'); 
-                var position = 0;
+                let position = 0;
                                
                 doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight);               
                 heightLeft -= pageHeight; 
