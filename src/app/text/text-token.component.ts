@@ -1,29 +1,43 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
-//import { TextService } from './text.service';
-//import { saveAs } from 'file-saver';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
-//import { LoaderService } from '../services/loader.service';
-//import { Text } from './model/text';
 
 @Component({
     selector: 'text-token',
-    templateUrl: './text-token.component.html',
-    //providers: [ TextService ]
+    templateUrl: './text-token.component.html'
 })
 
-export class TextTokenComponent {
+export class TextTokenComponent implements OnInit {
     
     private token: number;
+    private error: boolean;
     
     constructor(
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute,
+        private alertService: AlertService       
     ) {}    
+
+    ngOnInit() { 
+        this.error = this.isEmpty(this.route.snapshot.queryParams['error']);
+        if(this.error) {
+            this.alertService.error("Transaction failed!");
+        }          
+    } 
 
     redirect() {
         console.log(this.token);
-        this.router.navigate(['/texts/full/' + this.token]);
+        console.log(this.error); 
+        //this.router.navigate(['/texts/full/' + this.token]);
     }
-   
+
+    isEmpty(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key)) {
+                return false;                
+            }
+        }
+        return true;
+    }       
                                 
 }
