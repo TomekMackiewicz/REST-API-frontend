@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataTableModule } from "angular2-datatable";
-import { AlertModule } from '../alert/alert';
+import { AlertModule } from '../alert/alert.module';
 import { TinyEditorModule } from '../tiny-editor/tiny-editor';
 import { DocumentListComponent } from './document-list.component';
 import { DocumentEditComponent } from './document-edit.component';

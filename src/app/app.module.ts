@@ -5,7 +5,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpModule, Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AlertModule } from './alert/alert'; // do wywalenia, kiedy wstawię wszędzie, login jeszcze korzysta
+import { AlertModule } from './alert/alert.module'; // do wywalenia, kiedy wstawię wszędzie, login jeszcze korzysta
 import { DocumentModule } from './document/document.module';
 import { CategoriesModule } from './categories/categories.module';
 import { FileModule } from './file/file.module';

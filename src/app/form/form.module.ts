@@ -9,7 +9,7 @@ import { FormAddComponent } from './form-add.component';
 import { FormListComponent } from './form-list.component';
 import { FormEditComponent } from './form-edit.component';
 import { FormRoutingModule } from './form-routing.module';
-import { AlertModule } from '../alert/alert';
+import { AlertModule } from '../alert/alert.module';
 import { FormService } from './form.service';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { SequencePipe } from '../pipes/sequence.pipe';

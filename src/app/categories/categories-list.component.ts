@@ -49,6 +49,7 @@ export class CategoriesListComponent implements OnInit {
                     this.getCategories();
                     this.loaderService.displayLoader(false); // potrzebne tu?
                     this.ref.markForCheck(); // potrzebne tu?
+                    this.alertService.success("Category deleted.");
                 },
                 error => {
                     this.loaderService.displayLoader(false);

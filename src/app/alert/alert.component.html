@@ -5,4 +5,5 @@
     'alert-danger': message.type === 'error'
     }">
     {{message.text}}
+    <a class="close" (click)="removeAlert(message)">&times;</a>
 </div>

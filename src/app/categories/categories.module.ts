@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'; // ?
 import { FormsModule } from '@angular/forms'; // ?
 import { DataTableModule } from "angular2-datatable";
-import { AlertModule } from '../alert/alert';
+import { AlertModule } from '../alert/alert.module';
 import { CategoriesListComponent } from './categories-list.component';
 import { CategoriesEditComponent } from './categories-edit.component';
 import { CategoriesCreateComponent } from './categories-create.component';

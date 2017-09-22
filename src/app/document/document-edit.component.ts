@@ -76,7 +76,7 @@ export class DocumentEditComponent implements OnInit, ComponentCanDeactivate {
                 data => {
                     this.loaderService.displayLoader(false);
                     this.trackChanges(false); 
-                    this.alertService.success('Document updated.');
+                    this.alertService.success('Document updated.');                                      
                     this.ref.markForCheck();
                 },
                 error => {
