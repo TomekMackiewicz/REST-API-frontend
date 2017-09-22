@@ -6,6 +6,7 @@ import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 import * as jsPDF from "jspdf";
 import * as html2canvas from "html2canvas";
+import { Text } from './model/text';
 
 @Component({
     selector: 'text-full',
@@ -16,7 +17,7 @@ import * as html2canvas from "html2canvas";
 
 export class TextFullComponent implements OnInit {
 
-    text: any;
+    text: Text;
 
     constructor(
         private route: ActivatedRoute,
@@ -31,9 +32,9 @@ export class TextFullComponent implements OnInit {
         this.route.params
             .switchMap((params: Params) => this.textService.getTextByToken(+params['token']))
             .subscribe(
-                text => { 
+                data => { 
                     this.loaderService.displayLoader(false);
-                    this.text = text;
+                    this.text = new Text(data);
                     this.ref.detectChanges();                 
                 },
                 error => {

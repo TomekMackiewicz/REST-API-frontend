@@ -6,6 +6,7 @@ import { AlertService } from '../alert/alert.service';
 import { LoaderService } from '../services/loader.service';
 import { SettingsService } from '../settings/settings.service';
 import { PaymentForm } from './model/paymentForm';
+import { Text } from './model/text';
 
 @Component({
     selector: 'text-preview',
@@ -15,7 +16,7 @@ import { PaymentForm } from './model/paymentForm';
 
 export class TextPreviewComponent implements OnInit {
 
-    private text: any;
+    private text: Text;
     private settings: any;
     private paymentForm: FormGroup;
     private submitted: boolean;
@@ -39,7 +40,7 @@ export class TextPreviewComponent implements OnInit {
             .switchMap((params: Params) => this.textService.getTextByID(+params['id']))
             .subscribe(
                 data => { 
-                    this.text = data;
+                    this.text = new Text(data);
                     this.prepareForm(this.text, this.settings);
                     this.ref.detectChanges();
                     this.loaderService.displayLoader(false); 
@@ -63,7 +64,7 @@ export class TextPreviewComponent implements OnInit {
         );
     }
 
-    prepareForm(text: any, settings: any) {
+    prepareForm(text: Text, settings: any) {
         this.paymentForm = this.fb.group({
             totalAmount: settings.price,
             id: text.id,

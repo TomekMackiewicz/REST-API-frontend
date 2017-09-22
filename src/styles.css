@@ -175,3 +175,7 @@ pre,
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
   filter: alpha(opacity=20);
 }
+
+#canvas {
+    background-color: #fff;
+}
