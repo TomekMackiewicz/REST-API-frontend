@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DocumentService } from './document.service';
 import { LoaderService } from '../services/loader.service';
 import { AlertService } from '../alert/alert.service';
+import { Document } from './model/document';
 
 @Component({
     selector: 'document-list',
@@ -12,7 +13,7 @@ import { AlertService } from '../alert/alert.service';
 
 export class DocumentListComponent implements OnInit {
 
-    public documents: any;
+    public documents: Array<Document>;
 
     constructor(
         private documentService: DocumentService,
@@ -41,7 +42,7 @@ export class DocumentListComponent implements OnInit {
         );
     }
 
-    deleteDocument(document: any) {
+    deleteDocument(document: Document) {
         if (confirm("Are you sure you want to delete " + document.title + "?")) {
             this.loaderService.displayLoader(true);
             this.documentService.deleteDocument(document).subscribe(
