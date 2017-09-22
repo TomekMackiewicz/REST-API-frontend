@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextRoutingModule } from './text-routing.module';
 import { TextPreviewComponent } from './text-preview.component';
 import { TextFullComponent } from './text-full.component';
+import { TextTokenComponent } from './text-token.component';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { SafeHtmlPipe } from '../pipes/safe.html.pipe';
 import { AlertModule } from '../alert/alert.module';
@@ -22,6 +23,7 @@ import { FlagGuard } from '../guards/flag.guard';
     declarations: [
         TextPreviewComponent,
         TextFullComponent,
+        TextTokenComponent,
         TruncatePipe,
         SafeHtmlPipe
     ],
