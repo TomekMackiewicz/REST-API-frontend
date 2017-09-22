@@ -8,7 +8,7 @@
                     <button class="btn btn-danger" (click)="downloadPDF()">download PDF</button>
                     <button class="btn btn-primary" (click)="downloadDOC()">download DOC</button>
                 </div> 
-                <div class="jumbotron">
+                <div class="jumbotron" id="canvas">
                     <h2 class="text-center" [innerHTML]="text.title | safeHtml"></h2>
                     <div [innerHTML]="text.body | safeHtml"></div> 
                 </div>

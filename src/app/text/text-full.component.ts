@@ -44,43 +44,39 @@ export class TextFullComponent implements OnInit {
             );                   
     }    
 
-    downloadPDF() {
-let doc = new jsPDF();
-
-// Add a title to your PDF
-doc.setFontSize(30); 
-doc.text(12, 10, this.text.title);
-
-// Create your table here (The dynamic table needs to be converted to canvas).
-let element = this.text.body;
-html2canvas(element)
-.then((canvas: any) => {
-    doc.addImage(canvas.toDataURL("image/jpeg"), "JPEG", 0, 50, doc.internal.pageSize.width, element.offsetHeight / 5 );
-    doc.save(`test.pdf`);
-})        
-        //let text = this.text.body;
-//const elementToPrint = this.text.body; //The html element to become a pdf
-//const pdf = new jsPDF('p', 'pt', 'a4');
-//pdf.addHTML(elementToPrint, () => {
-//    pdf.save('web.pdf');
-//});        
-        //let ttt = html2canvas(text); 
-             
-        //let body = html2canvas(this.text.body);
-        //let doc = new jsPDF();  
-        //doc.text(10, 10, text);      
-        //doc.text(20, 20, this.text.title);
-        //doc.text(20, 30, this.text.body);
-        //doc.addPage();
-        //doc.text(20, 20, 'Do you like that?');
-        //doc.save(this.text.title + ".pdf");
-    }
-
     downloadDOC() {
         let title = '<h1 style="text-align: center;">' + this.text.title + '</h1>';
         let body = this.text.body;
         let content = title.concat(body);
         let blob = new Blob([content], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, this.text.title + ".doc");        
-    }                     
+        saveAs(blob, this.text.title + ".doc"); // add underscore if white space        
+    } 
+
+    downloadPDF() {
+        html2canvas(document.getElementById('canvas'))
+            .then((canvas) => {   
+                var imgWidth = 210;
+                var pageHeight = 295;
+                var imgHeight = canvas.height * imgWidth / canvas.width;
+                var heightLeft = imgHeight;                            
+                let doc = new jsPDF('p', 'mm'); 
+                var position = 0;
+                               
+                doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight);               
+                heightLeft -= pageHeight; 
+                
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight);                    
+                    heightLeft -= pageHeight;
+                } 
+                                             
+                doc.save(this.text.title + ".pdf");
+            })
+            .catch(error => {
+                this.alertService.error("Error generating PDF. " + error);
+            });        
+    }    
+                                
 }
