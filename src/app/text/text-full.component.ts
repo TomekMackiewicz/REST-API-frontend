@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { TextService } from './text.service';
 import { saveAs } from 'file-saver';
 import { AlertService } from '../alert/alert.service';
@@ -11,13 +11,12 @@ import { Text } from './model/text';
 @Component({
     selector: 'text-full',
     templateUrl: './text-full.component.html',
-    //styleUrls: ['./form.component.css'],
     providers: [ TextService ]
 })
 
 export class TextFullComponent implements OnInit {
 
-    text: Text;
+    private text: Text;
 
     constructor(
         private route: ActivatedRoute,
@@ -28,21 +27,21 @@ export class TextFullComponent implements OnInit {
     ) {}
         
     ngOnInit() {
-        this.loaderService.displayLoader(true);      
+        this.loaderService.displayLoader(true);  
         this.route.params
             .switchMap((params: Params) => this.textService.getTextByToken(+params['token']))
             .subscribe(
                 data => { 
                     this.loaderService.displayLoader(false);
                     this.text = new Text(data);
-                    this.ref.detectChanges();                 
+                    this.ref.detectChanges();
                 },
                 error => {
                     this.alertService.error("Error loading document! " + error);
                     this.loaderService.displayLoader(false);
                     this.ref.detectChanges(); // czy potrzebne?
                 }                
-            );                   
+            );             
     }    
 
     downloadDOC() {

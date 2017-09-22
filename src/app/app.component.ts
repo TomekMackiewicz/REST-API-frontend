@@ -85,11 +85,11 @@ export class AppComponent implements OnInit, OnDestroy {
         const animation = outlet.activatedRouteData['animation'] || {};
         return animation['value'] || null;
     }
-
-    submitForm(form: NgForm) {        
-        let values = form.value;
-        this.router.navigateByUrl('texts/full/'+values.token);
-    }
+// Co to tu robi?
+//    submitForm(form: NgForm) {        
+//        let values = form.value;
+//        this.router.navigateByUrl('texts/full/'+values.token);
+//    }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
