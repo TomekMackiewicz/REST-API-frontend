@@ -14,9 +14,9 @@ import { Order } from './model/order';
 
 export class OrderListComponent implements OnInit {
 
-    orders: Array<Order>;
-    filter: string;
-    query: string;
+    private orders: Array<Order>;
+    private filter: string;
+    private query: string;
 
     constructor(
         private orderService: OrderService,

@@ -26,31 +26,42 @@
                     <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="query"> 
                 </div> 
             </div>
-            <table *ngIf="orders" class="table">
-                <tr>
-                    <th>Total</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Date</th>
-                    <th>Token</th>
-                </tr>
-                <tr *ngFor="let order of orders | search:filter:query">
-                    <td>{{ order.totalAmount | currency:'PLN':false }}</td>
-                    <td>{{ order.unitPrice | currency:'PLN':false }}</td>
-                    <td>{{ order.quantity }}</td>
-                    <td>{{ order.name }}</td>
-                    <td>{{ order.email }}</td>
-                    <td>{{ order.phone }}</td>
-                    <td>{{ order.firstName }}</td>
-                    <td>{{ order.lastName }}</td>
-                    <td>{{ order.date | date:'yyyy/MM/dd H:mm' }}</td>
-                    <td>{{ order.token }}</td>
-                </tr>
+            <table *ngIf="orders" [mfData]="orders" #mf="mfDataTable" [mfRowsOnPage]="10" class="table">
+                <thead>
+                    <tr>
+                        <th>Total</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
+                        <th><mfDefaultSorter by="email">Email</mfDefaultSorter></th>
+                        <th>Phone</th>
+                        <th>First name</th>
+                        <th><mfDefaultSorter by="lastName">Last name</mfDefaultSorter></th>
+                        <th><mfDefaultSorter by="date">Date</mfDefaultSorter></th>
+                        <th>Token</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of mf.data | search:filter:query">
+                        <td>{{ order.totalAmount | currency:'PLN':false }}</td>
+                        <td>{{ order.unitPrice | currency:'PLN':false }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.name }}</td>
+                        <td>{{ order.email }}</td>
+                        <td>{{ order.phone }}</td>
+                        <td>{{ order.firstName }}</td>
+                        <td>{{ order.lastName }}</td>
+                        <td>{{ order.date | date:'yyyy/MM/dd H:mm' }}</td>
+                        <td>{{ order.token }}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>                
             </table>
         </div>
     </div>
